@@ -1,0 +1,16 @@
+spring:
+    datasource:
+        driver-class-name: org.h2.Driver
+        max-active: 10
+        max-wait: 10000
+        min-active: 5
+        password: '""'
+        test-on-borrow: true
+        url: jdbc:h2:mem:test;MODE=Oracle;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+        username: '"sa"'
+        validationQuery: SELECT 1
+    jpa:
+        database-platform: org.hibernate.dialect.H2Dialect
+        hibernate:
+            ddl-auto: create
+            showsql: true
