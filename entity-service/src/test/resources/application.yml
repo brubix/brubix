@@ -14,3 +14,7 @@ spring:
         hibernate:
             ddl-auto: create
             showsql: true
+
+server:
+    context-path: /v2
+    port: 8080
