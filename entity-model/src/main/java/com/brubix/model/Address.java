@@ -1,8 +1,11 @@
 package com.brubix.model;
 
 
-
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
@@ -15,24 +18,24 @@ public class Address {
 
     @Id
     @GeneratedValue(strategy = IDENTITY)
-    @Column(name = "id", unique = true, nullable = false)
-    Integer id;
+    @Column(name = "id")
+    private Long id;
 
     @Column(name = "first_line", nullable = false, length = 50)
-    String firstLine;
+    private String firstLine;
 
     @Column(name = "second_line", length = 50)
-    String secondLine;
+    private String secondLine;
 
     @Column(name = "third_line", length = 50)
-    String thirdLine;
+    private String thirdLine;
 
     @Column(name = "country", nullable = false, length = 50)
-    String country;
+    private String country;
 
     @Column(name = "state", nullable = false, length = 50)
-    String state;
+    private String state;
 
     @Column(name = "pin_code", length = 6)
-    String pinCode;
+    private String pinCode;
 }

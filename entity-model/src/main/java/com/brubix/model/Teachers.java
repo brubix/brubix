@@ -2,32 +2,29 @@ package com.brubix.model;
 
 import com.brubix.model.enums.Subject;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import java.util.Date;
 import java.util.List;
-
-import static javax.persistence.GenerationType.IDENTITY;
 
 /**
  * Created by sanjeev.singh1 on 11/09/17.
  */
 @Entity
 @Table(name = "teachers", catalog = "bigrubix")
-public class Teachers {
-
-    @Id
-    @GeneratedValue(strategy = IDENTITY)
-    @Column(name = "id", unique = true, nullable = false)
-    Integer id;
-    private Person person;
+public class Teachers extends Person {
 
     @Column(name = "joining_date", nullable = false)
-    private Date joingDate;
+    private Date joiningDate;
 
+    @Temporal(TemporalType.DATE)
     @Column(name = "resignation_date", nullable = false)
     private Date resignationDate;
 
     private List<Subject> subjectExperts;
-    private List<Classes> classes;
 
+    private List<Classes> classes;
 }

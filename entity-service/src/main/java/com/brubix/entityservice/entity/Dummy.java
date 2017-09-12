@@ -16,18 +16,10 @@ import javax.persistence.Table;
 @Table(name = "DUMMY")
 @Getter
 @Setter
-@javax.persistence.TableGenerator(
-        name = "SEQ_GEN",
-        table = "GENERATOR_TABLE",
-        pkColumnName = "KEY",
-        valueColumnName = "VALUE",
-        pkColumnValue = "SEQ",
-        allocationSize = 20
-)
 public class Dummy {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.TABLE, generator = "SEQ_GEN")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "DUM_ID")
     @JsonIgnore
     private Long id;

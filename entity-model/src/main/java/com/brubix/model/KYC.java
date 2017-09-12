@@ -1,6 +1,10 @@
 package com.brubix.model;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
@@ -10,17 +14,18 @@ import static javax.persistence.GenerationType.IDENTITY;
 @Entity
 @Table(name = "kyc", catalog = "bigrubix")
 public class KYC {
+
     @Id
     @GeneratedValue(strategy = IDENTITY)
-    @Column(name = "id", unique = true, nullable = false)
-    Integer id;
+    @Column(name = "id")
+    private Long id;
 
-    @Column(name = "adhar_number" , length = 12)
-    String adharNumber;
+    @Column(name = "adhar_number", length = 12)
+    private String adhaarNumber;
 
-    @Column(name = "pan_number" , length = 10)
-    String panCard;
+    @Column(name = "pan_number", length = 10)
+    private String panCard;
 
-    @Column(name = "driving_license_number" , length = 20)
-    String drivingLicenseNumber;
+    @Column(name = "driving_license_number", length = 20)
+    private String drivingLicenseNumber;
 }

@@ -4,6 +4,8 @@ package com.brubix.entityservice.service;
 import com.brubix.entityservice.entity.Dummy;
 import com.brubix.entityservice.repository.DummyRepository;
 
+import javax.transaction.Transactional;
+
 public class DummyServiceImpl implements DummyService {
 
     private DummyRepository dummyRepository;
@@ -13,6 +15,7 @@ public class DummyServiceImpl implements DummyService {
     }
 
     @Override
+    @Transactional
     public Dummy create(String data) {
         Dummy dummy = new Dummy();
         dummy.setData(data);
