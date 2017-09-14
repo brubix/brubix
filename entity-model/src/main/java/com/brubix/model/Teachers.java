@@ -1,30 +1,29 @@
 package com.brubix.model;
 
-import javax.persistence.*;
-import java.util.Date;
-import java.util.List;
+import lombok.Getter;
+import lombok.Setter;
 
-import static javax.persistence.GenerationType.IDENTITY;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import java.util.Date;
 
 /**
  * Created by sanjeev.singh1 on 11/09/17.
  */
 @Entity
 @Table(name = "teachers", catalog = "bigrubix")
-public class Teachers {
-
-    @Id
-    @GeneratedValue(strategy = IDENTITY)
-    @Column(name = "id", unique = true, nullable = false)
-    Integer id;
-    private Person person;
+@Getter
+@Setter
+public class Teachers extends Person {
 
     @Column(name = "joining_date", nullable = false)
-    private Date joingDate;
+    @Temporal(TemporalType.DATE)
+    private Date joiningDate;
 
-    @Column(name = "resignation_date", nullable = false)
+    @Column(name = "resignation_date")
+    @Temporal(TemporalType.DATE)
     private Date resignationDate;
-
-
-
 }

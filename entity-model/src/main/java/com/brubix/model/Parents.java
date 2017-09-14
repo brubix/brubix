@@ -1,6 +1,11 @@
 package com.brubix.model;
 
+import lombok.Getter;
+import lombok.Setter;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.util.List;
 
@@ -9,7 +14,10 @@ import java.util.List;
  */
 @Entity
 @Table(name = "parents", catalog = "bigrubix")
+@Getter
+@Setter
 public class Parents extends Person {
 
+    @OneToMany(cascade = CascadeType.ALL)
     private List<Students> wards;
 }

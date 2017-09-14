@@ -33,6 +33,6 @@ public class Students {
     private Date dateOfAdmission;
 
     @Temporal(TemporalType.DATE)
-    @Column(name = "passout_date", nullable = false)
+    @Column(name = "passout_date")
     private Date dateOfPassout;
 }
