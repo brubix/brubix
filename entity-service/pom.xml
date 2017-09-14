@@ -80,6 +80,11 @@
             <artifactId>cucumber-spring</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>com.brubix</groupId>
+            <artifactId>entity-model</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
+        </dependency>
 
     </dependencies>
 
