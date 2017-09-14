@@ -1,7 +1,15 @@
 package com.brubix.model;
 
-import javax.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import java.util.Date;
 
 import static javax.persistence.GenerationType.IDENTITY;
@@ -11,14 +19,20 @@ import static javax.persistence.GenerationType.IDENTITY;
  */
 @Entity
 @Table(name = "students", catalog = "bigrubix")
+@Getter
+@Setter
 public class Students {
+
     @Id
     @GeneratedValue(strategy = IDENTITY)
     @Column(name = "id", unique = true, nullable = false)
     Integer id;
 
-    Date dateOfAdmission;
+    @Temporal(TemporalType.DATE)
+    @Column(name = "admission_date", nullable = false)
+    private Date dateOfAdmission;
 
-    Date dateOfPassout;
-
+    @Temporal(TemporalType.DATE)
+    @Column(name = "passout_date", nullable = false)
+    private Date dateOfPassout;
 }

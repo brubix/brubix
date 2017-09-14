@@ -23,8 +23,8 @@ public class Teachers {
     private Date joingDate;
 
     @Column(name = "resignation_date", nullable = false)
-    private Date seprationDate;
+    private Date resignationDate;
 
-    private List<Grades> aClasses;
+
 
 }
