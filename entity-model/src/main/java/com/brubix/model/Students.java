@@ -21,7 +21,7 @@ import static javax.persistence.GenerationType.IDENTITY;
 @Table(name = "students", catalog = "bigrubix")
 @Getter
 @Setter
-public class Students {
+public class Students extends Person{
 
     @Id
     @GeneratedValue(strategy = IDENTITY)
