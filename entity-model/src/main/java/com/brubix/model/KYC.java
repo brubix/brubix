@@ -23,4 +23,6 @@ public class KYC {
 
     @Column(name = "driving_license_number" , length = 20)
     String drivingLicenseNumber;
+
+    private BankDetails bankDetails;
 }

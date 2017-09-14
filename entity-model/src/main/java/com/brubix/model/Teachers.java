@@ -1,7 +1,5 @@
 package com.brubix.model;
 
-import com.brubix.model.enums.Subject;
-
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
@@ -25,9 +23,8 @@ public class Teachers {
     private Date joingDate;
 
     @Column(name = "resignation_date", nullable = false)
-    private Date resignationDate;
+    private Date seprationDate;
 
-    private List<Subject> subjectExperts;
-    private List<Classes> classes;
+    private List<Grades> aClasses;
 
 }

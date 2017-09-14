@@ -2,6 +2,9 @@ package com.brubix.model;
 
 
 
+import com.brubix.model.enums.Country;
+import com.brubix.model.enums.State;
+
 import javax.persistence.*;
 
 import static javax.persistence.GenerationType.IDENTITY;
@@ -16,23 +19,23 @@ public class Address {
     @Id
     @GeneratedValue(strategy = IDENTITY)
     @Column(name = "id", unique = true, nullable = false)
-    Integer id;
+    private Integer id;
 
     @Column(name = "first_line", nullable = false, length = 50)
-    String firstLine;
+    private String firstLine;
 
     @Column(name = "second_line", length = 50)
-    String secondLine;
+    private String secondLine;
 
     @Column(name = "third_line", length = 50)
-    String thirdLine;
+    private String thirdLine;
 
     @Column(name = "country", nullable = false, length = 50)
-    String country;
+    private Country country;
 
     @Column(name = "state", nullable = false, length = 50)
-    String state;
+    private State state;
 
     @Column(name = "pin_code", length = 6)
-    String pinCode;
+    private String pinCode;
 }
