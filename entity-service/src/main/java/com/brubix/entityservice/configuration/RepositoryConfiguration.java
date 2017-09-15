@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @EnableTransactionManagement
-@EntityScan(basePackages = {"com.brubix.entityservice.entity"})
+@EntityScan(basePackages = {"com.brubix.model"})
 @EnableJpaRepositories(basePackages = {"com.brubix.entityservice.repository"})
 @Configuration
 public class RepositoryConfiguration {

@@ -1,7 +1,6 @@
-package com.brubix.entityservice.entity;
+package com.brubix.model;
 
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -16,12 +15,12 @@ import javax.persistence.Table;
 @Table(name = "DUMMY")
 @Getter
 @Setter
+// TODO need to revmove this entity
 public class Dummy {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "DUM_ID")
-    @JsonIgnore
     private Long id;
 
     @Column(name = "DATA")

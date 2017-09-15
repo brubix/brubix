@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.Column;
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -19,14 +20,11 @@ import static javax.persistence.GenerationType.IDENTITY;
  */
 @Entity
 @Table(name = "students", catalog = "bigrubix")
+@DiscriminatorValue("student")
 @Getter
 @Setter
-public class Students extends Person{
+public class Students extends Person {
 
-    @Id
-    @GeneratedValue(strategy = IDENTITY)
-    @Column(name = "id", unique = true, nullable = false)
-    Integer id;
 
     @Temporal(TemporalType.DATE)
     @Column(name = "admission_date", nullable = false)

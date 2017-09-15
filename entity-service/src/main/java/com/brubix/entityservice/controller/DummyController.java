@@ -1,8 +1,8 @@
 package com.brubix.entityservice.controller;
 
-import com.brubix.entityservice.entity.Dummy;
 import com.brubix.entityservice.exception.error.ErrorResponse;
 import com.brubix.entityservice.service.DummyService;
+import com.brubix.model.Dummy;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;

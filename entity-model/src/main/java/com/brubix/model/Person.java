@@ -5,6 +5,8 @@ import lombok.Setter;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.DiscriminatorColumn;
+import javax.persistence.DiscriminatorType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -12,6 +14,7 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import java.util.Date;
@@ -23,7 +26,9 @@ import static javax.persistence.GenerationType.IDENTITY;
  * Created by sanjeev.singh1 on 11/09/17.
  */
 @Entity
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+@Table(name = "person", catalog = "bigrubix")
+@Inheritance(strategy = InheritanceType.JOINED)
+@DiscriminatorColumn(name = "person_type", discriminatorType = DiscriminatorType.STRING)
 @Getter
 @Setter
 public abstract class Person {

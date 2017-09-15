@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.Column;
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -15,9 +16,11 @@ import java.util.Date;
  */
 @Entity
 @Table(name = "teachers", catalog = "bigrubix")
+@DiscriminatorValue("teacher")
 @Getter
 @Setter
 public class Teachers extends Person {
+
 
     @Column(name = "joining_date", nullable = false)
     @Temporal(TemporalType.DATE)

@@ -1,7 +1,7 @@
 package com.brubix.entityservice.service;
 
 
-import com.brubix.entityservice.entity.Dummy;
+import com.brubix.model.Dummy;
 
 public interface DummyService {
 
