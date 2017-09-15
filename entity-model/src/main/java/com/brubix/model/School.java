@@ -3,16 +3,7 @@ package com.brubix.model;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 
@@ -41,25 +32,7 @@ public class School {
     @OneToOne(cascade = CascadeType.ALL)
     private Documents schoolLogo;
 
-    @Column(name = "created_at", nullable = false)
-    @Temporal(TemporalType.DATE)
-    private Date createdAt;
-
-    @Column(name = "updated_at", nullable = false)
-    @Temporal(TemporalType.DATE)
-    private Date updatedAt;
-
-    @Column(name = "deleted_at")
-    @Temporal(TemporalType.DATE)
-    private Date deletedAt;
-
-    @Column(name = "created_by", nullable = false)
-    private Integer createdBy;
-
-    @Column(name = "updated_by", nullable = false)
-    private Integer updatedBy;
-
-    @Column(name = "deleted_by")
-    private Integer deletedBy;
+    @Embedded
+    private MileStone mileStone;
 
 }
