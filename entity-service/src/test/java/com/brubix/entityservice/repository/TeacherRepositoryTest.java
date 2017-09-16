@@ -72,6 +72,7 @@ public class TeacherRepositoryTest {
         address.setPinCode("pin");
         // only one record in DB, ID is 1
         address.setState(stateRepository.getOne(1L));
+        address.setCountry(countryRepository.getOne(1L));
 
         MileStone mileStone = new MileStone();
         mileStone.setCreatedAt(new Date());
@@ -92,8 +93,8 @@ public class TeacherRepositoryTest {
 
         assertThat(savedTeacher.getAddresses())
                 .hasSize(1)
-                .extracting("firstLine", "secondLine", "thirdLine", "pinCode", "state.name")
-                .contains(tuple("first line", "second line", "third line", "pin", "KAR"));
+                .extracting("firstLine", "secondLine", "thirdLine", "pinCode", "state.name", "country.name")
+                .contains(tuple("first line", "second line", "third line", "pin", "KAR","IND"));
 
         assertThat(savedTeacher.getMileStone())
                 .extracting("createdBy")

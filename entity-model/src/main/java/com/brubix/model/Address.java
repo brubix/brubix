@@ -40,6 +40,9 @@ public class Address {
     @OneToOne(fetch = FetchType.LAZY)
     private State state;
 
+    @OneToOne(fetch = FetchType.LAZY)
+    private Country country;
+
     @Column(name = "pin_code", length = 6)
     private String pinCode;
 }
