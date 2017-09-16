@@ -9,7 +9,7 @@ public class Fees {
 
     Integer id;
 
-    Students forStudent;
+    Student forStudent;
 
     Parents paidByParent;
 

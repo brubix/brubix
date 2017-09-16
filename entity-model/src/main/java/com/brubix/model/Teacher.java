@@ -15,11 +15,11 @@ import java.util.Date;
  * Created by sanjeev.singh1 on 11/09/17.
  */
 @Entity
-@Table(name = "teachers", catalog = "bigrubix")
+@Table(name = "teacher", catalog = "brubix")
 @DiscriminatorValue("teacher")
 @Getter
 @Setter
-public class Teachers extends Person {
+public class Teacher extends Person {
 
 
     @Column(name = "joining_date", nullable = false)

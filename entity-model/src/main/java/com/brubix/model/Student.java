@@ -19,11 +19,11 @@ import static javax.persistence.GenerationType.IDENTITY;
  * Created by sanjeev.singh1 on 11/09/17.
  */
 @Entity
-@Table(name = "students", catalog = "bigrubix")
+@Table(name = "student", catalog = "brubix")
 @DiscriminatorValue("student")
 @Getter
 @Setter
-public class Students extends Person {
+public class Student extends Person {
 
 
     @Temporal(TemporalType.DATE)

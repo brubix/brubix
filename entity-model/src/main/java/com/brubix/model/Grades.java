@@ -19,7 +19,7 @@ import static javax.persistence.GenerationType.IDENTITY;
 
 
 @Entity
-@Table(name = "classes", catalog = "bigrubix")
+@Table(name = "grades", catalog = "brubix")
 @Getter
 @Setter
 public class Grades {

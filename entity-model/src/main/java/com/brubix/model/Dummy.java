@@ -11,11 +11,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-@Entity
-@Table(name = "DUMMY")
 @Getter
 @Setter
-// TODO need to revmove this entity
+@Entity
+@Table(name = "DUMMY")
 public class Dummy {
 
     @Id

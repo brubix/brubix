@@ -10,3 +10,4 @@ public class EntityServiceApplication {
 		SpringApplication.run(EntityServiceApplication.class, args);
 	}
 }
+

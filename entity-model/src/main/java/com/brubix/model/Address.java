@@ -16,7 +16,7 @@ import static javax.persistence.GenerationType.IDENTITY;
  * Created by sanjeev.singh1 on 11/09/17.
  */
 @Entity
-@Table(name = "subject", catalog = "bigrubix")
+@Table(name = "address", catalog = "brubix")
 @Getter
 @Setter
 public class Address {

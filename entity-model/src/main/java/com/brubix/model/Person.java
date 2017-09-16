@@ -13,7 +13,7 @@ import static javax.persistence.GenerationType.IDENTITY;
  * Created by sanjeev.singh1 on 11/09/17.
  */
 @Entity
-@Table(name = "person", catalog = "bigrubix")
+@Table(name = "person", catalog = "brubix")
 @Inheritance(strategy = InheritanceType.JOINED)
 @DiscriminatorColumn(name = "person_type", discriminatorType = DiscriminatorType.STRING)
 @Getter
