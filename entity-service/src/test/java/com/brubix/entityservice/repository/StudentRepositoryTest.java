@@ -5,7 +5,7 @@ import com.brubix.model.Country;
 import com.brubix.model.KYC;
 import com.brubix.model.MileStone;
 import com.brubix.model.State;
-import com.brubix.model.Teacher;
+import com.brubix.model.Student;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,10 +28,10 @@ import static org.assertj.core.api.Assertions.tuple;
 @Transactional
 @DirtiesContext
 // FIXME @DataJpaTest not working with classpath entities
-public class TeacherRepositoryTest {
+public class StudentRepositoryTest {
 
     @Autowired
-    private TeacherRepository teacherRepository;
+    private StudentRepository studentRepository;
 
     @Autowired
     private CountryRepository countryRepository;
@@ -40,7 +40,7 @@ public class TeacherRepositoryTest {
     private StateRepository stateRepository;
 
     @Test
-    public void shouldSaveTeacherDetails() {
+    public void shouldSaveStudentDetails() {
 
         // given
         Country country = new Country();
@@ -54,11 +54,11 @@ public class TeacherRepositoryTest {
         country.setStates(Arrays.asList(state));
         countryRepository.save(country);
 
-        Teacher teacher = new Teacher();
-        teacher.setJoiningDate(new Date());
-        teacher.setResignationDate(new Date());
-        teacher.setDateOfBirth(new Date());
-        teacher.setName("Mr Robin");
+        Student student = new Student();
+        student.setDateOfAdmission(new Date());
+        student.setDateOfPassout(new Date());
+        student.setDateOfBirth(new Date());
+        student.setName("Mr Robin");
 
         KYC kyc = new KYC();
         kyc.setPanCard("pan card");
@@ -70,7 +70,7 @@ public class TeacherRepositoryTest {
         address.setSecondLine("second line");
         address.setThirdLine("third line");
         address.setPinCode("pin");
-        // only one record in DB, ID is 1
+        // only one record in DB, so ID is 1
         address.setState(stateRepository.getOne(1L));
         address.setCountry(countryRepository.getOne(1L));
 
@@ -78,28 +78,30 @@ public class TeacherRepositoryTest {
         mileStone.setCreatedAt(new Date());
         mileStone.setCreatedBy(1);
 
-        teacher.setKyc(kyc);
-        teacher.setAddresses(Arrays.asList(address));
-        teacher.setMileStone(mileStone);
+        student.setKyc(kyc);
+        student.setAddresses(Arrays.asList(address));
+        student.setMileStone(mileStone);
 
         // when
-        teacherRepository.save(teacher);
+        studentRepository.save(student);
 
         // then
-        Teacher savedTeacher = teacherRepository.findOne(1L);
-        assertThat(savedTeacher.getKyc())
+        Student savedStudent = studentRepository.findOne(1L);
+        assertThat(savedStudent.getKyc())
                 .extracting("panCard", "drivingLicenseNumber", "adhaarNumber")
                 .contains("pan card", "license", "adhar number");
 
-        assertThat(savedTeacher.getAddresses())
+        assertThat(savedStudent.getAddresses())
                 .hasSize(1)
                 .extracting("firstLine", "secondLine", "thirdLine", "pinCode", "state.name", "country.name")
                 .contains(tuple("first line", "second line", "third line", "pin", "KAR", "IND"));
 
-        assertThat(savedTeacher.getMileStone())
+        assertThat(savedStudent.getMileStone())
                 .extracting("createdBy")
                 .contains(1);
 
-        assertThat(savedTeacher.getName()).isEqualTo("Mr Robin");
+        assertThat(savedStudent.getDateOfAdmission()).isBeforeOrEqualsTo(new Date());
+        assertThat(savedStudent.getDateOfPassout()).isBeforeOrEqualsTo(new Date());
+        assertThat(savedStudent.getName()).isEqualTo("Mr Robin");
     }
 }

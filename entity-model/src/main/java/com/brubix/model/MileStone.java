@@ -29,15 +29,12 @@ public class MileStone {
     @Temporal(TemporalType.DATE)
     private Date deletedAt;
 
-    // FIXME - why created by is Integer
     @Column(name = "created_by", nullable = false)
     private Integer createdBy;
 
-    // FIXME - why updatedBy by is Integer
     @Column(name = "updated_by")
     private Integer updatedBy;
 
-    // FIXME - why deletedBy by is Integer
     @Column(name = "deleted_by")
     private Integer deletedBy;
 }

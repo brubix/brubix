@@ -27,6 +27,7 @@ public class School {
     private String schoolCode;
 
     @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "address_id")
     private List<Address> addresses;
 
     @OneToOne(cascade = CascadeType.ALL)
