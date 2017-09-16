@@ -11,7 +11,7 @@ public class Fees {
 
     Student forStudent;
 
-    Parents paidByParent;
+    Parent paidByParent;
 
     List<FeeSchedule> feeScheduleList;
 

@@ -13,10 +13,10 @@ import java.util.List;
  * Created by sanjeev.singh1 on 11/09/17.
  */
 @Entity
-@Table(name = "parents", catalog = "brubix")
+@Table(name = "parent", catalog = "brubix")
 @Getter
 @Setter
-public class Parents extends Person {
+public class Parent extends Person {
 
     @OneToMany(cascade = CascadeType.ALL)
     private List<Student> wards;

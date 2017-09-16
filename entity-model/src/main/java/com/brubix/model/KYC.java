@@ -1,5 +1,8 @@
 package com.brubix.model;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,8 +14,10 @@ import static javax.persistence.GenerationType.IDENTITY;
 /**
  * Created by sanjeev.singh1 on 11/09/17.
  */
+@Getter
+@Setter
 @Entity
-@Table(name = "kyc", catalog = "bigrubix")
+@Table(name = "kyc", catalog = "brubix")
 public class KYC {
 
     @Id

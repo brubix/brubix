@@ -37,7 +37,7 @@ public class Country {
     @Column(name = "currency", nullable = false, length = 3)
     private String currency;
 
-    @OneToMany(mappedBy = "country", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "country", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<State> states;
 
 }

@@ -6,8 +6,10 @@ import lombok.Setter;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import static javax.persistence.GenerationType.IDENTITY;
@@ -35,11 +37,8 @@ public class Address {
     @Column(name = "third_line", length = 50)
     private String thirdLine;
 
-    @Column(name = "country", nullable = false, length = 50)
-    private String country;
-
-    @Column(name = "state", nullable = false, length = 50)
-    private String state;
+    @OneToOne(fetch = FetchType.LAZY)
+    private State state;
 
     @Column(name = "pin_code", length = 6)
     private String pinCode;
