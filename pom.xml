@@ -19,8 +19,8 @@
     </parent>
 
     <modules>
-        <module>entity-service</module>
-        <module>entity-model</module>
+        <module>b-rubix-service</module>
+        <module>b-rubix-entity</module>
     </modules>
 
     <properties>
