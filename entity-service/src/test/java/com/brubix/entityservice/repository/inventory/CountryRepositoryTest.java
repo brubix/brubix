@@ -1,6 +1,6 @@
 package com.brubix.entityservice.repository.inventory;
 
-import com.brubix.entityservice.repository.inventory.CountryRepository;
+import com.brubix.entityservice.repository.reference.CountryRepository;
 import com.brubix.model.reference.Country;
 import com.brubix.model.reference.State;
 import org.assertj.core.api.Assertions;

@@ -5,6 +5,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by sanjeev.singh1 on 11/09/17.
@@ -16,7 +17,6 @@ import java.util.Date;
 @DiscriminatorValue("teacher")
 public class Teacher extends Person {
 
-
     @Column(name = "joining_date", nullable = false)
     @Temporal(TemporalType.DATE)
     private Date joiningDate;
@@ -24,4 +24,9 @@ public class Teacher extends Person {
     @Column(name = "resignation_date")
     @Temporal(TemporalType.DATE)
     private Date resignationDate;
+
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name = "subject_id")
+    private List<Subject> subjects;
+
 }

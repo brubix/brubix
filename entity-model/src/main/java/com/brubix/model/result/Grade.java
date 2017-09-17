@@ -1,4 +1,4 @@
-package com.brubix.model.score;
+package com.brubix.model.result;
 
 
 import lombok.Getter;

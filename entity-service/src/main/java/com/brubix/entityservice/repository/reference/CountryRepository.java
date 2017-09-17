@@ -1,4 +1,4 @@
-package com.brubix.entityservice.repository.inventory;
+package com.brubix.entityservice.repository.reference;
 
 
 import com.brubix.model.reference.Country;

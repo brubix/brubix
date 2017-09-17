@@ -1,10 +1,7 @@
 package com.brubix.entityservice.repository.inventory;
 
-
-import com.brubix.model.reference.State;
+import com.brubix.model.inventory.Course;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-
-public interface StateRepository extends JpaRepository<State, Long> {
-
+public interface CourseRepository extends JpaRepository<Course, Long> {
 }

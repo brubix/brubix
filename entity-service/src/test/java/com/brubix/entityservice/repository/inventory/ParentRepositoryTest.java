@@ -1,9 +1,7 @@
 package com.brubix.entityservice.repository.inventory;
 
-import com.brubix.entityservice.repository.inventory.CountryRepository;
-import com.brubix.entityservice.repository.inventory.ParentRepository;
-import com.brubix.entityservice.repository.inventory.StateRepository;
-import com.brubix.entityservice.repository.inventory.StudentRepository;
+import com.brubix.entityservice.repository.reference.CountryRepository;
+import com.brubix.entityservice.repository.reference.StateRepository;
 import com.brubix.model.inventory.*;
 import com.brubix.model.reference.Country;
 import com.brubix.model.reference.State;
@@ -58,6 +56,32 @@ public class ParentRepositoryTest {
         country.setStates(Arrays.asList(state));
         countryRepository.save(country);
 
+        Parent parent = new Parent();
+        parent.setDateOfBirth(new Date());
+        parent.setName("Mr Parent");
+
+        KYC parentKyc = new KYC();
+        parentKyc.setPanCard("pan card");
+        parentKyc.setDrivingLicenseNumber("license");
+        parentKyc.setAdhaarNumber("adhar number");
+
+        Address parentAddress = new Address();
+        parentAddress.setFirstLine("first line");
+        parentAddress.setSecondLine("second line");
+        parentAddress.setThirdLine("third line");
+        parentAddress.setPinCode("pin");
+        // only one record in DB, ID is 1
+        parentAddress.setState(stateRepository.getOne(1L));
+        parentAddress.setCountry(countryRepository.getOne(1L));
+
+        MileStone parentMileStone = new MileStone();
+        parentMileStone.setCreatedAt(new Date());
+        parentMileStone.setCreatedBy(1);
+
+        parent.setKyc(parentKyc);
+        parent.setAddresses(Arrays.asList(parentAddress));
+        parent.setMileStone(parentMileStone);
+
         // creating a ward in DB
         Student ward = new Student();
         ward.setDateOfAdmission(new Date());
@@ -73,34 +97,9 @@ public class ParentRepositoryTest {
         KYC wardKyc = new KYC();
         wardKyc.setAdhaarNumber("wadharnumber");
         ward.setKyc(wardKyc);
-        studentRepository.save(ward);
+        ward.setParent(parent);
 
-        Parent parent = new Parent();
-        parent.setDateOfBirth(new Date());
-        parent.setName("Mr Parent");
-
-        KYC parentKyc = new KYC();
-        parentKyc.setPanCard("pan card");
-        parentKyc.setDrivingLicenseNumber("license");
-        parentKyc.setAdhaarNumber("adhar number");
-
-        Address address = new Address();
-        address.setFirstLine("first line");
-        address.setSecondLine("second line");
-        address.setThirdLine("third line");
-        address.setPinCode("pin");
-        // only one record in DB, ID is 1
-        address.setState(stateRepository.getOne(1L));
-        address.setCountry(countryRepository.getOne(1L));
-
-        MileStone mileStone = new MileStone();
-        mileStone.setCreatedAt(new Date());
-        mileStone.setCreatedBy(1);
-
-        parent.setKyc(parentKyc);
-        parent.setAddresses(Arrays.asList(address));
-        parent.setMileStone(mileStone);
-        parent.setWards(Arrays.asList(studentRepository.getOne(1L)));
+        parent.setWards(Arrays.asList(ward));
 
         // when
         parentRepository.save(parent);

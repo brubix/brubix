@@ -1,8 +1,7 @@
 package com.brubix.entityservice.repository.inventory;
 
-import com.brubix.entityservice.repository.inventory.CountryRepository;
-import com.brubix.entityservice.repository.inventory.StateRepository;
-import com.brubix.entityservice.repository.inventory.TeacherRepository;
+import com.brubix.entityservice.repository.reference.CountryRepository;
+import com.brubix.entityservice.repository.reference.StateRepository;
 import com.brubix.model.inventory.Address;
 import com.brubix.model.reference.Country;
 import com.brubix.model.inventory.KYC;

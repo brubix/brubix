@@ -5,7 +5,6 @@ import lombok.Setter;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.util.List;
@@ -19,7 +18,6 @@ import java.util.List;
 @Setter
 public class Parent extends Person {
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "student_id")
+    @OneToMany(mappedBy = "parent", cascade = CascadeType.ALL)
     private List<Student> wards;
 }

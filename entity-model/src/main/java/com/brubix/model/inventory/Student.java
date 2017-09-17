@@ -3,12 +3,7 @@ package com.brubix.model.inventory;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.DiscriminatorValue;
-import javax.persistence.Entity;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.*;
 import java.util.Date;
 
 /**
@@ -29,4 +24,7 @@ public class Student extends Person {
     @Temporal(TemporalType.DATE)
     @Column(name = "passout_date")
     private Date dateOfPassout;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Parent parent;
 }
