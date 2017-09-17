@@ -1,7 +1,5 @@
 package com.brubix.entityservice.repository.inventory;
 
-import com.brubix.entityservice.repository.inventory.CountryRepository;
-import com.brubix.entityservice.repository.inventory.StateRepository;
 import com.brubix.model.reference.Country;
 import com.brubix.model.reference.State;
 import org.assertj.core.api.Assertions;
@@ -10,7 +8,6 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.transaction.Transactional;
@@ -37,8 +34,7 @@ public class StateRepositoryTest {
     private CountryRepository countryRepository;
 
     @Test
-    @Rollback
-    public void shouldGetCountryOfState() {
+    public void shouldSaveCountryAndState() {
 
         // given
         Country country = new Country();

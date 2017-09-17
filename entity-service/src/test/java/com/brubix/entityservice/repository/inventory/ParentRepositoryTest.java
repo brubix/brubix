@@ -44,7 +44,7 @@ public class ParentRepositoryTest {
     private StateRepository stateRepository;
 
     @Test
-    public void shouldSaveTeacherDetails() {
+    public void shouldSaveParentDetails() {
         // given
         // creating a country in DB
         Country country = new Country();

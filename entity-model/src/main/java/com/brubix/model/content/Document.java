@@ -11,10 +11,10 @@ import static javax.persistence.GenerationType.IDENTITY;
  * Created by sanjeev.singh1 on 14/09/17.
  */
 @Entity
-@Table(name = "documents", catalog = "brubix")
+@Table(name = "document", catalog = "brubix")
 @Getter
 @Setter
-public class Documents {
+public class Document {
 
     @Id
     @GeneratedValue(strategy = IDENTITY)

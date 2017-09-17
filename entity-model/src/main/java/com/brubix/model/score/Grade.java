@@ -4,12 +4,7 @@ package com.brubix.model.score;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import java.util.List;
+import javax.persistence.*;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
@@ -19,10 +14,10 @@ import static javax.persistence.GenerationType.IDENTITY;
 
 
 @Entity
-@Table(name = "grades", catalog = "brubix")
+@Table(name = "grade", catalog = "brubix")
 @Getter
 @Setter
-public class Grades {
+public class Grade {
 
     @Id
     @GeneratedValue(strategy = IDENTITY)

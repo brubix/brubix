@@ -1,6 +1,6 @@
 package com.brubix.model.inventory;
 
-import com.brubix.model.content.Documents;
+import com.brubix.model.content.Document;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -23,7 +23,10 @@ public class School {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "school_code")
+    @Column(name = "school_name", nullable = false)
+    private String schoolName;
+
+    @Column(name = "school_code", nullable = false)
     private String schoolCode;
 
     @OneToMany(cascade = CascadeType.ALL)
@@ -31,7 +34,7 @@ public class School {
     private List<Address> addresses;
 
     @OneToOne(cascade = CascadeType.ALL)
-    private Documents schoolLogo;
+    private Document schoolLogo;
 
     @Embedded
     private MileStone mileStone;
