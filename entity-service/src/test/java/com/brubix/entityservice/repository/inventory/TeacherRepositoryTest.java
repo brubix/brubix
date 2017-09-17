@@ -1,11 +1,14 @@
-package com.brubix.entityservice.repository;
+package com.brubix.entityservice.repository.inventory;
 
-import com.brubix.model.Address;
-import com.brubix.model.Country;
-import com.brubix.model.KYC;
-import com.brubix.model.MileStone;
-import com.brubix.model.State;
-import com.brubix.model.Student;
+import com.brubix.entityservice.repository.inventory.CountryRepository;
+import com.brubix.entityservice.repository.inventory.StateRepository;
+import com.brubix.entityservice.repository.inventory.TeacherRepository;
+import com.brubix.model.inventory.Address;
+import com.brubix.model.reference.Country;
+import com.brubix.model.inventory.KYC;
+import com.brubix.model.inventory.MileStone;
+import com.brubix.model.reference.State;
+import com.brubix.model.inventory.Teacher;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,10 +31,10 @@ import static org.assertj.core.api.Assertions.tuple;
 @Transactional
 @DirtiesContext
 // FIXME @DataJpaTest not working with classpath entities
-public class StudentRepositoryTest {
+public class TeacherRepositoryTest {
 
     @Autowired
-    private StudentRepository studentRepository;
+    private TeacherRepository teacherRepository;
 
     @Autowired
     private CountryRepository countryRepository;
@@ -40,7 +43,7 @@ public class StudentRepositoryTest {
     private StateRepository stateRepository;
 
     @Test
-    public void shouldSaveStudentDetails() {
+    public void shouldSaveTeacherDetails() {
 
         // given
         Country country = new Country();
@@ -54,11 +57,11 @@ public class StudentRepositoryTest {
         country.setStates(Arrays.asList(state));
         countryRepository.save(country);
 
-        Student student = new Student();
-        student.setDateOfAdmission(new Date());
-        student.setDateOfPassout(new Date());
-        student.setDateOfBirth(new Date());
-        student.setName("Mr Robin");
+        Teacher teacher = new Teacher();
+        teacher.setJoiningDate(new Date());
+        teacher.setResignationDate(new Date());
+        teacher.setDateOfBirth(new Date());
+        teacher.setName("Mr Robin");
 
         KYC kyc = new KYC();
         kyc.setPanCard("pan card");
@@ -70,7 +73,7 @@ public class StudentRepositoryTest {
         address.setSecondLine("second line");
         address.setThirdLine("third line");
         address.setPinCode("pin");
-        // only one record in DB, so ID is 1
+        // only one record in DB, ID is 1
         address.setState(stateRepository.getOne(1L));
         address.setCountry(countryRepository.getOne(1L));
 
@@ -78,30 +81,28 @@ public class StudentRepositoryTest {
         mileStone.setCreatedAt(new Date());
         mileStone.setCreatedBy(1);
 
-        student.setKyc(kyc);
-        student.setAddresses(Arrays.asList(address));
-        student.setMileStone(mileStone);
+        teacher.setKyc(kyc);
+        teacher.setAddresses(Arrays.asList(address));
+        teacher.setMileStone(mileStone);
 
         // when
-        studentRepository.save(student);
+        teacherRepository.save(teacher);
 
         // then
-        Student savedStudent = studentRepository.findOne(1L);
-        assertThat(savedStudent.getKyc())
+        Teacher savedTeacher = teacherRepository.findOne(1L);
+        assertThat(savedTeacher.getKyc())
                 .extracting("panCard", "drivingLicenseNumber", "adhaarNumber")
                 .contains("pan card", "license", "adhar number");
 
-        assertThat(savedStudent.getAddresses())
+        assertThat(savedTeacher.getAddresses())
                 .hasSize(1)
                 .extracting("firstLine", "secondLine", "thirdLine", "pinCode", "state.name", "country.name")
                 .contains(tuple("first line", "second line", "third line", "pin", "KAR", "IND"));
 
-        assertThat(savedStudent.getMileStone())
+        assertThat(savedTeacher.getMileStone())
                 .extracting("createdBy")
                 .contains(1);
 
-        assertThat(savedStudent.getDateOfAdmission()).isBeforeOrEqualsTo(new Date());
-        assertThat(savedStudent.getDateOfPassout()).isBeforeOrEqualsTo(new Date());
-        assertThat(savedStudent.getName()).isEqualTo("Mr Robin");
+        assertThat(savedTeacher.getName()).isEqualTo("Mr Robin");
     }
 }

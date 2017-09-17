@@ -1,4 +1,4 @@
-package com.brubix.model;
+package com.brubix.model.attention;
 
 import java.util.Date;
 

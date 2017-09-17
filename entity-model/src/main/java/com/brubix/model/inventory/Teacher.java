@@ -1,5 +1,6 @@
-package com.brubix.model;
+package com.brubix.model.inventory;
 
+import com.brubix.model.inventory.Person;
 import lombok.Getter;
 import lombok.Setter;
 

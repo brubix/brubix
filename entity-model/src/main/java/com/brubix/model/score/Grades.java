@@ -1,4 +1,5 @@
-package com.brubix.model;
+package com.brubix.model.score;
+
 
 import lombok.Getter;
 import lombok.Setter;
@@ -7,30 +8,31 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.util.List;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
 /**
- * Created by Sanjaya on 15/09/17.
+ * Created by sanjeev.singh1 on 11/09/17.
  */
 
+
 @Entity
-@Table(name = "course", catalog = "brubix")
+@Table(name = "grades", catalog = "brubix")
 @Getter
 @Setter
-public class Course {
+public class Grades {
 
     @Id
     @GeneratedValue(strategy = IDENTITY)
-    @Column(name = "id")
+    @Column(name = "id", unique = true, nullable = false)
     private Long id;
 
-    @OneToMany(mappedBy = "course")
-    private List<Subject> subjects;
+    // TODO - relation between grades and course is one to many ?
+    //private List<Course> subjects;
 
-    @Column(name = "description")
-    private String description;
+    @Column(name = "name", unique = true, nullable = false)
+    private String name;
+
 }

@@ -1,4 +1,4 @@
-package com.brubix.model;
+package com.brubix.model.content;
 
 import lombok.Getter;
 import lombok.Setter;

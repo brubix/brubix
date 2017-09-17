@@ -1,4 +1,7 @@
-package com.brubix.model;
+package com.brubix.model.finance;
+
+import com.brubix.model.inventory.Parent;
+import com.brubix.model.inventory.Student;
 
 import java.util.List;
 

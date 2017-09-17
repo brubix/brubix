@@ -46,6 +46,6 @@ public class DummyController {
             @ApiParam(name = "Dummy", value = "Dummy values", required = true)
             @RequestBody(required = true) Dummy data) {
         Dummy value = dummyService.create(data.getData());
-        return new ResponseEntity<Dummy>(value, HttpStatus.OK);
+        return new ResponseEntity<>(value, HttpStatus.OK);
     }
 }

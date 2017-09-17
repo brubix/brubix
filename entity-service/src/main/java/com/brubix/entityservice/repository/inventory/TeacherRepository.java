@@ -1,6 +1,6 @@
-package com.brubix.entityservice.repository;
+package com.brubix.entityservice.repository.inventory;
 
-import com.brubix.model.Teacher;
+import com.brubix.model.inventory.Teacher;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**

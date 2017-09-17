@@ -1,4 +1,4 @@
-package com.brubix.model;
+package com.brubix.model.inventory;
 
 import lombok.Getter;
 import lombok.Setter;

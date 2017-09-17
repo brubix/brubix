@@ -1,12 +1,13 @@
-package com.brubix.entityservice.repository;
+package com.brubix.entityservice.repository.inventory;
 
-import com.brubix.model.Address;
-import com.brubix.model.Country;
-import com.brubix.model.KYC;
-import com.brubix.model.MileStone;
-import com.brubix.model.Parent;
-import com.brubix.model.State;
-import com.brubix.model.Student;
+import com.brubix.entityservice.repository.inventory.CountryRepository;
+import com.brubix.entityservice.repository.inventory.ParentRepository;
+import com.brubix.entityservice.repository.inventory.StateRepository;
+import com.brubix.entityservice.repository.inventory.StudentRepository;
+import com.brubix.model.inventory.*;
+import com.brubix.model.reference.Country;
+import com.brubix.model.reference.State;
+import org.assertj.core.api.Assertions;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 import javax.transaction.Transactional;
 import java.util.Arrays;
 import java.util.Date;
+
+import static org.assertj.core.api.Assertions.tuple;
 
 /**
  * Created by Sanjaya on 16/09/17.
@@ -32,6 +35,9 @@ public class ParentRepositoryTest {
     private ParentRepository parentRepository;
 
     @Autowired
+    private StudentRepository studentRepository;
+
+    @Autowired
     private CountryRepository countryRepository;
 
     @Autowired
@@ -39,8 +45,8 @@ public class ParentRepositoryTest {
 
     @Test
     public void shouldSaveTeacherDetails() {
-
         // given
+        // creating a country in DB
         Country country = new Country();
         country.setName("IND");
         country.setCurrency("INR");
@@ -52,30 +58,31 @@ public class ParentRepositoryTest {
         country.setStates(Arrays.asList(state));
         countryRepository.save(country);
 
-        Parent parent = new Parent();
-        parent.setDateOfBirth(new Date());
-        parent.setName("Mr Robin");
-
+        // creating a ward in DB
         Student ward = new Student();
         ward.setDateOfAdmission(new Date());
         ward.setDateOfPassout(new Date());
         ward.setDateOfBirth(new Date());
         ward.setName("Mr Student");
 
-        MileStone studentMileStone = new MileStone();
-        studentMileStone.setCreatedAt(new Date());
-        studentMileStone.setCreatedBy(1);
-        ward.setMileStone(studentMileStone);
+        MileStone wardMileStone = new MileStone();
+        wardMileStone.setCreatedAt(new Date());
+        wardMileStone.setCreatedBy(1);
+        ward.setMileStone(wardMileStone);
 
         KYC wardKyc = new KYC();
-        wardKyc.setAdhaarNumber("adhar number");
+        wardKyc.setAdhaarNumber("wadharnumber");
         ward.setKyc(wardKyc);
+        studentRepository.save(ward);
 
+        Parent parent = new Parent();
+        parent.setDateOfBirth(new Date());
+        parent.setName("Mr Parent");
 
-        KYC kyc = new KYC();
-        kyc.setPanCard("pan card");
-        kyc.setDrivingLicenseNumber("license");
-        kyc.setAdhaarNumber("adhar number");
+        KYC parentKyc = new KYC();
+        parentKyc.setPanCard("pan card");
+        parentKyc.setDrivingLicenseNumber("license");
+        parentKyc.setAdhaarNumber("adhar number");
 
         Address address = new Address();
         address.setFirstLine("first line");
@@ -90,30 +97,41 @@ public class ParentRepositoryTest {
         mileStone.setCreatedAt(new Date());
         mileStone.setCreatedBy(1);
 
-        parent.setKyc(kyc);
+        parent.setKyc(parentKyc);
         parent.setAddresses(Arrays.asList(address));
         parent.setMileStone(mileStone);
-        parent.setWards(Arrays.asList(ward));
-
+        parent.setWards(Arrays.asList(studentRepository.getOne(1L)));
 
         // when
         parentRepository.save(parent);
 
         // then
-        /*Teacher savedTeacher = teacherRepository.findOne(1L);
-        assertThat(savedTeacher.getKyc())
+        // parent assertions
+        Parent savedParent = parentRepository.findAll().get(0);
+        Assertions.assertThat(savedParent.getKyc())
                 .extracting("panCard", "drivingLicenseNumber", "adhaarNumber")
                 .contains("pan card", "license", "adhar number");
 
-        assertThat(savedTeacher.getAddresses())
+        Assertions.assertThat(savedParent.getAddresses())
                 .hasSize(1)
                 .extracting("firstLine", "secondLine", "thirdLine", "pinCode", "state.name", "country.name")
                 .contains(tuple("first line", "second line", "third line", "pin", "KAR", "IND"));
 
-        assertThat(savedTeacher.getMileStone())
+        Assertions.assertThat(savedParent.getMileStone())
                 .extracting("createdBy")
                 .contains(1);
 
-        assertThat(savedTeacher.getName()).isEqualTo("Mr Robin");*/
+        // ward assertions
+        Assertions.assertThat(savedParent.getWards())
+                .hasSize(1)
+                .extracting("name")
+                .contains("Mr Student");
+
+        Assertions.assertThat(savedParent.getName()).isEqualTo("Mr Parent");
+
+        Assertions.assertThat(savedParent.getWards().get(0).getKyc())
+                .extracting("adhaarNumber")
+                .contains("wadharnumber");
+
     }
 }

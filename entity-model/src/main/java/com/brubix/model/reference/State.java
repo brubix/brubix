@@ -1,12 +1,14 @@
-package com.brubix.model;
+package com.brubix.model.reference;
 
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import static javax.persistence.GenerationType.IDENTITY;
@@ -17,20 +19,20 @@ import static javax.persistence.GenerationType.IDENTITY;
 @Getter
 @Setter
 @Entity
-@Table(name = "kyc", catalog = "brubix")
-public class KYC {
+@Table(name = "state", catalog = "brubix")
+public class State {
 
     @Id
     @GeneratedValue(strategy = IDENTITY)
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "adhar_number", length = 12)
-    private String adhaarNumber;
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    private Country country;
 
-    @Column(name = "pan_number", length = 10)
-    private String panCard;
+    @Column(name = "name", nullable = false, length = 3)
+    private String name;
 
-    @Column(name = "driving_license_number", length = 20)
-    private String drivingLicenseNumber;
+    @Column(name = "description", nullable = false, length = 20)
+    private String description;
 }

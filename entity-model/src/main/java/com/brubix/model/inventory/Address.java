@@ -1,6 +1,8 @@
-package com.brubix.model;
+package com.brubix.model.inventory;
 
 
+import com.brubix.model.reference.Country;
+import com.brubix.model.reference.State;
 import lombok.Getter;
 import lombok.Setter;
 

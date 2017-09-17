@@ -1,10 +1,10 @@
-package com.brubix.model;
+package com.brubix.model.inventory;
 
+import com.brubix.model.content.Documents;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.Date;
 import java.util.List;
 
 import static javax.persistence.GenerationType.IDENTITY;

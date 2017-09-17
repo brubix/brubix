@@ -1,4 +1,4 @@
-package com.brubix.model;
+package com.brubix.model.finance;
 
 /**
  * Created by sanjeev.singh1 on 12/09/17.
