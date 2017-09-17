@@ -7,11 +7,11 @@
         <artifactId>brubix</artifactId>
         <version>1.0.0-SNAPSHOT</version>
     </parent>
-    <artifactId>entity-service</artifactId>
+    <artifactId>b-rubix-service</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>Entity Service</name>
+    <name>b-Rubix Service</name>
     <description>Service for loading / querying for all user data</description>
 
     <dependencies>

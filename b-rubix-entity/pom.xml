@@ -9,9 +9,9 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>entity-model</artifactId>
+    <artifactId>b-rubix-entity</artifactId>
     <packaging>jar</packaging>
-    <name>Entity Model</name>
+    <name>b-Rubix Entity</name>
     <description>Entity Model</description>
 
     <dependencies>
