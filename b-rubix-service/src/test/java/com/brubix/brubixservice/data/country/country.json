@@ -1,0 +1,15 @@
+{
+  "name": "IND",
+  "description": "India",
+  "currency": "INR",
+  "states": [
+    {
+      "name": "KAR",
+      "description": "Karnataka"
+    },
+    {
+      "name": "DEL",
+      "description": "Delhi"
+    }
+  ]
+}

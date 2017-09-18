@@ -1,6 +1,6 @@
 spring:
     datasource:
-        driver-class-name: org.h2.Driver
+        driver-class-code: org.h2.Driver
         max-active: 10
         max-wait: 10000
         min-active: 5

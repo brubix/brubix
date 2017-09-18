@@ -1,0 +1,10 @@
+{
+  "schoolName": "ABC school",
+  "addresses": [
+    {
+      "firstLine": "firstLine",
+      "secondLine": "secondLine",
+      "thirdLine":"thirdLine"
+    }
+  ]
+}
