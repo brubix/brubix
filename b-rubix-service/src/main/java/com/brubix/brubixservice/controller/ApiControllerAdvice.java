@@ -4,6 +4,8 @@ import com.brubix.brubixservice.exception.BrubixException;
 import com.brubix.brubixservice.exception.error.ErrorCode;
 import com.brubix.brubixservice.exception.error.ErrorResponse;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
@@ -11,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.ServletRequestBindingException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -22,7 +25,14 @@ import java.util.Set;
 
 @RestControllerAdvice
 @Slf4j
-public class OrderApiControllerAdvice extends ResponseEntityExceptionHandler {
+public class ApiControllerAdvice extends ResponseEntityExceptionHandler {
+
+    private MessageSource messageSource;
+
+    @Autowired
+    public ApiControllerAdvice(MessageSource messageSource) {
+        this.messageSource = messageSource;
+    }
 
     @Override
     protected ResponseEntity<Object> handleHttpRequestMethodNotSupported(HttpRequestMethodNotSupportedException ex,
@@ -56,5 +66,13 @@ public class OrderApiControllerAdvice extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>(new ErrorResponse(errorcode), errorcode.getHttpStatus());
     }
 
+    @Override
+    protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
+                                                                  HttpHeaders headers,
+                                                                  HttpStatus status, WebRequest request) {
+        // FIXME - TO set appropriate error messages
+        log.error("Error occurred", ex);
+        return super.handleMethodArgumentNotValid(ex, headers, status, request);
+    }
 
 }

@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Slf4j
-public class CountryLoaderImpl implements Loader<CountryForm, Country> {
+public class CountryLoaderImpl implements Loader<CountryForm.CountryData, Country> {
 
     private CountryRepository countryRepository;
 
@@ -22,7 +22,7 @@ public class CountryLoaderImpl implements Loader<CountryForm, Country> {
 
     @Override
     @Transactional
-    public void load(List<CountryForm> data) {
+    public void load(List<CountryForm.CountryData> data) {
 
         log.info("Loading of countries started");
 
@@ -36,7 +36,7 @@ public class CountryLoaderImpl implements Loader<CountryForm, Country> {
     }
 
     @Override
-    public Country mapToEntity(CountryForm countryData) {
+    public Country mapToEntity(CountryForm.CountryData countryData) {
 
         Country country = new Country();
         country.setCode(countryData.getCode());

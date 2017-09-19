@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
-import java.util.List;
 
 import static com.brubix.brubixservice.exception.error.ErrorMessages.*;
 
@@ -27,9 +26,9 @@ import static com.brubix.brubixservice.exception.error.ErrorMessages.*;
 @Api(tags = {ApplicationConstant.REFERENCE_TAG}, description = StringUtils.SPACE)
 public class CountryLoaderController {
 
-    private Loader<CountryForm, Country> countryDataLoader;
+    private Loader<CountryForm.CountryData, Country> countryDataLoader;
 
-    public CountryLoaderController(Loader<CountryForm, Country> countryDataLoader) {
+    public CountryLoaderController(Loader<CountryForm.CountryData, Country> countryDataLoader) {
         this.countryDataLoader = countryDataLoader;
     }
 
@@ -47,8 +46,8 @@ public class CountryLoaderController {
     public ResponseEntity loadCountries(
             @ApiParam(name = "Countries",
                     value = "List of countries to be loaded",
-                    required = true) @RequestBody @Valid List<CountryForm> countries) {
-        countryDataLoader.load(countries);
+                    required = true) @RequestBody @Valid CountryForm countryForm) {
+        countryDataLoader.load(countryForm.getCountryData());
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }

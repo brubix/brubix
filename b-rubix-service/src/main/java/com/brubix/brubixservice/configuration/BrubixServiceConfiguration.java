@@ -12,7 +12,7 @@ import org.springframework.context.annotation.Configuration;
 public class BrubixServiceConfiguration {
 
     @Bean
-    public Loader<CountryForm, Country> countryLoader(CountryRepository countryRepository) {
+    public Loader<CountryForm.CountryData, Country> countryLoader(CountryRepository countryRepository) {
         return new CountryLoaderImpl(countryRepository);
     }
 
