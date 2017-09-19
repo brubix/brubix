@@ -47,7 +47,7 @@ public class CountryLoaderController {
             @ApiParam(name = "Countries",
                     value = "List of countries to be loaded",
                     required = true) @RequestBody @Valid CountryForm countryForm) {
-        countryDataLoader.load(countryForm.getCountryData());
-        return new ResponseEntity<>(HttpStatus.OK);
+        countryDataLoader.load(countryForm.getCountries());
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

@@ -5,6 +5,6 @@ public interface ApplicationConstant {
 
     String ERROR_INFO_URL = "https://developers.brubix.com/errors";
     String BOARDING_TAG = "boarding";
-    String REFERENCE_TAG = "reference";
+    String REFERENCE_TAG = "Reference";
 
 }

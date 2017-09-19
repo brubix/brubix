@@ -7,9 +7,7 @@ import org.springframework.http.HttpStatus;
 public enum ErrorCode {
 
     INVALID_PAYLOAD("1", ErrorMessages.INVALID_PAYLOAD, HttpStatus.BAD_REQUEST),
-
     INVALID_HEADER("3", ErrorMessages.INVALID_HEADER, HttpStatus.BAD_REQUEST),
-
     //500
     INTERNAL_ERROR("1", ErrorMessages.INTERNAL_ERROR, HttpStatus.INTERNAL_SERVER_ERROR);
 

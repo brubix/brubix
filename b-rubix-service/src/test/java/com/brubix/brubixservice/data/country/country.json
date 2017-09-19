@@ -1,15 +1,19 @@
 {
-  "name": "IND",
-  "description": "India",
-  "currency": "INR",
-  "states": [
+  "countries": [
     {
-      "name": "KAR",
-      "description": "Karnataka"
-    },
-    {
-      "name": "DEL",
-      "description": "Delhi"
+      "code": "IND",
+      "currency": "INR",
+      "description": "India",
+      "states": [
+        {
+          "code": "KAR",
+          "description": "Karnataka"
+        },
+        {
+          "code": "DEL",
+          "description": "Delhi"
+        }
+      ]
     }
   ]
 }

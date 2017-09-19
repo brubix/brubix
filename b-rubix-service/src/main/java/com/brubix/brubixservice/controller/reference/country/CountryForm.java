@@ -14,27 +14,27 @@ import java.util.List;
 public class CountryForm {
 
     @Valid
-    @NotEmpty(message = "")
-    private List<CountryData> countryData;
+    @NotEmpty(message = "field.empty")
+    private List<CountryData> countries;
 
     @Setter
     @Getter
     public static class CountryData {
 
-        @NotBlank(message = "field.empty")
-        @Length(max = 3, message = "invalid.country.code")
+        @NotBlank(message = "{field.empty}")
+        @Length(max = 3, message = "{invalid.country.code}")
         private String code;
 
         @NotBlank
-        @Length(max = 20, message = "invalid.country.description")
+        @Length(max = 20, message = "{invalid.country.description}")
         private String description;
 
-        @NotBlank(message = "field.empty")
-        @Length(max = 3, message = "invalid.country.currency")
+        @NotBlank(message = "{field.empty}")
+        @Length(max = 3, message = "{invalid.country.currency}")
         private String currency;
 
         @Valid
-        @NotEmpty(message = "field.empty")
+        @NotEmpty(message = "{field.empty}")
         private List<StateData> states;
     }
 
@@ -42,12 +42,12 @@ public class CountryForm {
     @Getter
     public static class StateData {
 
-        @NotBlank(message = "field.empty")
-        @Length(max = 3, message = "invalid.state.code")
+        @NotBlank(message = "{field.empty}")
+        @Length(max = 3, message = "{invalid.state.code}")
         private String code;
 
-        @NotBlank
-        @Length(max = 3, message = "invalid.state.description")
+        @NotBlank(message = "{field.empty}")
+        @Length(max = 20, message = "{invalid.state.description}")
         private String description;
     }
 }
