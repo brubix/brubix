@@ -53,7 +53,7 @@ public class SchoolLoaderImpl implements Loader<SchoolForm, School> {
     @Override
     public School mapToEntity(SchoolForm schoolForm) {
         School school = new School();
-        school.setSchoolName(schoolForm.getSchoolName());
+        school.setSchoolName(schoolForm.getName());
         school.setSchoolCode(schoolCodeGenerator.generate());
         List<Address> addresses = schoolForm.getAddresses()
                 .stream()
