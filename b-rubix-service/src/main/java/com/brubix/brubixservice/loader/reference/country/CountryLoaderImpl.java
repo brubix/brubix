@@ -1,13 +1,15 @@
 package com.brubix.brubixservice.loader.reference.country;
 
 import com.brubix.brubixservice.controller.reference.country.CountryForm;
+import com.brubix.brubixservice.exception.BrubixException;
+import com.brubix.brubixservice.exception.error.ErrorCode;
 import com.brubix.brubixservice.loader.Loader;
 import com.brubix.brubixservice.repository.reference.CountryRepository;
 import com.brubix.entity.reference.Country;
 import com.brubix.entity.reference.State;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.dao.DataIntegrityViolationException;
 
-import javax.transaction.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -21,18 +23,20 @@ public class CountryLoaderImpl implements Loader<CountryForm.CountryData, Countr
     }
 
     @Override
-    @Transactional
     public void load(List<CountryForm.CountryData> data) {
-
         log.info("Loading of countries started");
-
         List<Country> countries = data
                 .stream()
                 .map(country -> mapToEntity(country))
                 .collect(Collectors.toList());
 
-        countryRepository.save(countries);
-        log.info("Loading of countries ended");
+        try {
+            countryRepository.save(countries);
+            log.info("Loading of countries ended");
+        } catch (DataIntegrityViolationException ex) {
+            log.error("Error occurred" + ex);
+            throw new BrubixException(ErrorCode.LOADING_ERROR);
+        }
     }
 
     @Override

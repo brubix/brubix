@@ -32,21 +32,21 @@ public class SwaggerConfiguration {
     @Autowired
     private TypeResolver typeResolver;
 
-    private static final String appName = "Brubix Service";
+    private static final String appName = "b-Rubix Service";
 
     private String version = "v1";
 
 
     @Bean
     public Docket customerOrderApis() {
-        return getDocket("brubix-service", applicationPaths(), RequestHandlerSelectors.any(), apiInfo(),
-                new Tag(appName, String.format("REST Endpoints for %s", "Brubix Service")));
+        return getDocket("b-Rubix-service", applicationPaths(), RequestHandlerSelectors.any(), apiInfo(),
+                new Tag(appName, String.format("REST Endpoints for %s", "b-Rubix Service")));
     }
 
 
     @Bean
     public Docket docket() {
-        return getDocket("brubix-service-management", PathSelectors.regex("/manage.*"),
+        return getDocket("b-Rubix-service-management", PathSelectors.regex("/manage.*"),
                 RequestHandlerSelectors.any(),
                 managementInfo(), new Tag(String.format("%s Management", appName),
                         String.format("%s Management Endpoints", appName)));
@@ -72,21 +72,21 @@ public class SwaggerConfiguration {
                 .tags(tag);
     }
 
-
     private Predicate<String> applicationPaths() {
-        return Predicates.or(PathSelectors.regex("/reference.*"));
+        Predicate<String> referencePath = PathSelectors.regex("/reference.*");
+        Predicate<String> inventoryPath = PathSelectors.regex("/inventory.*");
+        return Predicates.or(referencePath, inventoryPath);
     }
-
 
     private ApiInfo apiInfo() {
         return info(String.format("%s Endpoints", appName),
-                "This page facilitates the user to try out the Entity Service endpoints.");
+                "This page facilitates the user to try out the b-Rubix Service endpoints.");
     }
 
 
     private ApiInfo info(String title, String description) {
         return new ApiInfo(title, description, version, "https://www.brubix.com/",
-                new Contact("BRUBIX", "https://www.brubix.com/", "support@brubix.com"), "BRUBIX Proprietry",
+                new Contact("B-Rubix", "https://www.brubix.com/", "support@brubix.com"), "b-Rubix Proprietary",
                 "https://www.brubix.com/", new ArrayList<>());
     }
 

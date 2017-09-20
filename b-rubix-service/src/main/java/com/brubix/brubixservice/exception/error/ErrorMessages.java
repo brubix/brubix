@@ -14,4 +14,6 @@ public interface ErrorMessages {
     String UNSUPPORTED_API = "Unsupported API";
 
     String INVALID_METHOD = "Invalid Method";
+
+    String LOADING_ERROR = "Error occurred while loading the data";
 }

@@ -4,7 +4,7 @@ package com.brubix.brubixservice.constant;
 public interface ApplicationConstant {
 
     String ERROR_INFO_URL = "https://developers.brubix.com/errors";
-    String BOARDING_TAG = "boarding";
+    String INVENTORY_TAG = "Inventory";
     String REFERENCE_TAG = "Reference";
 
 }

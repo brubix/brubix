@@ -1,4 +1,4 @@
-package com.brubix.brubixservice.controller.boarding.school;
+package com.brubix.brubixservice.controller.inventory.school;
 
 import com.brubix.entity.content.Document;
 import com.brubix.entity.inventory.Address;
@@ -6,7 +6,7 @@ import com.brubix.entity.inventory.MileStone;
 
 import java.util.List;
 
-public class OnBoardSchool {
+public class SchoolForm {
 
     private String schoolName;
 
