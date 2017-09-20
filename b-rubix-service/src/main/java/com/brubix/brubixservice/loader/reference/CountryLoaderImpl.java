@@ -1,4 +1,4 @@
-package com.brubix.brubixservice.loader.reference.country;
+package com.brubix.brubixservice.loader.reference;
 
 import com.brubix.brubixservice.controller.reference.country.CountryForm;
 import com.brubix.brubixservice.exception.BrubixException;
@@ -8,7 +8,6 @@ import com.brubix.brubixservice.repository.reference.CountryRepository;
 import com.brubix.entity.reference.Country;
 import com.brubix.entity.reference.State;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.dao.DataIntegrityViolationException;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -33,7 +32,7 @@ public class CountryLoaderImpl implements Loader<CountryForm.CountryData, Countr
         try {
             countryRepository.save(countries);
             log.info("Loading of countries ended");
-        } catch (DataIntegrityViolationException ex) {
+        } catch (Exception ex) {
             log.error("Error occurred" + ex);
             throw new BrubixException(ErrorCode.LOADING_ERROR);
         }

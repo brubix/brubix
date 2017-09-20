@@ -29,12 +29,15 @@ public class MileStone {
     @Temporal(TemporalType.DATE)
     private Date deletedAt;
 
+    //FIXME - association with user entity and identity
     @Column(name = "created_by", nullable = false)
     private Integer createdBy;
 
+    //FIXME - association with user entity and identity
     @Column(name = "updated_by")
     private Integer updatedBy;
 
+    //FIXME - association with user entity and identity
     @Column(name = "deleted_by")
     private Integer deletedBy;
 }

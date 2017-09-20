@@ -30,13 +30,13 @@ public class Address {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "first_line", nullable = false, length = 50)
+    @Column(name = "first_line", nullable = false, length = 250)
     private String firstLine;
 
-    @Column(name = "second_line", length = 50)
+    @Column(name = "second_line", length = 250)
     private String secondLine;
 
-    @Column(name = "third_line", length = 50)
+    @Column(name = "third_line", length = 250)
     private String thirdLine;
 
     @OneToOne(fetch = FetchType.LAZY)

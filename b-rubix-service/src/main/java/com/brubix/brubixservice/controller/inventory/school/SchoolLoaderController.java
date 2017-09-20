@@ -2,6 +2,8 @@ package com.brubix.brubixservice.controller.inventory.school;
 
 import com.brubix.brubixservice.constant.ApplicationConstant;
 import com.brubix.brubixservice.exception.error.ErrorResponse;
+import com.brubix.brubixservice.loader.Loader;
+import com.brubix.entity.inventory.School;
 import io.swagger.annotations.*;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.HttpStatus;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
+import java.util.Arrays;
 
 import static com.brubix.brubixservice.exception.error.ErrorMessages.*;
 
@@ -24,11 +27,17 @@ import static com.brubix.brubixservice.exception.error.ErrorMessages.*;
 @Api(tags = {ApplicationConstant.INVENTORY_TAG}, description = StringUtils.SPACE)
 public class SchoolLoaderController {
 
+    private Loader<SchoolForm, School> schoolDataLoader;
+
+    public SchoolLoaderController(Loader<SchoolForm, School> schoolDataLoader) {
+        this.schoolDataLoader = schoolDataLoader;
+    }
+
     @PostMapping("/school")
     @ApiOperation(
             value = "Load school",
             notes = "Load school",
-            code = 200,
+            code = 204,
             response = String.class)
     @ApiResponses(
             value = {@ApiResponse(code = 400, message = INVALID_PAYLOAD, response = ErrorResponse.class),
@@ -40,7 +49,7 @@ public class SchoolLoaderController {
             @ApiParam(name = "School",
                     value = "List of schools to be loaded",
                     required = true) @RequestBody @Valid SchoolForm schoolForm) {
-        //countryDataLoader.load(countryForm.getCountries());
+        schoolDataLoader.load(Arrays.asList(schoolForm));
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

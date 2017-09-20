@@ -23,10 +23,10 @@ public class School {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "school_name", nullable = false)
+    @Column(name = "school_name", length = 250, nullable = false)
     private String schoolName;
 
-    @Column(name = "school_code", nullable = false)
+    @Column(name = "school_code", length = 10, nullable = false)
     private String schoolCode;
 
     @OneToMany(cascade = CascadeType.ALL)
