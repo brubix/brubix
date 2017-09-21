@@ -86,7 +86,7 @@ public class SwaggerConfiguration {
 
     private ApiInfo info(String title, String description) {
         return new ApiInfo(title, description, version, "https://www.brubix.com/",
-                new Contact("B-Rubix", "https://www.brubix.com/", "support@brubix.com"), "b-Rubix Proprietary",
+                new Contact("b-Rubix", "https://www.brubix.com/", "support@brubix.com"), "b-Rubix Proprietary",
                 "https://www.brubix.com/", new ArrayList<>());
     }
 

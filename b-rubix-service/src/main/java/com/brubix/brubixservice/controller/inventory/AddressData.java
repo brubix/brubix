@@ -7,8 +7,8 @@ import org.hibernate.validator.constraints.NotBlank;
 
 import javax.validation.constraints.Pattern;
 
-@Builder
 @Getter
+@Builder
 public class AddressData {
 
     @NotBlank(message = "{field.empty}")

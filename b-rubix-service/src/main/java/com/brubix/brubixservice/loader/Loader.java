@@ -2,9 +2,9 @@ package com.brubix.brubixservice.loader;
 
 import java.util.List;
 
-public interface Loader<T, K> {
+public interface Loader<T, K, R> {
 
-    void load(List<T> data);
+    R load(List<T> data);
 
     K mapToEntity(T t);
 }

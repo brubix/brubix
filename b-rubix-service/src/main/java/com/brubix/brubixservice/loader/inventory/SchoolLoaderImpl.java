@@ -8,15 +8,20 @@ import com.brubix.brubixservice.loader.Loader;
 import com.brubix.brubixservice.repository.inventory.SchoolRepository;
 import com.brubix.brubixservice.repository.reference.CountryRepository;
 import com.brubix.brubixservice.repository.reference.StateRepository;
+import com.brubix.entity.content.Document;
 import com.brubix.entity.inventory.Address;
+import com.brubix.entity.inventory.MileStone;
 import com.brubix.entity.inventory.School;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Slf4j
-public class SchoolLoaderImpl implements Loader<SchoolForm, School> {
+public class SchoolLoaderImpl implements Loader<SchoolForm, School, List<SchoolCreationResult>> {
 
     private SchoolRepository schoolRepository;
     private CountryRepository countryRepository;
@@ -35,15 +40,26 @@ public class SchoolLoaderImpl implements Loader<SchoolForm, School> {
     }
 
     @Override
-    public void load(List<SchoolForm> data) {
+    public List<SchoolCreationResult> load(List<SchoolForm> data) {
         log.info("Loading of schools started");
         List<School> schools = data
                 .stream()
-                .map(country -> mapToEntity(country))
+                .map(schoolData -> mapToEntity(schoolData))
                 .collect(Collectors.toList());
         try {
-            schoolRepository.save(schools);
+            List<School> savedSchools = schoolRepository.save(schools);
             log.info("Loading of schools ended");
+
+            return savedSchools
+                    .stream()
+                    .map(school -> {
+                        return SchoolCreationResult
+                                .builder()
+                                .code(school.getSchoolCode())
+                                .name(school.getSchoolName())
+                                .build();
+                    }).collect(Collectors.toList());
+
         } catch (Exception ex) {
             log.error("Error occurred" + ex);
             throw new BrubixException(ErrorCode.LOADING_ERROR);
@@ -55,6 +71,7 @@ public class SchoolLoaderImpl implements Loader<SchoolForm, School> {
         School school = new School();
         school.setSchoolName(schoolForm.getName());
         school.setSchoolCode(schoolCodeGenerator.generate());
+        school.setSchoolLogo(createDocument(schoolForm.getSchoolLogoFile()));
         List<Address> addresses = schoolForm.getAddresses()
                 .stream()
                 .map(addressData -> {
@@ -64,10 +81,28 @@ public class SchoolLoaderImpl implements Loader<SchoolForm, School> {
                     address.setThirdLine(addressData.getThirdLine());
                     address.setCountry(countryRepository.findByCode(addressData.getCountryCode()));
                     address.setState(stateRepository.findByCode(addressData.getStateCode()));
-                    // FIXME set MileStone, Document
                     return address;
                 }).collect(Collectors.toList());
+
+        MileStone mileStone = new MileStone();
+        mileStone.setCreatedAt(new Date());
+        //FIXME - association with user entity and identity
+        mileStone.setCreatedBy(1);
         school.setAddresses(addresses);
+        school.setMileStone(mileStone);
         return school;
+    }
+
+    private Document createDocument(MultipartFile file) {
+        try {
+            Document document = new Document();
+            document.setDocumentName(file.getName());
+            document.setContent(file.getBytes());
+            document.setMimeType(file.getContentType());
+            return document;
+        } catch (IOException exception) {
+            log.error("Error occurred" + exception);
+            throw new BrubixException(ErrorCode.INVALID_FILE);
+        }
     }
 }

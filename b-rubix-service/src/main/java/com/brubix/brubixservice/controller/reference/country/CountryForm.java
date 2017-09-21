@@ -1,5 +1,6 @@
 package com.brubix.brubixservice.controller.reference.country;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.validator.constraints.Length;
@@ -10,16 +11,16 @@ import javax.validation.Valid;
 import javax.validation.constraints.Pattern;
 import java.util.List;
 
-@Setter
 @Getter
+@Builder
 public class CountryForm {
 
     @Valid
     @NotEmpty(message = "field.empty")
     private List<CountryData> countries;
 
-    @Setter
     @Getter
+    @Builder
     public static class CountryData {
 
         @NotBlank(message = "{field.empty}")
@@ -41,8 +42,8 @@ public class CountryForm {
         private List<StateData> states;
     }
 
-    @Setter
     @Getter
+    @Builder
     public static class StateData {
 
         @NotBlank(message = "{field.empty}")

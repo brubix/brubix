@@ -26,13 +26,16 @@ import static com.brubix.brubixservice.exception.error.ErrorMessages.*;
 @Api(tags = {ApplicationConstant.REFERENCE_TAG}, description = StringUtils.SPACE)
 public class CountryLoaderController {
 
-    private Loader<CountryForm.CountryData, Country> countryDataLoader;
+    private Loader<CountryForm.CountryData, Country, Void> countryDataLoader;
 
-    public CountryLoaderController(Loader<CountryForm.CountryData, Country> countryDataLoader) {
+    public CountryLoaderController(Loader<CountryForm.CountryData, Country, Void> countryDataLoader) {
         this.countryDataLoader = countryDataLoader;
     }
 
-    @PostMapping("/country")
+    @PostMapping(path = "/country",
+            produces = {MediaType.APPLICATION_JSON_VALUE},
+            consumes = {MediaType.APPLICATION_JSON_VALUE}
+    )
     @ApiOperation(
             value = "Load countries with states",
             notes = "Load countries with states",

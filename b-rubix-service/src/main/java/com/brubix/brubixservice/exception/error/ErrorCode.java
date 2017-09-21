@@ -10,6 +10,7 @@ public enum ErrorCode {
     INVALID_PAYLOAD("1", ErrorMessages.INVALID_PAYLOAD, HttpStatus.BAD_REQUEST),
     INVALID_HEADER("2", ErrorMessages.INVALID_HEADER, HttpStatus.BAD_REQUEST),
     LOADING_ERROR("3", ErrorMessages.LOADING_ERROR, HttpStatus.BAD_REQUEST),
+    INVALID_FILE("5", ErrorMessages.INVALID_FILE, HttpStatus.BAD_REQUEST),
 
     //500
     INTERNAL_ERROR("4", ErrorMessages.INTERNAL_ERROR, HttpStatus.INTERNAL_SERVER_ERROR);

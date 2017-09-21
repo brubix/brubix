@@ -1,0 +1,13 @@
+{
+  "name": "ABC School",
+  "addresses": [
+    {
+      "firstLine": "HSR 7th Sector",
+      "secondLine": "Bangalore",
+      "thirdLine": "Karnataka",
+      "stateCode": "KAR",
+      "countryCode": "IND",
+      "pinCode": "560102"
+    }
+  ]
+}

@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Slf4j
-public class CountryLoaderImpl implements Loader<CountryForm.CountryData, Country> {
+public class CountryLoaderImpl implements Loader<CountryForm.CountryData, Country, Void> {
 
     private CountryRepository countryRepository;
 
@@ -22,7 +22,7 @@ public class CountryLoaderImpl implements Loader<CountryForm.CountryData, Countr
     }
 
     @Override
-    public void load(List<CountryForm.CountryData> data) {
+    public Void load(List<CountryForm.CountryData> data) {
         log.info("Loading of countries started");
         List<Country> countries = data
                 .stream()
@@ -36,6 +36,7 @@ public class CountryLoaderImpl implements Loader<CountryForm.CountryData, Countr
             log.error("Error occurred" + ex);
             throw new BrubixException(ErrorCode.LOADING_ERROR);
         }
+        return null;
     }
 
     @Override

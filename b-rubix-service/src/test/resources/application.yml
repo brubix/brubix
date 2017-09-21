@@ -14,7 +14,10 @@ spring:
         hibernate:
             ddl-auto: create-drop
             showsql: true
-
+    http:
+        multipart:
+            max-file-size: 1024KB
+            max-request-size: 1500KB
 server:
     context-path: /v2
     port: 8080

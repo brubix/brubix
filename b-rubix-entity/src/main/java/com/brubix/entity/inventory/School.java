@@ -26,14 +26,17 @@ public class School {
     @Column(name = "school_name", length = 250, nullable = false)
     private String schoolName;
 
-    @Column(name = "school_code", length = 10, nullable = false)
+    @Column(name = "school_code", length = 25, nullable = false)
     private String schoolCode;
 
     @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "address_id")
+    @JoinColumn(name = "school_id", nullable = false)
     private List<Address> addresses;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "school", cascade = CascadeType.ALL)
+    private List<Teacher> teachers;
+
+    @OneToOne(cascade = CascadeType.ALL, optional = false)
     private Document schoolLogo;
 
     @Embedded

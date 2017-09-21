@@ -24,7 +24,7 @@ public class SchoolCodeGenerator implements CodeGenerator {
         if (school == null) {
             return String.format("%s%s%s", getPrefix(), 1, date);
         } else {
-            return String.format("%s%s%s", getPrefix(), school.getId(), date);
+            return String.format("%s%s%s", getPrefix(), school.getId() + 1, date);
         }
     }
 

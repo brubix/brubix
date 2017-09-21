@@ -6,13 +6,7 @@ import com.brubix.entity.reference.State;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
@@ -39,12 +33,12 @@ public class Address {
     @Column(name = "third_line", length = 250)
     private String thirdLine;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY, optional = false)
     private State state;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY, optional = false)
     private Country country;
 
-    @Column(name = "pin_code", length = 6)
+    @Column(name = "pin_code", length = 6, nullable = false)
     private String pinCode;
 }

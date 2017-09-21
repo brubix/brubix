@@ -26,7 +26,10 @@ public class Teacher extends Person {
     private Date resignationDate;
 
     @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "subject_id")
+    @JoinColumn(name = "teacher_id")
     private List<Subject> subjects;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    private School school;
 
 }
