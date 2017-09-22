@@ -8,6 +8,8 @@ import com.brubix.brubixservice.service.inventory.school.SchoolCommandHandler;
 import com.brubix.brubixservice.service.inventory.school.SchoolCommandHandlerImpl;
 import com.brubix.brubixservice.service.reference.CountryCommandHandler;
 import com.brubix.brubixservice.service.reference.CountryCommandHandlerImpl;
+import com.brubix.brubixservice.service.reference.CountryQueryHandler;
+import com.brubix.brubixservice.service.reference.CountryQueryHandlerImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -19,6 +21,12 @@ public class BrubixServiceConfiguration {
     public CountryCommandHandler countryCommandHandler(CountryRepository countryRepository) {
         return new CountryCommandHandlerImpl(countryRepository);
     }
+
+    @Bean
+    public CountryQueryHandler countryQueryHandler(CountryRepository countryRepository) {
+        return new CountryQueryHandlerImpl(countryRepository);
+    }
+
 
     @Bean
     public SchoolCommandHandler schoolCommandHandler(SchoolRepository schoolRepository,

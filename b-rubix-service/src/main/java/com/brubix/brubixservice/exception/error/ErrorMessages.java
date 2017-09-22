@@ -18,4 +18,6 @@ public interface ErrorMessages {
     String LOADING_ERROR = "Error occurred while loading the data";
 
     String INVALID_FILE = "Invalid file";
+
+    String INVALID_COUNTRY_CODE = "Country code is not found in system";
 }

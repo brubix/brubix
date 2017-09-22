@@ -7,6 +7,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.brubix.brubixservice.constant.ApplicationConstant.ERROR_INFO_URL;
@@ -19,7 +20,7 @@ public class ErrorResponse {
 
     private String code;
     private String message;
-    private List<FieldErrorDetail> fieldErrors;
+    private List<FieldErrorDetail> fieldErrors = new ArrayList<>();
 
 
     public ErrorResponse(ErrorCode errorCode) {

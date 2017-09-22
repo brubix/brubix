@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.embedded.LocalServerPort;
 import org.springframework.boot.test.context.SpringBootContextLoader;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.*;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.web.client.RestTemplate;
 
@@ -27,5 +28,18 @@ public abstract class AbstractStep {
     @Getter
     @LocalServerPort
     protected int serverPort;
+
+    protected static HttpHeaders buildHeaders() {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        return headers;
+    }
+
+    protected <T> ResponseEntity exchange(String url, HttpMethod httpMethod, HttpEntity<?> httpEntity,
+                                          Class<T> responseClass) {
+        ResponseEntity<T> responseEntity = restTemplate.exchange(url, httpMethod, httpEntity, responseClass);
+        System.out.println(responseEntity.getBody() != null ? responseEntity.getBody().toString() : "Empty body");
+        return responseEntity;
+    }
 
 }

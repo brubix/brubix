@@ -9,5 +9,5 @@ public interface SchoolCommandHandler {
 
     List<SchoolCode> load(List<SchoolForm> data);
 
-    public School mapToEntity(SchoolForm schoolForm);
+    School mapToEntity(SchoolForm schoolForm);
 }
