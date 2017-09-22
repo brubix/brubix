@@ -1,10 +1,9 @@
-package com.brubix.brubixservice.loader.inventory;
+package com.brubix.brubixservice.service.inventory.school;
 
 import com.brubix.brubixservice.controller.inventory.school.SchoolForm;
 import com.brubix.brubixservice.exception.BrubixException;
 import com.brubix.brubixservice.exception.error.ErrorCode;
 import com.brubix.brubixservice.generator.CodeGenerator;
-import com.brubix.brubixservice.loader.Loader;
 import com.brubix.brubixservice.repository.inventory.SchoolRepository;
 import com.brubix.brubixservice.repository.reference.CountryRepository;
 import com.brubix.brubixservice.repository.reference.StateRepository;
@@ -21,7 +20,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Slf4j
-public class SchoolLoaderImpl implements Loader<SchoolForm, School, List<SchoolCreationResult>> {
+public class SchoolCommandHandlerImpl implements SchoolCommandHandler {
 
     private SchoolRepository schoolRepository;
     private CountryRepository countryRepository;
@@ -29,10 +28,10 @@ public class SchoolLoaderImpl implements Loader<SchoolForm, School, List<SchoolC
     private CodeGenerator schoolCodeGenerator;
 
 
-    public SchoolLoaderImpl(SchoolRepository schoolRepository,
-                            CountryRepository countryRepository,
-                            StateRepository stateRepository,
-                            CodeGenerator schoolCodeGenerator) {
+    public SchoolCommandHandlerImpl(SchoolRepository schoolRepository,
+                                    CountryRepository countryRepository,
+                                    StateRepository stateRepository,
+                                    CodeGenerator schoolCodeGenerator) {
         this.schoolRepository = schoolRepository;
         this.countryRepository = countryRepository;
         this.stateRepository = stateRepository;

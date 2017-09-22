@@ -2,8 +2,7 @@ package com.brubix.brubixservice.controller.reference.country;
 
 import com.brubix.brubixservice.constant.ApplicationConstant;
 import com.brubix.brubixservice.exception.error.ErrorResponse;
-import com.brubix.brubixservice.loader.Loader;
-import com.brubix.entity.reference.Country;
+import com.brubix.brubixservice.service.reference.CountryCommandHandler;
 import io.swagger.annotations.*;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.HttpStatus;
@@ -19,20 +18,19 @@ import javax.validation.Valid;
 import static com.brubix.brubixservice.exception.error.ErrorMessages.*;
 
 @RestController
-@RequestMapping(
-        path = "/reference",
+@RequestMapping(path = "/countries",
         produces = {MediaType.APPLICATION_JSON_VALUE},
         consumes = {MediaType.APPLICATION_JSON_VALUE})
-@Api(tags = {ApplicationConstant.REFERENCE_TAG}, description = StringUtils.SPACE)
+@Api(tags = {ApplicationConstant.COUNTRY_TAG}, description = StringUtils.SPACE)
 public class CountryCommandController {
 
-    private Loader<CountryData, Country, Void> countryDataLoader;
+    private CountryCommandHandler countryCommandHandler;
 
-    public CountryCommandController(Loader<CountryData, Country, Void> countryDataLoader) {
-        this.countryDataLoader = countryDataLoader;
+    public CountryCommandController(CountryCommandHandler countryCommandHandler) {
+        this.countryCommandHandler = countryCommandHandler;
     }
 
-    @PostMapping(path = "/country")
+    @PostMapping(path = "")
     @ApiOperation(
             value = "Load countries with states",
             notes = "Load countries with states",
@@ -48,7 +46,7 @@ public class CountryCommandController {
             @ApiParam(name = "Countries",
                     value = "List of countries to be loaded",
                     required = true) @RequestBody @Valid CountryForm countryForm) {
-        countryDataLoader.load(countryForm.getCountries());
+        countryCommandHandler.load(countryForm.getCountries());
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

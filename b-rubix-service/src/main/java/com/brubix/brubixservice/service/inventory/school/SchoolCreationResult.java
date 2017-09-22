@@ -1,4 +1,4 @@
-package com.brubix.brubixservice.loader.inventory;
+package com.brubix.brubixservice.service.inventory.school;
 
 import lombok.Builder;
 import lombok.Getter;

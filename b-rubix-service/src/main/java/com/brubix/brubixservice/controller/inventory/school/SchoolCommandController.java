@@ -2,9 +2,8 @@ package com.brubix.brubixservice.controller.inventory.school;
 
 import com.brubix.brubixservice.constant.ApplicationConstant;
 import com.brubix.brubixservice.exception.error.ErrorResponse;
-import com.brubix.brubixservice.loader.Loader;
-import com.brubix.brubixservice.loader.inventory.SchoolCreationResult;
-import com.brubix.entity.inventory.School;
+import com.brubix.brubixservice.service.inventory.school.SchoolCommandHandler;
+import com.brubix.brubixservice.service.inventory.school.SchoolCreationResult;
 import io.swagger.annotations.*;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.HttpStatus;
@@ -20,17 +19,17 @@ import java.util.List;
 import static com.brubix.brubixservice.exception.error.ErrorMessages.*;
 
 @RestController
-@RequestMapping(path = {"/inventory"})
-@Api(tags = {ApplicationConstant.INVENTORY_TAG}, description = StringUtils.SPACE)
+@RequestMapping(path = {"/schools"})
+@Api(tags = {ApplicationConstant.SCHOOL_TAG}, description = StringUtils.SPACE)
 public class SchoolCommandController {
 
-    private Loader<SchoolForm, School, List<SchoolCreationResult>> schoolDataLoader;
+    private SchoolCommandHandler schoolDataLoader;
 
-    public SchoolCommandController(Loader<SchoolForm, School, List<SchoolCreationResult>> schoolDataLoader) {
+    public SchoolCommandController(SchoolCommandHandler schoolDataLoader) {
         this.schoolDataLoader = schoolDataLoader;
     }
 
-    @PostMapping(path = "/school",
+    @PostMapping(path = "",
             produces = {MediaType.APPLICATION_JSON_VALUE},
             consumes = {MediaType.MULTIPART_FORM_DATA_VALUE}
     )

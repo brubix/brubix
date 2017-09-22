@@ -1,9 +1,8 @@
-package com.brubix.brubixservice.loader.reference;
+package com.brubix.brubixservice.service.reference;
 
 import com.brubix.brubixservice.controller.reference.country.CountryData;
 import com.brubix.brubixservice.exception.BrubixException;
 import com.brubix.brubixservice.exception.error.ErrorCode;
-import com.brubix.brubixservice.loader.Loader;
 import com.brubix.brubixservice.repository.reference.CountryRepository;
 import com.brubix.entity.reference.Country;
 import com.brubix.entity.reference.State;
@@ -13,11 +12,11 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Slf4j
-public class CountryLoaderImpl implements Loader<CountryData, Country, Void> {
+public class CountryCommandHandlerImpl implements CountryCommandHandler {
 
     private CountryRepository countryRepository;
 
-    public CountryLoaderImpl(CountryRepository countryRepository) {
+    public CountryCommandHandlerImpl(CountryRepository countryRepository) {
         this.countryRepository = countryRepository;
     }
 
