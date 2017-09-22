@@ -1,4 +1,4 @@
-# Brubix
+# b-Rubix
 
 ## Set up MySQL ##
 

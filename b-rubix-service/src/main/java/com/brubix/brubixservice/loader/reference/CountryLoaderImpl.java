@@ -1,6 +1,6 @@
 package com.brubix.brubixservice.loader.reference;
 
-import com.brubix.brubixservice.controller.reference.country.CountryForm;
+import com.brubix.brubixservice.controller.reference.country.CountryData;
 import com.brubix.brubixservice.exception.BrubixException;
 import com.brubix.brubixservice.exception.error.ErrorCode;
 import com.brubix.brubixservice.loader.Loader;
@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Slf4j
-public class CountryLoaderImpl implements Loader<CountryForm.CountryData, Country, Void> {
+public class CountryLoaderImpl implements Loader<CountryData, Country, Void> {
 
     private CountryRepository countryRepository;
 
@@ -22,7 +22,7 @@ public class CountryLoaderImpl implements Loader<CountryForm.CountryData, Countr
     }
 
     @Override
-    public Void load(List<CountryForm.CountryData> data) {
+    public Void load(List<CountryData> data) {
         log.info("Loading of countries started");
         List<Country> countries = data
                 .stream()
@@ -40,7 +40,7 @@ public class CountryLoaderImpl implements Loader<CountryForm.CountryData, Countr
     }
 
     @Override
-    public Country mapToEntity(CountryForm.CountryData countryData) {
+    public Country mapToEntity(CountryData countryData) {
 
         Country country = new Country();
         country.setCode(countryData.getCode());

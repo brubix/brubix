@@ -1,7 +1,7 @@
 package com.brubix.brubixservice.configuration;
 
 import com.brubix.brubixservice.controller.inventory.school.SchoolForm;
-import com.brubix.brubixservice.controller.reference.country.CountryForm;
+import com.brubix.brubixservice.controller.reference.country.CountryData;
 import com.brubix.brubixservice.generator.SchoolCodeGenerator;
 import com.brubix.brubixservice.loader.Loader;
 import com.brubix.brubixservice.loader.inventory.SchoolCreationResult;
@@ -12,16 +12,19 @@ import com.brubix.brubixservice.repository.reference.CountryRepository;
 import com.brubix.brubixservice.repository.reference.StateRepository;
 import com.brubix.entity.inventory.School;
 import com.brubix.entity.reference.Country;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import java.util.List;
 
+
+@EnableAutoConfiguration
 @Configuration
 public class BrubixServiceConfiguration {
 
     @Bean
-    public Loader<CountryForm.CountryData, Country, Void> countryLoader(CountryRepository countryRepository) {
+    public Loader<CountryData, Country, Void> countryLoader(CountryRepository countryRepository) {
         return new CountryLoaderImpl(countryRepository);
     }
 

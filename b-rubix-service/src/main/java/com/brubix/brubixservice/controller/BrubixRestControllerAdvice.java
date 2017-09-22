@@ -32,12 +32,12 @@ import java.util.Set;
 
 @RestControllerAdvice
 @Slf4j
-public class ApiControllerAdvice extends ResponseEntityExceptionHandler {
+public class BrubixRestControllerAdvice extends ResponseEntityExceptionHandler {
 
     private MessageSource messageSource;
 
     @Autowired
-    public ApiControllerAdvice(MessageSource messageSource) {
+    public BrubixRestControllerAdvice(MessageSource messageSource) {
         this.messageSource = messageSource;
     }
 

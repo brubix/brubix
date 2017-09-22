@@ -20,22 +20,19 @@ import static com.brubix.brubixservice.exception.error.ErrorMessages.*;
 
 @RestController
 @RequestMapping(
-        path = {"/reference"},
+        path = "/reference",
         produces = {MediaType.APPLICATION_JSON_VALUE},
         consumes = {MediaType.APPLICATION_JSON_VALUE})
 @Api(tags = {ApplicationConstant.REFERENCE_TAG}, description = StringUtils.SPACE)
-public class CountryLoaderController {
+public class CountryCommandController {
 
-    private Loader<CountryForm.CountryData, Country, Void> countryDataLoader;
+    private Loader<CountryData, Country, Void> countryDataLoader;
 
-    public CountryLoaderController(Loader<CountryForm.CountryData, Country, Void> countryDataLoader) {
+    public CountryCommandController(Loader<CountryData, Country, Void> countryDataLoader) {
         this.countryDataLoader = countryDataLoader;
     }
 
-    @PostMapping(path = "/country",
-            produces = {MediaType.APPLICATION_JSON_VALUE},
-            consumes = {MediaType.APPLICATION_JSON_VALUE}
-    )
+    @PostMapping(path = "/country")
     @ApiOperation(
             value = "Load countries with states",
             notes = "Load countries with states",

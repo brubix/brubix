@@ -22,11 +22,11 @@ import static com.brubix.brubixservice.exception.error.ErrorMessages.*;
 @RestController
 @RequestMapping(path = {"/inventory"})
 @Api(tags = {ApplicationConstant.INVENTORY_TAG}, description = StringUtils.SPACE)
-public class SchoolLoaderController {
+public class SchoolCommandController {
 
     private Loader<SchoolForm, School, List<SchoolCreationResult>> schoolDataLoader;
 
-    public SchoolLoaderController(Loader<SchoolForm, School, List<SchoolCreationResult>> schoolDataLoader) {
+    public SchoolCommandController(Loader<SchoolForm, School, List<SchoolCreationResult>> schoolDataLoader) {
         this.schoolDataLoader = schoolDataLoader;
     }
 

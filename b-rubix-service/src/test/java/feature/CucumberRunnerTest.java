@@ -1,4 +1,4 @@
-package com.brubix.brubixservice.feature;
+package feature;
 
 import cucumber.api.CucumberOptions;
 import cucumber.api.SnippetType;
@@ -11,7 +11,7 @@ import org.junit.runner.RunWith;
         plugin = {"pretty", "html:target/cucumber-html-report", "json:target/cucumber/reports.json"},
         glue = {"feature"},
         snippets = SnippetType.CAMELCASE,
-        tags = {"~@Skip", "~@ignore"},
+        tags = {"~@skip", "~@ignore"},
         features = "src/test/resources/feature")
 public class CucumberRunnerTest {
 

@@ -19,5 +19,5 @@ spring:
             max-file-size: 1024KB
             max-request-size: 1500KB
 server:
-    context-path: /v2
+    context-path: /v1
     port: 8080
