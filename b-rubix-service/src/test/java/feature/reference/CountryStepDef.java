@@ -37,17 +37,13 @@ public class CountryStepDef extends AbstractStep {
 
     @When("^user loaded country data into system$")
     public void user_loaded_country_data_into_system() throws Exception {
-        /*CountryForm countryForm = CountryForm
-                .builder()
-                .countries(countries)
-                .build();*/
         CountryForm countryForm = new CountryForm();
         countryForm.setCountries(countries);
 
         ObjectMapper objectMapper = new ObjectMapper();
         String data = objectMapper.writeValueAsString(countryForm);
 
-        String countryEndPoint = "http://localhost:" + serverPort + contextPath + "/reference/country";
+        String countryEndPoint = "http://localhost:" + serverPort + contextPath + "/countries";
         HttpEntity<String> httpEntity = new HttpEntity<>(data, buildHeaders());
         ResponseEntity responseEntity = restTemplate.postForEntity(new URI(countryEndPoint), httpEntity, String.class);
         assertThat(responseEntity.getStatusCode().value())

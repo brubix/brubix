@@ -34,7 +34,7 @@ public class CountryCommandController {
     @ApiOperation(
             value = "Load countries with states",
             notes = "Load countries with states",
-            code = 200,
+            code = 204,
             response = String.class)
     @ApiResponses(
             value = {@ApiResponse(code = 400, message = INVALID_PAYLOAD, response = ErrorResponse.class),

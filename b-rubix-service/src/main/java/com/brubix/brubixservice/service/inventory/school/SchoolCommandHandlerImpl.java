@@ -39,7 +39,7 @@ public class SchoolCommandHandlerImpl implements SchoolCommandHandler {
     }
 
     @Override
-    public List<SchoolCreationResult> load(List<SchoolForm> data) {
+    public List<SchoolCode> load(List<SchoolForm> data) {
         log.info("Loading of schools started");
         List<School> schools = data
                 .stream()
@@ -52,7 +52,7 @@ public class SchoolCommandHandlerImpl implements SchoolCommandHandler {
             return savedSchools
                     .stream()
                     .map(school -> {
-                        return SchoolCreationResult
+                        return SchoolCode
                                 .builder()
                                 .code(school.getSchoolCode())
                                 .name(school.getSchoolName())

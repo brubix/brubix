@@ -8,12 +8,10 @@ import com.brubix.brubixservice.service.inventory.school.SchoolCommandHandler;
 import com.brubix.brubixservice.service.inventory.school.SchoolCommandHandlerImpl;
 import com.brubix.brubixservice.service.reference.CountryCommandHandler;
 import com.brubix.brubixservice.service.reference.CountryCommandHandlerImpl;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 
-@EnableAutoConfiguration
 @Configuration
 public class BrubixServiceConfiguration {
 

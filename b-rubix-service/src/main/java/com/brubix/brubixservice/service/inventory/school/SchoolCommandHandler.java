@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface SchoolCommandHandler {
 
-    List<SchoolCreationResult> load(List<SchoolForm> data);
+    List<SchoolCode> load(List<SchoolForm> data);
 
     public School mapToEntity(SchoolForm schoolForm);
 }

@@ -5,12 +5,12 @@ import lombok.Getter;
 
 @Builder
 @Getter
-public class SchoolCreationResult {
+public class SchoolCode {
 
     private String name;
     private String code;
 
-    private SchoolCreationResult(String name, String code) {
+    private SchoolCode(String name, String code) {
         this.name = name;
         this.code = code;
     }

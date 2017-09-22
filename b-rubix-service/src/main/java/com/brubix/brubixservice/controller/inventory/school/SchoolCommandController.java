@@ -3,7 +3,7 @@ package com.brubix.brubixservice.controller.inventory.school;
 import com.brubix.brubixservice.constant.ApplicationConstant;
 import com.brubix.brubixservice.exception.error.ErrorResponse;
 import com.brubix.brubixservice.service.inventory.school.SchoolCommandHandler;
-import com.brubix.brubixservice.service.inventory.school.SchoolCreationResult;
+import com.brubix.brubixservice.service.inventory.school.SchoolCode;
 import io.swagger.annotations.*;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.HttpStatus;
@@ -36,7 +36,7 @@ public class SchoolCommandController {
     @ApiOperation(
             value = "Load school",
             notes = "Load school",
-            code = 200, response = SchoolCreationResult.class)
+            code = 200, response = SchoolCode.class)
     @ApiResponses(
             value = {
                     @ApiResponse(code = 400, message = INVALID_PAYLOAD, response = ErrorResponse.class),
@@ -45,7 +45,7 @@ public class SchoolCommandController {
                     @ApiResponse(code = 500, message = INTERNAL_ERROR, response = ErrorResponse.class)
             })
     @ResponseBody
-    public ResponseEntity<SchoolCreationResult> createSchool(
+    public ResponseEntity<SchoolCode> createSchool(
             @ApiParam(name = "School",
                     value = "School to be loaded",
                     required = true) @Valid @RequestBody SchoolForm schoolForm,
@@ -53,7 +53,7 @@ public class SchoolCommandController {
                     value = "School Logo",
                     required = true) @RequestParam(value = "file") MultipartFile schoolLogo) {
         schoolForm.setSchoolLogoFile(schoolLogo);
-        List<SchoolCreationResult> schoolCreationResults = schoolDataLoader.load(Arrays.asList(schoolForm));
+        List<SchoolCode> schoolCreationResults = schoolDataLoader.load(Arrays.asList(schoolForm));
         return new ResponseEntity<>(schoolCreationResults.stream().findFirst().get(), HttpStatus.OK);
     }
 
