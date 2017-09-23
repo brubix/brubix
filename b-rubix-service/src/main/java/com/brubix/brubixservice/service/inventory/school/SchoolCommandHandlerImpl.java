@@ -39,25 +39,20 @@ public class SchoolCommandHandlerImpl implements SchoolCommandHandler {
     }
 
     @Override
-    public List<SchoolCode> load(List<SchoolForm> data) {
+    public SchoolCode load(SchoolForm schoolForm) {
         log.info("Loading of schools started");
-        List<School> schools = data
-                .stream()
-                .map(schoolData -> mapToEntity(schoolData))
-                .collect(Collectors.toList());
+        School school = mapToEntity(schoolForm);
         try {
-            List<School> savedSchools = schoolRepository.save(schools);
+            School savedSchools = schoolRepository.save(school);
             log.info("Loading of schools ended");
 
-            return savedSchools
-                    .stream()
-                    .map(school -> {
-                        return SchoolCode
-                                .builder()
-                                .code(school.getSchoolCode())
-                                .name(school.getSchoolName())
-                                .build();
-                    }).collect(Collectors.toList());
+
+            return SchoolCode
+                    .builder()
+                    .code(school.getSchoolCode())
+                    .name(school.getSchoolName())
+                    .build();
+
 
         } catch (Exception ex) {
             log.error("Error occurred" + ex);
@@ -70,7 +65,7 @@ public class SchoolCommandHandlerImpl implements SchoolCommandHandler {
         School school = new School();
         school.setSchoolName(schoolForm.getName());
         school.setSchoolCode(schoolCodeGenerator.generate());
-        school.setSchoolLogo(createDocument(schoolForm.getSchoolLogoFile()));
+        school.setLogo(createDocument(schoolForm.getSchoolLogoFile()));
         List<Address> addresses = schoolForm.getAddresses()
                 .stream()
                 .map(addressData -> {

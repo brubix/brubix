@@ -3,11 +3,9 @@ package com.brubix.brubixservice.service.inventory.school;
 import com.brubix.brubixservice.controller.inventory.school.SchoolForm;
 import com.brubix.entity.inventory.School;
 
-import java.util.List;
-
 public interface SchoolCommandHandler {
 
-    List<SchoolCode> load(List<SchoolForm> data);
+    SchoolCode load(SchoolForm data);
 
     School mapToEntity(SchoolForm schoolForm);
 }

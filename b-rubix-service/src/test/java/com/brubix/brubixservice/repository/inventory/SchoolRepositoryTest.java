@@ -79,7 +79,7 @@ public class SchoolRepositoryTest {
         school.setSchoolCode("MSCH");
         school.setAddresses(Arrays.asList(address));
         school.setMileStone(mileStone);
-        school.setSchoolLogo(logo);
+        school.setLogo(logo);
 
         schoolRepository.save(school);
 
@@ -98,7 +98,7 @@ public class SchoolRepositoryTest {
         assertThat(savedSchool.getSchoolName()).isEqualTo("My School");
         assertThat(savedSchool.getSchoolCode()).isEqualTo("MSCH");
 
-        assertThat(savedSchool.getSchoolLogo())
+        assertThat(savedSchool.getLogo())
                 .extracting("documentName", "content", "mimeType")
                 .contains("Sample Document", "Sample document data".getBytes(), "text/plain");
 

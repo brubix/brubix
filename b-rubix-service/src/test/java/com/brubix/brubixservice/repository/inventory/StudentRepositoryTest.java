@@ -2,12 +2,9 @@ package com.brubix.brubixservice.repository.inventory;
 
 import com.brubix.brubixservice.repository.reference.CountryRepository;
 import com.brubix.brubixservice.repository.reference.StateRepository;
-import com.brubix.entity.inventory.Address;
+import com.brubix.entity.inventory.*;
 import com.brubix.entity.reference.Country;
-import com.brubix.entity.inventory.KYC;
-import com.brubix.entity.inventory.MileStone;
 import com.brubix.entity.reference.State;
-import com.brubix.entity.inventory.Student;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -66,9 +63,7 @@ public class StudentRepositoryTest {
         student.setName("Mr Robin");
 
         KYC kyc = new KYC();
-        kyc.setPanCard("pan card");
-        kyc.setDrivingLicenseNumber("license");
-        kyc.setAdhaarNumber("adhar number");
+        kyc.setKycType(KYCType.PAN_CARD);
 
         Address address = new Address();
         address.setFirstLine("first line");

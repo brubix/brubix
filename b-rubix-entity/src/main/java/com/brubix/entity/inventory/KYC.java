@@ -1,13 +1,10 @@
 package com.brubix.entity.inventory;
 
+import com.brubix.entity.content.Document;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
@@ -25,12 +22,14 @@ public class KYC {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "adhar_number", length = 12)
-    private String adhaarNumber;
+    @Column(name = "kyc_type", nullable = false)
+    @Enumerated(EnumType.STRING)
+    private KYCType kycType;
 
-    @Column(name = "pan_number", length = 10)
-    private String panCard;
+    @Column(name = "kyc_number", length = 20, nullable = false)
+    private String number;
 
-    @Column(name = "driving_license_number", length = 20)
-    private String drivingLicenseNumber;
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, optional = false)
+    @JoinColumn(name = "kyc_id")
+    private Document document;
 }

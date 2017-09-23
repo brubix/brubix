@@ -64,9 +64,7 @@ public class ParentRepositoryTest {
         parent.setName("Mr Parent");
 
         KYC parentKyc = new KYC();
-        parentKyc.setPanCard("pan card");
-        parentKyc.setDrivingLicenseNumber("license");
-        parentKyc.setAdhaarNumber("adhar number");
+        parentKyc.setKycType(KYCType.AADHAAR);
 
         Address parentAddress = new Address();
         parentAddress.setFirstLine("first line");
@@ -98,7 +96,7 @@ public class ParentRepositoryTest {
         ward.setMileStone(wardMileStone);
 
         KYC wardKyc = new KYC();
-        wardKyc.setAdhaarNumber("wadharnumber");
+        wardKyc.setKycType(KYCType.AADHAAR);
         ward.setKyc(wardKyc);
         ward.setParent(parent);
 
