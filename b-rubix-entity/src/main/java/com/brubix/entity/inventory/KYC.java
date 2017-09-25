@@ -22,7 +22,7 @@ public class KYC {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "kyc_type", nullable = false)
+    @Column(name = "kyc_type", nullable = false, length = 50)
     @Enumerated(EnumType.STRING)
     private KYCType kycType;
 
@@ -30,6 +30,6 @@ public class KYC {
     private String number;
 
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, optional = false)
-    @JoinColumn(name = "kyc_id")
+    @JoinColumn(name = "document_id")
     private Document document;
 }

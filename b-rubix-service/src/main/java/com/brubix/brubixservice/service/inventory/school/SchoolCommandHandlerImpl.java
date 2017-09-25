@@ -1,5 +1,6 @@
 package com.brubix.brubixservice.service.inventory.school;
 
+import com.brubix.brubixservice.controller.inventory.KYCData;
 import com.brubix.brubixservice.controller.inventory.school.SchoolForm;
 import com.brubix.brubixservice.exception.BrubixException;
 import com.brubix.brubixservice.exception.error.ErrorCode;
@@ -8,13 +9,12 @@ import com.brubix.brubixservice.repository.inventory.SchoolRepository;
 import com.brubix.brubixservice.repository.reference.CountryRepository;
 import com.brubix.brubixservice.repository.reference.StateRepository;
 import com.brubix.entity.content.Document;
-import com.brubix.entity.inventory.Address;
-import com.brubix.entity.inventory.MileStone;
-import com.brubix.entity.inventory.School;
+import com.brubix.entity.inventory.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -46,7 +46,6 @@ public class SchoolCommandHandlerImpl implements SchoolCommandHandler {
             School savedSchools = schoolRepository.save(school);
             log.info("Loading of schools ended");
 
-
             return SchoolCode
                     .builder()
                     .code(school.getSchoolCode())
@@ -62,10 +61,15 @@ public class SchoolCommandHandlerImpl implements SchoolCommandHandler {
 
     @Override
     public School mapToEntity(SchoolForm schoolForm) {
-        School school = new School();
-        school.setSchoolName(schoolForm.getName());
-        school.setSchoolCode(schoolCodeGenerator.generate());
-        school.setLogo(createDocument(schoolForm.getSchoolLogoFile()));
+
+        // validate number of KYC documents uploaded matching with KYC data provided
+        if (!schoolForm.getKycDocuments().isEmpty()) {
+            if (schoolForm.getKyc().size() != schoolForm.getKycDocuments().size()) {
+                throw new BrubixException(ErrorCode.INVALID_KYC_FILE_UPLOADS);
+            }
+        }
+
+        // map addresses
         List<Address> addresses = schoolForm.getAddresses()
                 .stream()
                 .map(addressData -> {
@@ -78,10 +82,31 @@ public class SchoolCommandHandlerImpl implements SchoolCommandHandler {
                     return address;
                 }).collect(Collectors.toList());
 
+        // map KYCs
+        List<KYC> kycList = new ArrayList<>();
+        for (int i = 0; i < schoolForm.getKyc().size(); i++) {
+            KYCData kycData = schoolForm.getKyc().get(i);
+
+            KYC kyc = new KYC();
+            kyc.setKycType(KYCType.valueOf(kycData.getType()));
+            kyc.setNumber(kycData.getNumber());
+
+            MultipartFile kycFile = schoolForm.getKycDocuments().get(i);
+            kyc.setDocument(kycFile != null ? createDocument(kycFile) : null);
+            kycList.add(kyc);
+        }
+
+        // map Milestones
         MileStone mileStone = new MileStone();
         mileStone.setCreatedAt(new Date());
         //FIXME - association with user entity and identity
         mileStone.setCreatedBy(1);
+
+        School school = new School();
+        school.setSchoolName(schoolForm.getName());
+        school.setSchoolCode(schoolCodeGenerator.generate());
+        school.setLogo(schoolForm.getSchoolLogo() != null ? createDocument(schoolForm.getSchoolLogo()) : null);
+        school.setSchoolKyc(kycList);
         school.setAddresses(addresses);
         school.setMileStone(mileStone);
         return school;

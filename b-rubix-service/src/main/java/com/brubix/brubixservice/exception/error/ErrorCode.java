@@ -12,6 +12,9 @@ public enum ErrorCode {
     LOADING_ERROR("3", ErrorMessages.LOADING_ERROR, HttpStatus.BAD_REQUEST),
     INVALID_FILE("5", ErrorMessages.INVALID_FILE, HttpStatus.BAD_REQUEST),
     INVALID_COUNTRY_CODE("6", ErrorMessages.INVALID_COUNTRY_CODE, HttpStatus.BAD_REQUEST),
+    INVALID_KYC_FILE_UPLOADS("7", ErrorMessages.INVALID_KYC_FILE_UPLOADS, HttpStatus.BAD_REQUEST),
+
+
 
     //500
     INTERNAL_ERROR("4", ErrorMessages.INTERNAL_ERROR, HttpStatus.INTERNAL_SERVER_ERROR);

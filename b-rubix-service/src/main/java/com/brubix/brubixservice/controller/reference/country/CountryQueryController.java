@@ -56,9 +56,10 @@ public class CountryQueryController {
                     @ApiResponse(code = 405, message = INVALID_METHOD, response = ErrorResponse.class),
                     @ApiResponse(code = 500, message = INTERNAL_ERROR, response = ErrorResponse.class)
             })
-    public ResponseEntity<CountryData> findCountryByCode(@ApiParam(
-            name = "ISO3 country code", value = "ISO3 country code",
-            required = true) @PathVariable(name = "code") String code) {
+    public ResponseEntity<CountryData> findCountryByCode(
+            @ApiParam(
+            name = "code", value = "ISO3 country code",
+            required = true) @PathVariable(value = "code") String code) {
         CountryData country = countryQueryHandler.findCountryByCode(code);
         return new ResponseEntity<>(country, HttpStatus.OK);
     }

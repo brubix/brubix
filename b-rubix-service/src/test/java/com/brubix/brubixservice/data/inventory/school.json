@@ -9,5 +9,9 @@
       "countryCode": "IND",
       "pinCode": "560102"
     }
-  ]
+  ],
+  "kyc": {
+    "type": "aadhar",
+    "number": "123456"
+  }
 }

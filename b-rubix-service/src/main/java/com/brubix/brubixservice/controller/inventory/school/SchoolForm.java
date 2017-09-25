@@ -1,6 +1,7 @@
 package com.brubix.brubixservice.controller.inventory.school;
 
 import com.brubix.brubixservice.controller.inventory.AddressData;
+import com.brubix.brubixservice.controller.inventory.KYCData;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
@@ -25,6 +26,12 @@ public class SchoolForm {
     private List<AddressData> addresses;
 
     @JsonIgnore
-    private MultipartFile schoolLogoFile;
+    private MultipartFile schoolLogo;
+
+    @JsonIgnore
+    private List<MultipartFile> kycDocuments;
+
+    @Valid
+    private List<KYCData> kyc;
 
 }

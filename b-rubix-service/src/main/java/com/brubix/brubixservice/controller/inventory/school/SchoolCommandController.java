@@ -14,6 +14,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 
+import java.util.List;
+
 import static com.brubix.brubixservice.exception.error.ErrorMessages.*;
 
 @RestController
@@ -27,6 +29,7 @@ public class SchoolCommandController {
         this.schoolDataLoader = schoolDataLoader;
     }
 
+    //https://stackoverflow.com/questions/21329426/spring-mvc-multipart-request-with-json
     @PostMapping(path = "",
             produces = {MediaType.APPLICATION_JSON_VALUE},
             consumes = {MediaType.MULTIPART_FORM_DATA_VALUE}
@@ -44,14 +47,19 @@ public class SchoolCommandController {
             })
     @ResponseBody
     public ResponseEntity<SchoolCode> createSchool(
-            @ApiParam(name = "School",
-                    value = "School to be created",
-                    required = true) @Valid @RequestBody SchoolForm schoolForm,
-            @ApiParam(name = "School Logo",
-                    value = "School Logo",
-                    required = true) @RequestParam(value = "file") MultipartFile schoolLogo) {
-        schoolForm.setSchoolLogoFile(schoolLogo);
-        SchoolCode schoolCode = schoolDataLoader.load(schoolForm);
+            @ApiParam(name = "school", value = "School to be created")
+            @Valid @RequestPart(value = "school") SchoolForm school,
+
+            @ApiParam(name = "logo", value = "School Logo")
+            @RequestPart(value = "logo", required = false) MultipartFile logo,
+
+            @ApiParam(name = "KYC", value = "KYC documents")
+            @RequestPart(value = "KYC", required = false) List<MultipartFile> kycDocuments
+
+    ) {
+        school.setSchoolLogo(logo);
+        school.setKycDocuments(kycDocuments);
+        SchoolCode schoolCode = schoolDataLoader.load(school);
         return new ResponseEntity<>(schoolCode, HttpStatus.OK);
     }
 

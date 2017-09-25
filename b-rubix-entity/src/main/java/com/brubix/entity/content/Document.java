@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.sql.Blob;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
@@ -24,6 +25,8 @@ public class Document {
     @Column(name = "document_name")
     private String documentName;
 
+
+    @Lob
     @Column(name = "content")
     private byte[] content;
 
