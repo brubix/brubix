@@ -5,7 +5,7 @@ import com.brubix.entity.inventory.School;
 
 public interface SchoolCommandHandler {
 
-    SchoolCode load(SchoolForm data);
+    SchoolCode create(SchoolForm data);
 
     School mapToEntity(SchoolForm schoolForm);
 }

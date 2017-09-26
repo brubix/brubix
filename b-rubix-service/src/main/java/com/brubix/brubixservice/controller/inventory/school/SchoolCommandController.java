@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
-
 import java.util.List;
 
 import static com.brubix.brubixservice.exception.error.ErrorMessages.*;
@@ -59,8 +58,7 @@ public class SchoolCommandController {
     ) {
         school.setSchoolLogo(logo);
         school.setKycDocuments(kycDocuments);
-        SchoolCode schoolCode = schoolDataLoader.load(school);
+        SchoolCode schoolCode = schoolDataLoader.create(school);
         return new ResponseEntity<>(schoolCode, HttpStatus.OK);
     }
-
 }

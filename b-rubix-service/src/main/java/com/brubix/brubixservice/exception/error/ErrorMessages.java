@@ -15,7 +15,7 @@ public interface ErrorMessages {
 
     String INVALID_METHOD = "Invalid Method";
 
-    String LOADING_ERROR = "Error occurred while loading the data";
+    String LOADING_ERROR = "Error occurred while saving the data";
 
     String INVALID_FILE = "Invalid file";
 

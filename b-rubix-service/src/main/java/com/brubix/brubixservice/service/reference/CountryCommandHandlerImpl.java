@@ -7,6 +7,8 @@ import com.brubix.brubixservice.repository.reference.CountryRepository;
 import com.brubix.entity.reference.Country;
 import com.brubix.entity.reference.State;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.exception.ExceptionUtils;
+import org.springframework.dao.DataAccessException;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -31,8 +33,8 @@ public class CountryCommandHandlerImpl implements CountryCommandHandler {
         try {
             countryRepository.save(countries);
             log.info("Loading of countries ended");
-        } catch (Exception ex) {
-            log.error("Error occurred" + ex);
+        } catch (DataAccessException ex) {
+            log.error("Error occurred" + ExceptionUtils.getStackTrace(ex.getCause()));
             throw new BrubixException(ErrorCode.LOADING_ERROR);
         }
         return null;

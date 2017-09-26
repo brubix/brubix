@@ -1,3 +1,4 @@
+@skip
 Feature: Load country / states in system
 
   Scenario: Load country / states in system

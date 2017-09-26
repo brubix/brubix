@@ -16,7 +16,8 @@ import static org.springframework.boot.test.context.SpringBootTest.WebEnvironmen
 
 @ContextConfiguration(classes = BrubixServiceApplication.class, loader = SpringBootContextLoader.class)
 @SpringBootTest(webEnvironment = RANDOM_PORT)
-public abstract class AbstractStep {
+public abstract class AbstractStepDef {
+
 
     @Getter
     @Value("${server.context-path}")

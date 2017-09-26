@@ -15,4 +15,14 @@ import org.junit.runner.RunWith;
         features = "src/test/resources/feature")
 public class CucumberRunnerTest {
 
+
+   /* @BeforeClass
+    public void before() {
+        ReferenceDataLoader.init();
+    }
+
+    @AfterClass
+    public void after() {
+        ReferenceDataLoader.clean();
+    }*/
 }

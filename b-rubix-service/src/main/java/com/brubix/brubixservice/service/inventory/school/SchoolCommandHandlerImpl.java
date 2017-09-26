@@ -11,6 +11,9 @@ import com.brubix.brubixservice.repository.reference.StateRepository;
 import com.brubix.entity.content.Document;
 import com.brubix.entity.inventory.*;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.exception.ExceptionUtils;
+import org.springframework.dao.DataAccessException;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -39,22 +42,22 @@ public class SchoolCommandHandlerImpl implements SchoolCommandHandler {
     }
 
     @Override
-    public SchoolCode load(SchoolForm schoolForm) {
+    public SchoolCode create(SchoolForm schoolForm) {
         log.info("Loading of schools started");
         School school = mapToEntity(schoolForm);
         try {
-            School savedSchools = schoolRepository.save(school);
+            School savedSchool = schoolRepository.save(school);
             log.info("Loading of schools ended");
 
             return SchoolCode
                     .builder()
-                    .code(school.getSchoolCode())
-                    .name(school.getSchoolName())
+                    .code(savedSchool.getSchoolCode())
+                    .name(savedSchool.getSchoolName())
                     .build();
 
 
-        } catch (Exception ex) {
-            log.error("Error occurred" + ex);
+        } catch (DataAccessException ex) {
+            log.error("Error occurred" + ExceptionUtils.getStackTrace(ex.getCause()));
             throw new BrubixException(ErrorCode.LOADING_ERROR);
         }
     }
@@ -69,6 +72,11 @@ public class SchoolCommandHandlerImpl implements SchoolCommandHandler {
             }
         }
 
+        School school = new School();
+        school.setSchoolName(schoolForm.getName());
+        school.setSchoolCode(schoolCodeGenerator.generate());
+        school.setLogo(schoolForm.getSchoolLogo() != null ? createDocument(schoolForm.getSchoolLogo()) : null);
+
         // map addresses
         List<Address> addresses = schoolForm.getAddresses()
                 .stream()
@@ -77,14 +85,16 @@ public class SchoolCommandHandlerImpl implements SchoolCommandHandler {
                     address.setFirstLine(addressData.getFirstLine());
                     address.setSecondLine(addressData.getSecondLine());
                     address.setThirdLine(addressData.getThirdLine());
+                    address.setPinCode(addressData.getPinCode());
                     address.setCountry(countryRepository.findByCode(addressData.getCountryCode()));
                     address.setState(stateRepository.findByCode(addressData.getStateCode()));
                     return address;
                 }).collect(Collectors.toList());
 
         // map KYCs
+        int size = CollectionUtils.isEmpty(schoolForm.getKyc()) ? 0 : schoolForm.getKyc().size();
         List<KYC> kycList = new ArrayList<>();
-        for (int i = 0; i < schoolForm.getKyc().size(); i++) {
+        for (int i = 0; i < size; i++) {
             KYCData kycData = schoolForm.getKyc().get(i);
 
             KYC kyc = new KYC();
@@ -102,10 +112,7 @@ public class SchoolCommandHandlerImpl implements SchoolCommandHandler {
         //FIXME - association with user entity and identity
         mileStone.setCreatedBy(1);
 
-        School school = new School();
-        school.setSchoolName(schoolForm.getName());
-        school.setSchoolCode(schoolCodeGenerator.generate());
-        school.setLogo(schoolForm.getSchoolLogo() != null ? createDocument(schoolForm.getSchoolLogo()) : null);
+
         school.setSchoolKyc(kycList);
         school.setAddresses(addresses);
         school.setMileStone(mileStone);
@@ -120,7 +127,7 @@ public class SchoolCommandHandlerImpl implements SchoolCommandHandler {
             document.setMimeType(file.getContentType());
             return document;
         } catch (IOException exception) {
-            log.error("Error occurred" + exception);
+            log.error("Error occurred" + ExceptionUtils.getStackTrace(exception.getCause()));
             throw new BrubixException(ErrorCode.INVALID_FILE);
         }
     }
