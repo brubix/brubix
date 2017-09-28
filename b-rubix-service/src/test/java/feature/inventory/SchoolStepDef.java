@@ -1,8 +1,10 @@
 package feature.inventory;
 
 import com.brubix.brubixservice.controller.inventory.AddressData;
+import com.brubix.brubixservice.controller.inventory.KYCData;
 import com.brubix.brubixservice.controller.inventory.school.SchoolForm;
 import com.brubix.brubixservice.service.inventory.school.SchoolCode;
+import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -35,6 +37,11 @@ public class SchoolStepDef extends AbstractStepDef {
 
         String url = "http://localhost:" + serverPort + contextPath + "/schools";
         schoolCodeResponseEntity = restTemplate.postForEntity(url, parts, SchoolCode.class);
+    }
+
+    @And("^the user has below kyc$")
+    public void theUserHasBelowKyc(List<KYCData> kycData) {
+        schoolForm.setKyc(kycData);
     }
 
     @Then("^a school code is generated$")

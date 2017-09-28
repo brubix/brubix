@@ -5,8 +5,8 @@ import lombok.Getter;
 public enum KYCType {
 
     AADHAAR("Aadhaar"),
-    PAN_CARD("Pan Card"),
-    DRIVING_LICENSE("Driving License"),
+    PAN_CARD("Pan card"),
+    DRIVING_LICENSE("Driving license"),
     REGISTRATION("Registration");
 
     @Getter

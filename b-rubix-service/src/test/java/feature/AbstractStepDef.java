@@ -14,7 +14,8 @@ import org.springframework.web.client.RestTemplate;
 
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
 
-@ContextConfiguration(classes = BrubixServiceApplication.class, loader = SpringBootContextLoader.class)
+@ContextConfiguration(classes = {ReferenceDataLoader.class, BrubixServiceApplication.class},
+        loader = SpringBootContextLoader.class)
 @SpringBootTest(webEnvironment = RANDOM_PORT)
 public abstract class AbstractStepDef {
 
