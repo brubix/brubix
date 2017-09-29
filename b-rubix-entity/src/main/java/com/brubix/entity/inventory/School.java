@@ -26,7 +26,7 @@ public class School {
     @Column(name = "school_name", length = 250, nullable = false)
     private String schoolName;
 
-    @Column(name = "school_code", length = 25, nullable = false)
+    @Column(name = "school_code", length = 25, nullable = false, unique = true)
     private String schoolCode;
 
     @OneToMany(cascade = CascadeType.ALL)

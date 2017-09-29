@@ -33,10 +33,10 @@ public class Address {
     @Column(name = "third_line", length = 250)
     private String thirdLine;
 
-    @OneToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private State state;
 
-    @OneToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private Country country;
 
     @Column(name = "pin_code", length = 6, nullable = false)

@@ -45,7 +45,7 @@ public class SchoolCommandController {
                     @ApiResponse(code = 500, message = INTERNAL_ERROR, response = ErrorResponse.class)
             })
     @ResponseBody
-    public ResponseEntity<SchoolCode> createSchool(
+    public ResponseEntity<SchoolCode> create(
             @ApiParam(name = "school", value = "School to be created")
             @Valid @RequestPart(value = "school") SchoolForm school,
 

@@ -2,6 +2,8 @@ package com.brubix.entity.inventory;
 
 import lombok.Getter;
 
+import java.util.Arrays;
+
 public enum KYCType {
 
     AADHAAR("Aadhaar"),
@@ -14,5 +16,13 @@ public enum KYCType {
 
     KYCType(String description) {
         this.description = description;
+    }
+
+    public static KYCType getType(String type) {
+        return Arrays
+                .stream(KYCType.values())
+                .filter((kycType -> type.equals(kycType.getDescription())))
+                .findFirst()
+                .get();
     }
 }

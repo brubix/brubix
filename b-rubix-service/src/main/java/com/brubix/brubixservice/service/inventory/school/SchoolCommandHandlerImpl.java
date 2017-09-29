@@ -98,7 +98,7 @@ public class SchoolCommandHandlerImpl implements SchoolCommandHandler {
             KYCData kycData = schoolForm.getKyc().get(i);
 
             KYC kyc = new KYC();
-            kyc.setKycType(KYCType.valueOf(kycData.getType()));
+            kyc.setKycType(KYCType.getType(kycData.getType()));
             kyc.setNumber(kycData.getNumber());
 
             MultipartFile kycFile = schoolForm.getKycDocuments().get(i);

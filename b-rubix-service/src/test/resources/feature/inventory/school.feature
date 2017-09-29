@@ -3,19 +3,20 @@ Feature: Create school in system
   Scenario: Create school in system without KYC / Logo
     Given the user provided school name as "ABC school" and below addresses
       | first line     | second line | third line | state code | country code | pin code |
-      | HSR 3rd sector | BDA complex |            | KAR        | IND          | 560102   |
-      | HSR 4rd sector |             | Goregaon   | TXS        | USA          | 765019   |
+      | HSR 3rd sector | BDA complex |            | KAR        | IND          | 560101   |
+      | Texas city 1   |             | Texas      | TXS        | USA          | 765012   |
     When the user creates school
     Then a school code is generated
 
-  @skip
-  Scenario: Create school in system  with KYC detail without logo / KYC attachments
-    Given the user provided school name as "ABC school" and below addresses
+  Scenario: Create school in system  with KYC detail with school logo / KYC attachments
+    Given the user provided school name as "XYZ school" and below addresses
       | first line     | second line | third line | state code | country code | pin code |
-      | HSR 3rd sector | BDA complex |            | KAR        | IND          | 560102   |
-      | HSR 4rd sector |             | Goregaon   | TXS        | USA          | 765019   |
-    And the user has below kyc
-      | type    | number    |
-      | Aadhaar | 123456789 |
+      | HSR 5th sector | BDA complex |            | KAR        | IND          | 560103   |
+      | Texas city 2   |             | Texas      | TXS        | USA          | 765014   |
+    And the user has provided below kyc
+      | type            | number         | document             |
+      | Aadhaar         | 123456789      | aadhaar.pdf          |
+      | Driving license | 12345678912345 | driving-license.jpeg |
+    And logo "school-logo.jpg" provided
     When the user creates school
     Then a school code is generated
