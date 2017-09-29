@@ -49,8 +49,8 @@ public class SchoolCommandController {
             @ApiParam(name = "school", value = "School to be created")
             @Valid @RequestPart(value = "school") SchoolForm school,
 
-            @ApiParam(name = "logo", value = "School Logo")
-            @RequestPart(value = "logo", required = false) MultipartFile logo,
+            @ApiParam(name = "LOGO", value = "School Logo")
+            @RequestPart(value = "LOGO", required = false) MultipartFile logo,
 
             @ApiParam(name = "KYC", value = "KYC documents")
             @RequestPart(value = "KYC", required = false) List<MultipartFile> kycDocuments

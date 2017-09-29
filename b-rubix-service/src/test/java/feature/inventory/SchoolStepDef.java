@@ -9,6 +9,7 @@ import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import feature.AbstractStepDef;
+import org.apache.commons.lang3.StringUtils;
 import org.assertj.core.api.Assertions;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.http.*;
@@ -45,7 +46,7 @@ public class SchoolStepDef extends AbstractStepDef {
         if (logo != null) {
             FileSystemResource logoResource = new FileSystemResource(this.getClass()
                     .getClassLoader().getResource(logo).getPath());
-            parts.add("logo", logoResource);
+            parts.add("LOGO", logoResource);
         }
 
         // school KYC documents
@@ -73,7 +74,9 @@ public class SchoolStepDef extends AbstractStepDef {
                     KYCData kycData = new KYCData();
                     kycData.setNumber(kyc.getNumber());
                     kycData.setType(kyc.getType());
-                    attachmentNames.add(kyc.getDocument());
+                    if (StringUtils.isNotBlank(kyc.getDocument())) {
+                        attachmentNames.add(kyc.getDocument());
+                    }
                     return kycData;
                 }).collect(Collectors.toList()));
     }

@@ -29,7 +29,7 @@ public class KYC {
     @Column(name = "kyc_number", length = 20, nullable = false)
     private String number;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, optional = false)
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "document_id")
     private Document document;
 }

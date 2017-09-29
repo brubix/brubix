@@ -37,7 +37,7 @@ public class School {
     private List<Teacher> teachers;
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "document_id")
+    @JoinColumn(name = "logo_document_id")
     private Document logo;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
