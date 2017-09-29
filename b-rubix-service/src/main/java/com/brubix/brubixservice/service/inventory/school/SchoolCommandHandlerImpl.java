@@ -43,7 +43,7 @@ public class SchoolCommandHandlerImpl implements SchoolCommandHandler {
 
     @Override
     public SchoolCode create(SchoolForm schoolForm) {
-        log.info("Loading of schools started");
+        log.info("Creating of school started");
         School school = mapToEntity(schoolForm);
         try {
             School savedSchool = schoolRepository.save(school);

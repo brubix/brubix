@@ -6,6 +6,8 @@ import com.brubix.brubixservice.repository.reference.CountryRepository;
 import com.brubix.brubixservice.repository.reference.StateRepository;
 import com.brubix.brubixservice.service.inventory.school.SchoolCommandHandler;
 import com.brubix.brubixservice.service.inventory.school.SchoolCommandHandlerImpl;
+import com.brubix.brubixservice.service.inventory.school.SchoolQueryHandler;
+import com.brubix.brubixservice.service.inventory.school.SchoolQueryHandlerImpl;
 import com.brubix.brubixservice.service.reference.CountryCommandHandler;
 import com.brubix.brubixservice.service.reference.CountryCommandHandlerImpl;
 import com.brubix.brubixservice.service.reference.CountryQueryHandler;
@@ -34,6 +36,11 @@ public class BrubixServiceConfiguration {
                                                      StateRepository stateRepository,
                                                      SchoolCodeGenerator schoolCodeGenerator) {
         return new SchoolCommandHandlerImpl(schoolRepository, countryRepository, stateRepository, schoolCodeGenerator);
+    }
+
+    @Bean
+    public SchoolQueryHandler schoolQueryHandler(SchoolRepository schoolRepository) {
+        return new SchoolQueryHandlerImpl(schoolRepository);
     }
 
     @Bean

@@ -34,12 +34,14 @@ public class SchoolCommandController {
             consumes = {MediaType.MULTIPART_FORM_DATA_VALUE}
     )
     @ApiOperation(
-            value = "Load school",
-            notes = "Load school",
+            value = "Create school",
+            notes = "Create school",
             code = 200, response = SchoolCode.class)
     @ApiResponses(
             value = {
                     @ApiResponse(code = 400, message = INVALID_PAYLOAD, response = ErrorResponse.class),
+                    @ApiResponse(code = 400, message = INVALID_KYC_FILE_UPLOADS, response = ErrorResponse.class),
+                    @ApiResponse(code = 400, message = INVALID_FILE, response = ErrorResponse.class),
                     @ApiResponse(code = 404, message = UNSUPPORTED_API, response = ErrorResponse.class),
                     @ApiResponse(code = 405, message = INVALID_METHOD, response = ErrorResponse.class),
                     @ApiResponse(code = 500, message = INTERNAL_ERROR, response = ErrorResponse.class)
