@@ -2,6 +2,7 @@ package com.brubix.brubixservice.controller.inventory;
 
 import lombok.Builder;
 import lombok.Getter;
+import lombok.ToString;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 
@@ -9,6 +10,7 @@ import javax.validation.constraints.Pattern;
 
 @Getter
 @Builder
+@ToString
 public class AddressData {
 
     @NotBlank(message = "{field.empty}")

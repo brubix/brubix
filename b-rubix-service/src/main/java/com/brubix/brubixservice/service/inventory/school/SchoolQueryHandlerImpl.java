@@ -38,7 +38,7 @@ public class SchoolQueryHandlerImpl implements SchoolQueryHandler {
                 .addresses(mapToAddress(school.getAddresses()))
                 .code(school.getSchoolCode())
                 .name(school.getSchoolName())
-                .logo(school.getLogo().getContent())
+                .logo(school.getLogo() != null ? school.getLogo().getContent() : null)
                 .build();
     }
 

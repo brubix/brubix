@@ -2,6 +2,7 @@ package feature.inventory;
 
 import com.brubix.brubixservice.controller.inventory.AddressData;
 import com.brubix.brubixservice.controller.inventory.KYCData;
+import com.brubix.brubixservice.controller.inventory.school.SchoolData;
 import com.brubix.brubixservice.controller.inventory.school.SchoolForm;
 import com.brubix.brubixservice.service.inventory.school.SchoolCode;
 import cucumber.api.java.en.And;
@@ -9,7 +10,6 @@ import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import feature.AbstractStepDef;
-import org.apache.commons.lang3.StringUtils;
 import org.assertj.core.api.Assertions;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.http.*;
@@ -20,12 +20,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static org.apache.commons.lang3.StringUtils.isNotBlank;
+
 public class SchoolStepDef extends AbstractStepDef {
 
     private SchoolForm schoolForm;
     private ResponseEntity<SchoolCode> schoolCodeResponseEntity;
     private List<String> attachmentNames = new ArrayList<>();
     private String logo;
+    private String schoolCode;
+    private ResponseEntity<SchoolData> schoolDataResponseEntity;
 
     @Given("^the user provided school name as \"([^\"]*)\" and below addresses$")
     public void theUserProvidedSchoolNameAsAndBelowAddresses(String name, List<AddressData> addressDataList) {
@@ -74,7 +78,7 @@ public class SchoolStepDef extends AbstractStepDef {
                     KYCData kycData = new KYCData();
                     kycData.setNumber(kyc.getNumber());
                     kycData.setType(kyc.getType());
-                    if (StringUtils.isNotBlank(kyc.getDocument())) {
+                    if (isNotBlank(kyc.getDocument())) {
                         attachmentNames.add(kyc.getDocument());
                     }
                     return kycData;
@@ -91,5 +95,89 @@ public class SchoolStepDef extends AbstractStepDef {
         Assertions.assertThat(schoolCodeResponseEntity.getStatusCode().value()).isEqualTo(200);
         Assertions.assertThat(schoolCodeResponseEntity.getBody().getName()).isEqualTo(schoolForm.getName());
         Assertions.assertThat(schoolCodeResponseEntity.getBody().getCode()).contains("SCHL");
+        this.schoolCode = schoolCodeResponseEntity.getBody().getCode();
+
+
+    }
+
+    @When("^user finds school detail by school code$")
+    public void userFindsSchoolDetailBySchoolCode() {
+        String url = "http://localhost:" + serverPort + contextPath + "/schools/" + schoolCode;
+        HttpEntity requestEntity = new HttpEntity(buildHeaders());
+        schoolDataResponseEntity = exchange(url, HttpMethod.GET, requestEntity, SchoolData.class);
+    }
+
+    @Then("^below address data should be present for school \"([^\"]*)\" without logo$")
+    public void belowDataShouldBePresent(String schoolName, List<AddressData> addressDataList) {
+
+       /* List<AddressData> list = addressDataList.stream()
+                .map(addressData -> {
+                    return AddressData
+                            .builder()
+                            .stateCode(isNotEmpty(addressData.getStateCode())
+                                    ? addressData.getStateCode()
+                                    : null)
+                            .countryCode(isNotEmpty(addressData.getCountryCode())
+                                    ? addressData.getCountryCode()
+                                    : null)
+                            .pinCode(isNotEmpty(addressData.getPinCode())
+                                    ? addressData.getPinCode()
+                                    : null)
+                            .firstLine(isNotEmpty(addressData.getFirstLine())
+                                    ? addressData.getFirstLine()
+                                    : null)
+                            .secondLine(isNotEmpty(addressData.getSecondLine())
+                                    ? addressData.getSecondLine()
+                                    : null)
+                            .thirdLine(isNotEmpty(addressData.getThirdLine())
+                                    ? addressData.getThirdLine()
+                                    : null)
+                            .build();
+                }).collect(Collectors.toList());*/
+
+        SchoolData schoolData = schoolDataResponseEntity.getBody();
+        Assertions.assertThat(schoolData.getName()).isEqualTo(schoolName);
+        Assertions.assertThat(schoolData.getLogo()).isNull();
+
+        /*Assertions.assertThat(schoolData.getAddresses())
+                .hasSize(2)
+                .containsAll(addressDataList);*/
+    }
+
+    @Then("^below address data should be present for school \"([^\"]*)\" with logo$")
+    public void belowDataShouldBePresentWithLogo(String schoolName, List<AddressData> addressDataList) {
+
+       /* List<AddressData> list = addressDataList.stream()
+                .map(addressData -> {
+                    return AddressData
+                            .builder()
+                            .stateCode(isNotEmpty(addressData.getStateCode())
+                                    ? addressData.getStateCode()
+                                    : null)
+                            .countryCode(isNotEmpty(addressData.getCountryCode())
+                                    ? addressData.getCountryCode()
+                                    : null)
+                            .pinCode(isNotEmpty(addressData.getPinCode())
+                                    ? addressData.getPinCode()
+                                    : null)
+                            .firstLine(isNotEmpty(addressData.getFirstLine())
+                                    ? addressData.getFirstLine()
+                                    : null)
+                            .secondLine(isNotEmpty(addressData.getSecondLine())
+                                    ? addressData.getSecondLine()
+                                    : null)
+                            .thirdLine(isNotEmpty(addressData.getThirdLine())
+                                    ? addressData.getThirdLine()
+                                    : null)
+                            .build();
+                }).collect(Collectors.toList());*/
+
+        SchoolData schoolData = schoolDataResponseEntity.getBody();
+        Assertions.assertThat(schoolData.getName()).isEqualTo(schoolName);
+        Assertions.assertThat(schoolData.getLogo()).isNotNull();
+
+        /*Assertions.assertThat(schoolData.getAddresses())
+                .hasSize(2)
+                .containsAll(addressDataList);*/
     }
 }

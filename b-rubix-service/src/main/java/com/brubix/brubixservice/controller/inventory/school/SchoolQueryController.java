@@ -6,6 +6,7 @@ import com.brubix.brubixservice.service.inventory.school.SchoolQueryHandler;
 import io.swagger.annotations.*;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import static com.brubix.brubixservice.exception.error.ErrorMessages.*;
 
 @RestController
-@RequestMapping(path = {"/schools"})
+@RequestMapping(path = {"/schools"}, produces = {MediaType.APPLICATION_JSON_VALUE})
 @Api(tags = {ApplicationConstant.SCHOOL_TAG}, description = StringUtils.SPACE)
 public class SchoolQueryController {
 
