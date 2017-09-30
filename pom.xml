@@ -30,6 +30,7 @@
         <swagger.version>2.7.0</swagger.version>
         <cucumber.version>1.2.5</cucumber.version>
         <mysql.connector.version>8.0.7-dmr</mysql.connector.version>
+        <imageVersion>SNAPSHOT</imageVersion>
     </properties>
 
     <dependencyManagement>
@@ -86,14 +87,138 @@
             <artifactId>lombok</artifactId>
             <optional>true</optional>
         </dependency>
-
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
         </dependency>
     </dependencies>
 
+    <url>https://github.com/brubix/brubix</url>
+    <inceptionYear>2017</inceptionYear>
+
+    <developers>
+        <developer>
+            <id>SanjayaSahoo</id>
+            <name>Sanjaya Sahoo</name>
+            <email>sanjaya.bigrubix@gmail.com</email>
+            <roles>
+                <role>developer</role>
+            </roles>
+        </developer>
+        <developer>
+            <id>Sanjeev</id>
+            <name>Sanjeev</name>
+            <email>sanjeev.bigrubix@gmail.com</email>
+            <roles>
+                <role>developer</role>
+            </roles>
+        </developer>
+    </developers>
+    <build>
+        <resources>
+            <resource>
+                <filtering>true</filtering>
+                <directory>${project.basedir}/src/main/resources</directory>
+                <includes>
+                    <include>**/application*.yml</include>
+                    <include>**/application*.yaml</include>
+                    <include>**/application*.properties</include>
+                </includes>
+            </resource>
+            <resource>
+                <directory>${project.basedir}/src/main/resources</directory>
+                <excludes>
+                    <exclude>**/application*.yml</exclude>
+                    <exclude>**/application*.yaml</exclude>
+                    <exclude>**/application*.properties</exclude>
+                </excludes>
+            </resource>
+            <resource>
+                <filtering>true</filtering>
+                <directory>${project.basedir}/src/main/docker</directory>
+                <includes>
+                    <include>Dockerfile</include>
+                </includes>
+            </resource>
+            <resource>
+                <directory>${project.basedir}/src/main/docker</directory>
+                <excludes>
+                    <exclude>Dockerfile</exclude>
+                </excludes>
+            </resource>
+        </resources>
+        <pluginManagement>
+            <plugins>
+                <!-- Docker -->
+                <plugin>
+                    <groupId>com.spotify</groupId>
+                    <artifactId>docker-maven-plugin</artifactId>
+                    <configuration>
+                        <imageName>${project.artifactId}:${imageVersion}</imageName>
+                        <dockerDirectory>${project.build.directory}/docker</dockerDirectory>
+                        <serverId>brubix-deployer</serverId>
+                        <pushImage>${docker.push.image}</pushImage>
+                        <resources>
+                            <resource>
+                                <targetPath>/</targetPath>
+                                <directory>${project.build.directory}</directory>
+                                <include>${project.build.finalName}.jar</include>
+                            </resource>
+                            <resource>
+                                <directory>${project.build.directory}/classes/</directory>
+                                <includes>
+                                    <include>Dockerfile</include>
+                                    <include>launch.sh</include>
+                                </includes>
+                            </resource>
+                        </resources>
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <phase>package</phase>
+                            <goals>
+                                <goal>build</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+                <!-- Release -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-release-plugin</artifactId>
+                    <configuration>
+                        <autoVersionSubmodules>true</autoVersionSubmodules>
+                        <useReleaseProfile>false</useReleaseProfile>
+                        <releaseProfiles>release</releaseProfiles>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+
     <profiles>
+        <profile>
+            <activation>
+                <jdk>[1.8,)</jdk>
+            </activation>
+            <properties>
+                <additionalparam>-Xdoclint:none</additionalparam>
+            </properties>
+        </profile>
+        <profile>
+            <id>docker</id>
+            <properties>
+                <docker.push.image>false</docker.push.image>
+            </properties>
+        </profile>
+        <profile>
+            <id>release</id>
+            <properties>
+                <docker.push.image>false</docker.push.image>
+                <maven.test.skip>true</maven.test.skip>
+                <imageVersion>${project.version}</imageVersion>
+            </properties>
+        </profile>
         <profile>
             <id>nexus</id>
             <repositories>
@@ -122,24 +247,4 @@
             </pluginRepositories>
         </profile>
     </profiles>
-    <url>https://github.com/brubix/brubix</url>
-    <inceptionYear>2017</inceptionYear>
-    <developers>
-        <developer>
-            <id>SanjayaSahoo</id>
-            <name>Sanjaya Sahoo</name>
-            <email>sanjaya.bigrubix@gmail.com</email>
-            <roles>
-                <role>developer</role>
-            </roles>
-        </developer>
-        <developer>
-            <id>Sanjeev</id>
-            <name>Sanjeev</name>
-            <email>sanjeev.bigrubix@gmail.com</email>
-            <roles>
-                <role>developer</role>
-            </roles>
-        </developer>
-    </developers>
 </project>
