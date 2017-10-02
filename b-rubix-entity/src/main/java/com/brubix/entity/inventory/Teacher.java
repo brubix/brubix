@@ -1,5 +1,6 @@
 package com.brubix.entity.inventory;
 
+import com.brubix.entity.identity.User;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -17,7 +18,7 @@ import java.util.List;
 @Entity
 @Table(name = "teacher", catalog = "brubix")
 @DiscriminatorValue("teacher")
-public class Teacher extends Person {
+public class Teacher extends User {
 
     @Column(name = "joining_date", nullable = false)
     @Temporal(TemporalType.DATE)

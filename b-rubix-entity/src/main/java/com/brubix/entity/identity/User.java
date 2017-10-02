@@ -1,7 +1,11 @@
-package com.brubix.entity.inventory;
+package com.brubix.entity.identity;
 
 import com.brubix.entity.communication.Email;
 import com.brubix.entity.communication.Phone;
+import com.brubix.entity.identity.Role;
+import com.brubix.entity.inventory.Address;
+import com.brubix.entity.inventory.KYC;
+import com.brubix.entity.inventory.MileStone;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -16,12 +20,12 @@ import static javax.persistence.GenerationType.IDENTITY;
  */
 
 @Entity
-@Table(name = "person", catalog = "brubix")
+@Table(name = "user", catalog = "brubix")
 @Inheritance(strategy = InheritanceType.JOINED)
-@DiscriminatorColumn(name = "person_type", discriminatorType = DiscriminatorType.STRING)
+@DiscriminatorColumn(name = "user_type", discriminatorType = DiscriminatorType.STRING)
 @Getter
 @Setter
-public abstract class Person {
+public abstract class User {
 
     @Id
     @GeneratedValue(strategy = IDENTITY)
@@ -50,5 +54,15 @@ public abstract class Person {
 
     @OneToMany(mappedBy = "person", cascade = CascadeType.ALL)
     private List<Email> emails;
+
+
+    @ManyToMany
+    @JoinTable(
+            name = "users_roles",
+            joinColumns = @JoinColumn(
+                    name = "user_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(
+                    name = "role_id", referencedColumnName = "id"))
+    private List<Role> roles;
 
 }

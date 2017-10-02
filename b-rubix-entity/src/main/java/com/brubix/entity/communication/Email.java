@@ -1,6 +1,6 @@
 package com.brubix.entity.communication;
 
-import com.brubix.entity.inventory.Person;
+import com.brubix.entity.identity.User;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -23,6 +23,6 @@ public class Email {
     private String email;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    private Person person;
+    private User person;
 }
 

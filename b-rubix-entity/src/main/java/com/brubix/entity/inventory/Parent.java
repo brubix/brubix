@@ -1,5 +1,6 @@
 package com.brubix.entity.inventory;
 
+import com.brubix.entity.identity.User;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -14,7 +15,7 @@ import java.util.List;
 @DiscriminatorValue("parent")
 @Getter
 @Setter
-public class Parent extends Person {
+public class Parent extends User {
 
     @OneToMany(mappedBy = "parent", cascade = CascadeType.ALL)
     private List<Student> wards;
