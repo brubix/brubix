@@ -14,7 +14,6 @@ import java.util.List;
 @Setter
 @Entity
 @Table(name = "teacher", catalog = "brubix")
-@DiscriminatorValue("teacher")
 public class Teacher extends Person {
 
     @Column(name = "joining_date", nullable = false)
