@@ -11,6 +11,7 @@ import java.util.Date;
  */
 @Entity
 @Table(name = "student", catalog = "brubix")
+@DiscriminatorValue("student")
 @Getter
 @Setter
 public class Student extends Person {

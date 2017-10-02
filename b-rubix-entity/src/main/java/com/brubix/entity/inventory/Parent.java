@@ -3,10 +3,7 @@ package com.brubix.entity.inventory;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.List;
 
 /**
@@ -14,6 +11,7 @@ import java.util.List;
  */
 @Entity
 @Table(name = "parent", catalog = "brubix")
+@DiscriminatorValue("parent")
 @Getter
 @Setter
 public class Parent extends Person {

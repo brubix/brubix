@@ -1,5 +1,6 @@
 package com.brubix.entity.communication;
 
+import com.brubix.entity.inventory.Person;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -20,5 +21,8 @@ public class Email {
 
     @Column(name = "email", nullable = false)
     private String email;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Person person;
 }
 

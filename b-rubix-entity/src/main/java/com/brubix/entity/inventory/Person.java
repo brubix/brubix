@@ -1,5 +1,7 @@
 package com.brubix.entity.inventory;
 
+import com.brubix.entity.communication.Email;
+import com.brubix.entity.communication.Phone;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,9 +14,11 @@ import static javax.persistence.GenerationType.IDENTITY;
 /**
  * Created by sanjeev.singh1 on 11/09/17.
  */
+
+@Entity
 @Table(name = "person", catalog = "brubix")
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-@MappedSuperclass
+@Inheritance(strategy = InheritanceType.JOINED)
+@DiscriminatorColumn(name = "person_type", discriminatorType = DiscriminatorType.STRING)
 @Getter
 @Setter
 public abstract class Person {
@@ -40,4 +44,11 @@ public abstract class Person {
 
     @Embedded
     private MileStone mileStone;
+
+    @OneToMany(mappedBy = "person", cascade = CascadeType.ALL)
+    private List<Phone> phones;
+
+    @OneToMany(mappedBy = "person", cascade = CascadeType.ALL)
+    private List<Email> emails;
+
 }
