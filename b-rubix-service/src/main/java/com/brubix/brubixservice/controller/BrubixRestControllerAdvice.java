@@ -1,6 +1,7 @@
 package com.brubix.brubixservice.controller;
 
 import com.brubix.brubixservice.exception.BrubixException;
+import com.brubix.brubixservice.exception.CustomMethodArgumentNotValidException;
 import com.brubix.brubixservice.exception.error.ErrorCode;
 import com.brubix.brubixservice.exception.error.ErrorResponse;
 import com.brubix.brubixservice.exception.validation.FieldErrorDetail;
@@ -80,6 +81,21 @@ public class BrubixRestControllerAdvice extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>(new ErrorResponse(errorcode), errorcode.getHttpStatus());
     }
 
+
+    @ExceptionHandler(CustomMethodArgumentNotValidException.class)
+    protected ResponseEntity<Object> handleCustomMethodArgumentNotValid(CustomMethodArgumentNotValidException ex) {
+        log.error("Form validation failed");
+        BindingResult result = ex.getBindingResult();
+        List<FieldError> fieldErrors = result.getFieldErrors();
+
+        List<FieldErrorDetail> fieldErrorDetails = processFieldErrors(fieldErrors);
+        ErrorCode errorCode = ex.getErrorcode();
+        ErrorResponse errorResponse = new ErrorResponse(ex.getErrorcode());
+
+        errorResponse.setFieldErrors(fieldErrorDetails);
+        return new ResponseEntity<>(errorResponse, errorCode.getHttpStatus());
+    }
+
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
                                                                   HttpHeaders headers,
@@ -93,14 +109,20 @@ public class BrubixRestControllerAdvice extends ResponseEntityExceptionHandler {
         ErrorResponse errorResponse = new ErrorResponse(errorCode);
 
         errorResponse.setFieldErrors(fieldErrorDetails);
-        return new ResponseEntity<Object>(errorResponse, errorCode.getHttpStatus());
+        return new ResponseEntity<>(errorResponse, errorCode.getHttpStatus());
     }
 
     private List<FieldErrorDetail> processFieldErrors(List<FieldError> fieldErrors) {
         List<FieldErrorDetail> errors = new ArrayList<>();
         for (FieldError fieldError : fieldErrors) {
             String localizedErrorMessage = resolveLocalizedErrorMessage(fieldError);
-            errors.add(FieldErrorDetail.builder().field(fieldError.getField()).message(localizedErrorMessage).build());
+            errors.add(
+                    FieldErrorDetail
+                            .builder()
+                            .field(fieldError.getField())
+                            .message(localizedErrorMessage)
+                            .build()
+            );
         }
         return errors;
     }

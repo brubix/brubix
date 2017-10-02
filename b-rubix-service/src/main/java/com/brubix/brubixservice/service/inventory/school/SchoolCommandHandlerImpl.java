@@ -8,6 +8,7 @@ import com.brubix.brubixservice.generator.CodeGenerator;
 import com.brubix.brubixservice.repository.inventory.SchoolRepository;
 import com.brubix.brubixservice.repository.reference.CountryRepository;
 import com.brubix.brubixservice.repository.reference.StateRepository;
+import com.brubix.brubixservice.validator.SchoolFormCustomValidator;
 import com.brubix.entity.content.Document;
 import com.brubix.entity.inventory.*;
 import lombok.extern.slf4j.Slf4j;
@@ -27,22 +28,28 @@ public class SchoolCommandHandlerImpl implements SchoolCommandHandler {
 
     private SchoolRepository schoolRepository;
     private CountryRepository countryRepository;
+
     private StateRepository stateRepository;
     private CodeGenerator schoolCodeGenerator;
-
+    private SchoolFormCustomValidator schoolFormCustomValidator;
 
     public SchoolCommandHandlerImpl(SchoolRepository schoolRepository,
                                     CountryRepository countryRepository,
                                     StateRepository stateRepository,
-                                    CodeGenerator schoolCodeGenerator) {
+                                    CodeGenerator schoolCodeGenerator,
+                                    SchoolFormCustomValidator schoolFormCustomValidator) {
         this.schoolRepository = schoolRepository;
         this.countryRepository = countryRepository;
         this.stateRepository = stateRepository;
         this.schoolCodeGenerator = schoolCodeGenerator;
+        this.schoolFormCustomValidator = schoolFormCustomValidator;
     }
 
     @Override
     public SchoolCode create(SchoolForm schoolForm) {
+
+        schoolFormCustomValidator.doValidate(schoolForm);
+
         log.info("Creating of school started");
         School school = mapToEntity(schoolForm);
         try {
@@ -64,13 +71,6 @@ public class SchoolCommandHandlerImpl implements SchoolCommandHandler {
 
     @Override
     public School mapToEntity(SchoolForm schoolForm) {
-
-        // validate number of KYC documents uploaded matching with KYC data provided
-        if (!schoolForm.getKycDocuments().isEmpty()) {
-            if (schoolForm.getKyc().size() != schoolForm.getKycDocuments().size()) {
-                throw new BrubixException(ErrorCode.INVALID_KYC_FILE_UPLOADS);
-            }
-        }
 
         School school = new School();
         school.setSchoolName(schoolForm.getName());

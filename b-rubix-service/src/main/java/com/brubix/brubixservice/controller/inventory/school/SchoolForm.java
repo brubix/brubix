@@ -2,6 +2,7 @@ package com.brubix.brubixservice.controller.inventory.school;
 
 import com.brubix.brubixservice.controller.inventory.AddressData;
 import com.brubix.brubixservice.controller.inventory.KYCData;
+import com.brubix.brubixservice.validator.constraint.BiFieldMatch;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
@@ -15,6 +16,8 @@ import java.util.List;
 
 @Getter
 @Setter
+@BiFieldMatch.List({
+        @BiFieldMatch(first = "kyc", second = "kycDocuments", message = "{invalid.kyc.attachments}")})
 public class SchoolForm {
 
     @NotBlank(message = "{field.empty}")

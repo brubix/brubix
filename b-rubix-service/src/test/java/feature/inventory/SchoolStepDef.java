@@ -4,6 +4,7 @@ import com.brubix.brubixservice.controller.inventory.AddressData;
 import com.brubix.brubixservice.controller.inventory.KYCData;
 import com.brubix.brubixservice.controller.inventory.school.SchoolData;
 import com.brubix.brubixservice.controller.inventory.school.SchoolForm;
+import com.brubix.brubixservice.exception.error.ErrorResponse;
 import com.brubix.brubixservice.service.inventory.school.SchoolCode;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
@@ -25,11 +26,11 @@ import static org.apache.commons.lang3.StringUtils.isNotBlank;
 public class SchoolStepDef extends AbstractStepDef {
 
     private SchoolForm schoolForm;
-    private ResponseEntity<SchoolCode> schoolCodeResponseEntity;
+    private ResponseEntity<String> schoolCreateResponseEntity;
     private List<String> attachmentNames = new ArrayList<>();
     private String logo;
     private String schoolCode;
-    private ResponseEntity<SchoolData> schoolDataResponseEntity;
+    private ResponseEntity<SchoolData> schoolQueryResponseEntity;
 
     @Given("^the user provided school name as \"([^\"]*)\" and below addresses$")
     public void theUserProvidedSchoolNameAsAndBelowAddresses(String name, List<AddressData> addressDataList) {
@@ -65,8 +66,8 @@ public class SchoolStepDef extends AbstractStepDef {
         HttpEntity<LinkedMultiValueMap<String, Object>> requestEntity = new HttpEntity(parts, headers);
 
         String url = "http://localhost:" + serverPort + contextPath + "/schools";
-        schoolCodeResponseEntity =
-                restTemplate.exchange(url, HttpMethod.POST, requestEntity, SchoolCode.class);
+        schoolCreateResponseEntity =
+                restTemplate.exchange(url, HttpMethod.POST, requestEntity, String.class);
 
     }
 
@@ -92,19 +93,19 @@ public class SchoolStepDef extends AbstractStepDef {
 
     @Then("^a school code is generated$")
     public void aSchoolCodeIsGenerated() throws Exception {
-        Assertions.assertThat(schoolCodeResponseEntity.getStatusCode().value()).isEqualTo(200);
-        Assertions.assertThat(schoolCodeResponseEntity.getBody().getName()).isEqualTo(schoolForm.getName());
-        Assertions.assertThat(schoolCodeResponseEntity.getBody().getCode()).contains("SCHL");
-        this.schoolCode = schoolCodeResponseEntity.getBody().getCode();
+        Assertions.assertThat(schoolCreateResponseEntity.getStatusCode().value()).isEqualTo(200);
+        SchoolCode schoolCode = gson.fromJson(schoolCreateResponseEntity.getBody(), SchoolCode.class);
 
-
+        Assertions.assertThat(schoolCode.getName()).isEqualTo(schoolForm.getName());
+        Assertions.assertThat(schoolCode.getCode()).contains("SCHL");
+        this.schoolCode = schoolCode.getCode();
     }
 
     @When("^user finds school detail by school code$")
     public void userFindsSchoolDetailBySchoolCode() {
         String url = "http://localhost:" + serverPort + contextPath + "/schools/" + schoolCode;
         HttpEntity requestEntity = new HttpEntity(buildHeaders());
-        schoolDataResponseEntity = exchange(url, HttpMethod.GET, requestEntity, SchoolData.class);
+        schoolQueryResponseEntity = exchange(url, HttpMethod.GET, requestEntity, SchoolData.class);
     }
 
     @Then("^below address data should be present for school \"([^\"]*)\" without logo$")
@@ -135,7 +136,7 @@ public class SchoolStepDef extends AbstractStepDef {
                             .build();
                 }).collect(Collectors.toList());*/
 
-        SchoolData schoolData = schoolDataResponseEntity.getBody();
+        SchoolData schoolData = schoolQueryResponseEntity.getBody();
         Assertions.assertThat(schoolData.getName()).isEqualTo(schoolName);
         Assertions.assertThat(schoolData.getLogo()).isNull();
 
@@ -172,12 +173,22 @@ public class SchoolStepDef extends AbstractStepDef {
                             .build();
                 }).collect(Collectors.toList());*/
 
-        SchoolData schoolData = schoolDataResponseEntity.getBody();
+        SchoolData schoolData = schoolQueryResponseEntity.getBody();
         Assertions.assertThat(schoolData.getName()).isEqualTo(schoolName);
         Assertions.assertThat(schoolData.getLogo()).isNotNull();
 
         /*Assertions.assertThat(schoolData.getAddresses())
-                .hasSize(2)
+                .hasSize(2)R
                 .containsAll(addressDataList);*/
+    }
+
+
+    @Then("^the user should get error as \"([^\"]*)\"$")
+    public void theUserShouldGetError(String errorMessage) {
+        Assertions.assertThat(schoolCreateResponseEntity.getStatusCode()
+                .value()).isEqualTo(HttpStatus.BAD_REQUEST.value());
+        String response = schoolCreateResponseEntity.getBody();
+        ErrorResponse errorResponse = gson.fromJson(response, ErrorResponse.class);
+        Assertions.assertThat(errorResponse.getMessage()).isEqualTo(errorMessage);
     }
 }

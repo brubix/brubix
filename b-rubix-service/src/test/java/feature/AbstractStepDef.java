@@ -2,6 +2,7 @@
 package feature;
 
 import com.brubix.brubixservice.BrubixServiceApplication;
+import gherkin.deps.com.google.gson.Gson;
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -19,6 +20,7 @@ import static org.springframework.boot.test.context.SpringBootTest.WebEnvironmen
 @SpringBootTest(webEnvironment = RANDOM_PORT)
 public abstract class AbstractStepDef {
 
+    protected final Gson gson = new Gson();
 
     @Getter
     @Value("${server.context-path}")
