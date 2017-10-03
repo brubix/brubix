@@ -6,6 +6,7 @@ import com.brubix.brubixservice.controller.inventory.school.SchoolData;
 import com.brubix.brubixservice.controller.inventory.school.SchoolForm;
 import com.brubix.brubixservice.exception.error.ErrorResponse;
 import com.brubix.brubixservice.service.inventory.school.SchoolCode;
+import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -32,10 +33,11 @@ public class SchoolStepDef extends AbstractStepDef {
     private String schoolCode;
     private ResponseEntity<SchoolData> schoolQueryResponseEntity;
 
-    @Given("^the user provided school name as \"([^\"]*)\" and below addresses$")
-    public void theUserProvidedSchoolNameAsAndBelowAddresses(String name, List<AddressData> addressDataList) {
+    @Given("^the user provided school name - \"([^\"]*)\" , school id - \"([^\"]*)\" and below addresses$")
+    public void theUserProvidedSchoolNameAsAndBelowAddresses(String name, String userName, List<AddressData> addressDataList) {
         SchoolForm schoolForm = new SchoolForm();
         schoolForm.setName(name);
+        schoolForm.setUserName(userName); //FIX-ME
         schoolForm.setAddresses(addressDataList);
         this.schoolForm = schoolForm;
     }

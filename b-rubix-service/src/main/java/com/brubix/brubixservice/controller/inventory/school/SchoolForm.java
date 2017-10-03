@@ -24,6 +24,10 @@ public class SchoolForm {
     @Length(max = 250, message = "{invalid.length.school.name}")
     private String name;
 
+    @NotBlank(message = "{field.empty}")
+    @Length(min = 6, max = 10, message = "{invalid.length.school.userName}")
+    private String userName;
+
     @Valid
     @NotEmpty(message = "{field.empty}")
     private List<AddressData> addresses;
