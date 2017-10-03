@@ -2,7 +2,6 @@ package com.brubix.entity.identity;
 
 import com.brubix.entity.communication.Email;
 import com.brubix.entity.communication.Phone;
-import com.brubix.entity.identity.Role;
 import com.brubix.entity.inventory.Address;
 import com.brubix.entity.inventory.KYC;
 import com.brubix.entity.inventory.MileStone;
@@ -54,6 +53,13 @@ public abstract class User {
 
     @OneToMany(mappedBy = "person", cascade = CascadeType.ALL)
     private List<Email> emails;
+
+
+    @Column(name = "password", nullable = false)
+    private String password;
+
+    @Column(name = "enabled", nullable = false)
+    private boolean enabled;
 
 
     @ManyToMany

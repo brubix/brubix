@@ -11,3 +11,10 @@ spring:
 server:
     context-path: /v1
     port: 8080
+
+brubix:
+    oauth:
+        token:
+            timeout: 1800
+        refresh-token:
+            timeout: 1800
