@@ -22,10 +22,14 @@ public class Subject {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "name")
+    @Column(name = "name", nullable = false, length = 100)
     private String name;
 
-    @Column(name = "description")
+
+    @Column(name = "code", unique = true, length = 50, nullable = false)
+    private String code;
+
+    @Column(name = "description", nullable = false)
     private String description;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)

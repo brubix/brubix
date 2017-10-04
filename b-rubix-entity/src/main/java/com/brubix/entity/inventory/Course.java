@@ -23,9 +23,12 @@ public class Course {
     @Column(name = "id")
     private Long id;
 
+    @Column(name = "name", unique = true, length = 100, nullable = false)
+    private String name;
+
     @OneToMany(mappedBy = "course", cascade = CascadeType.ALL)
     private List<Subject> subjects;
 
-    @Column(name = "description")
+    @Column(name = "description", nullable = false)
     private String description;
 }

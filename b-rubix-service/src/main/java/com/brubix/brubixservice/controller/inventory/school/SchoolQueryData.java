@@ -8,7 +8,7 @@ import java.util.List;
 
 @Builder
 @Getter
-public class SchoolData {
+public class SchoolQueryData {
 
     private String name;
 

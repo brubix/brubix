@@ -2,16 +2,16 @@ package feature.inventory;
 
 import com.brubix.brubixservice.controller.inventory.AddressData;
 import com.brubix.brubixservice.controller.inventory.KYCData;
-import com.brubix.brubixservice.controller.inventory.school.SchoolData;
 import com.brubix.brubixservice.controller.inventory.school.SchoolForm;
+import com.brubix.brubixservice.controller.inventory.school.SchoolQueryData;
 import com.brubix.brubixservice.exception.error.ErrorResponse;
 import com.brubix.brubixservice.service.inventory.school.SchoolCode;
-import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import feature.AbstractStepDef;
+import feature.SharedDataContext;
 import org.assertj.core.api.Assertions;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.http.*;
@@ -31,7 +31,7 @@ public class SchoolStepDef extends AbstractStepDef {
     private List<String> attachmentNames = new ArrayList<>();
     private String logo;
     private String schoolCode;
-    private ResponseEntity<SchoolData> schoolQueryResponseEntity;
+    private ResponseEntity<SchoolQueryData> schoolDataResponseEntity;
 
     @Given("^the user provided school name - \"([^\"]*)\" , school id - \"([^\"]*)\" and below addresses$")
     public void theUserProvidedSchoolNameAsAndBelowAddresses(String name, String userName, List<AddressData> addressDataList) {
@@ -97,17 +97,18 @@ public class SchoolStepDef extends AbstractStepDef {
     public void aSchoolCodeIsGenerated() throws Exception {
         Assertions.assertThat(schoolCreateResponseEntity.getStatusCode().value()).isEqualTo(200);
         SchoolCode schoolCode = gson.fromJson(schoolCreateResponseEntity.getBody(), SchoolCode.class);
-
         Assertions.assertThat(schoolCode.getName()).isEqualTo(schoolForm.getName());
         Assertions.assertThat(schoolCode.getCode()).contains("SCHL");
         this.schoolCode = schoolCode.getCode();
+        // set school code in shared data context
+        SharedDataContext.setSchoolCode(schoolCode.getCode());
     }
 
     @When("^user finds school detail by school code$")
     public void userFindsSchoolDetailBySchoolCode() {
         String url = "http://localhost:" + serverPort + contextPath + "/schools/" + schoolCode;
         HttpEntity requestEntity = new HttpEntity(buildHeaders());
-        schoolQueryResponseEntity = exchange(url, HttpMethod.GET, requestEntity, SchoolData.class);
+        schoolDataResponseEntity = exchange(url, HttpMethod.GET, requestEntity, SchoolQueryData.class);
     }
 
     @Then("^below address data should be present for school \"([^\"]*)\" without logo$")
@@ -138,9 +139,9 @@ public class SchoolStepDef extends AbstractStepDef {
                             .build();
                 }).collect(Collectors.toList());*/
 
-        SchoolData schoolData = schoolQueryResponseEntity.getBody();
-        Assertions.assertThat(schoolData.getName()).isEqualTo(schoolName);
-        Assertions.assertThat(schoolData.getLogo()).isNull();
+        SchoolQueryData schoolQueryData = schoolDataResponseEntity.getBody();
+        Assertions.assertThat(schoolQueryData.getName()).isEqualTo(schoolName);
+        Assertions.assertThat(schoolQueryData.getLogo()).isNull();
 
         /*Assertions.assertThat(schoolData.getAddresses())
                 .hasSize(2)
@@ -175,15 +176,14 @@ public class SchoolStepDef extends AbstractStepDef {
                             .build();
                 }).collect(Collectors.toList());*/
 
-        SchoolData schoolData = schoolQueryResponseEntity.getBody();
-        Assertions.assertThat(schoolData.getName()).isEqualTo(schoolName);
-        Assertions.assertThat(schoolData.getLogo()).isNotNull();
+        SchoolQueryData schoolQueryData = schoolDataResponseEntity.getBody();
+        Assertions.assertThat(schoolQueryData.getName()).isEqualTo(schoolName);
+        Assertions.assertThat(schoolQueryData.getLogo()).isNotNull();
 
         /*Assertions.assertThat(schoolData.getAddresses())
-                .hasSize(2)R
+                .hasSize(2)
                 .containsAll(addressDataList);*/
     }
-
 
     @Then("^the user should get error as \"([^\"]*)\"$")
     public void theUserShouldGetError(String errorMessage) {

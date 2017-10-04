@@ -1,8 +1,8 @@
 package feature.reference;
 
-import com.brubix.brubixservice.controller.reference.country.CountryData;
-import com.brubix.brubixservice.controller.reference.country.CountryForm;
-import com.brubix.brubixservice.controller.reference.country.StateData;
+import com.brubix.brubixservice.controller.reference.CountryData;
+import com.brubix.brubixservice.controller.reference.CountryForm;
+import com.brubix.brubixservice.controller.reference.StateData;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;

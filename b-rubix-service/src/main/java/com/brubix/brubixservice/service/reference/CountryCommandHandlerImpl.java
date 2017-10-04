@@ -1,6 +1,6 @@
 package com.brubix.brubixservice.service.reference;
 
-import com.brubix.brubixservice.controller.reference.country.CountryData;
+import com.brubix.brubixservice.controller.reference.CountryData;
 import com.brubix.brubixservice.exception.BrubixException;
 import com.brubix.brubixservice.exception.error.ErrorCode;
 import com.brubix.brubixservice.repository.reference.CountryRepository;
@@ -23,7 +23,7 @@ public class CountryCommandHandlerImpl implements CountryCommandHandler {
     }
 
     @Override
-    public Void load(List<CountryData> data) {
+    public Void save(List<CountryData> data) {
         log.info("Loading of countries started");
         List<Country> countries = data
                 .stream()

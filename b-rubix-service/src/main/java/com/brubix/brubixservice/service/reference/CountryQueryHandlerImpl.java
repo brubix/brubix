@@ -1,7 +1,7 @@
 package com.brubix.brubixservice.service.reference;
 
-import com.brubix.brubixservice.controller.reference.country.CountryData;
-import com.brubix.brubixservice.controller.reference.country.StateData;
+import com.brubix.brubixservice.controller.reference.CountryData;
+import com.brubix.brubixservice.controller.reference.StateData;
 import com.brubix.brubixservice.exception.BrubixException;
 import com.brubix.brubixservice.repository.reference.CountryRepository;
 import com.brubix.entity.reference.Country;

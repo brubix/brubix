@@ -1,7 +1,10 @@
 package com.brubix.brubixservice.configuration;
 
+import com.brubix.brubixservice.generator.CodeGenerator;
 import com.brubix.brubixservice.generator.SchoolCodeGenerator;
+import com.brubix.brubixservice.generator.SubjectCodeGenerator;
 import com.brubix.brubixservice.repository.inventory.SchoolRepository;
+import com.brubix.brubixservice.repository.inventory.SubjectRepository;
 import com.brubix.brubixservice.repository.reference.CountryRepository;
 import com.brubix.brubixservice.repository.reference.StateRepository;
 import com.brubix.brubixservice.service.inventory.school.SchoolCommandHandler;
@@ -43,9 +46,10 @@ public class BrubixServiceConfiguration {
                                                      CountryRepository countryRepository,
                                                      StateRepository stateRepository,
                                                      SchoolCodeGenerator schoolCodeGenerator,
-                                                     SchoolFormCustomValidator schoolFormCustomValidator) {
+                                                     SchoolFormCustomValidator schoolFormCustomValidator,
+                                                     CodeGenerator subjectCodeGenerator) {
         return new SchoolCommandHandlerImpl(schoolRepository, countryRepository, stateRepository,
-                schoolCodeGenerator, schoolFormCustomValidator);
+                schoolCodeGenerator, schoolFormCustomValidator, subjectCodeGenerator);
     }
 
     @Bean
@@ -71,5 +75,10 @@ public class BrubixServiceConfiguration {
     public SchoolFormCustomValidator schoolFormCustomValidator(Validator validator) {
         SpringValidatorAdapter springValidatorAdapter = new SpringValidatorAdapter(validator);
         return new SchoolFormCustomValidator(springValidatorAdapter);
+    }
+
+    @Bean
+    public SubjectCodeGenerator subjectCodeGenerator(SubjectRepository subjectRepository) {
+        return new SubjectCodeGenerator(subjectRepository);
     }
 }

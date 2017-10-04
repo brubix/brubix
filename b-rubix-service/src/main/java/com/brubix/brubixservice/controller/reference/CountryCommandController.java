@@ -1,4 +1,4 @@
-package com.brubix.brubixservice.controller.reference.country;
+package com.brubix.brubixservice.controller.reference;
 
 import com.brubix.brubixservice.constant.ApplicationConstant;
 import com.brubix.brubixservice.exception.error.ErrorResponse;
@@ -44,11 +44,11 @@ public class CountryCommandController {
                     @ApiResponse(code = 405, message = INVALID_METHOD, response = ErrorResponse.class),
                     @ApiResponse(code = 500, message = INTERNAL_ERROR, response = ErrorResponse.class)
             })
-    public ResponseEntity loadCountries(
+    public ResponseEntity saveCountries(
             @ApiParam(name = "Countries",
                     value = "List of countries to be loaded",
                     required = true) @RequestBody @Valid CountryForm countryForm) {
-        countryCommandHandler.load(countryForm.getCountries());
+        countryCommandHandler.save(countryForm.getCountries());
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

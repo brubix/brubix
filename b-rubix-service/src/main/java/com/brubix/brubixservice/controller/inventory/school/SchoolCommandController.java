@@ -63,4 +63,34 @@ public class SchoolCommandController {
         SchoolCode schoolCode = schoolDataLoader.create(school);
         return new ResponseEntity<>(schoolCode, HttpStatus.OK);
     }
+
+
+    @PutMapping(path = "/{code}/courses",
+            produces = {MediaType.APPLICATION_JSON_VALUE},
+            consumes = {MediaType.MULTIPART_FORM_DATA_VALUE}
+    )
+    @ApiOperation(
+            value = "Create courses for a school",
+            notes = "Create courses for a school",
+            code = 204, response = String.class)
+    @ApiResponses(
+            value = {
+                    @ApiResponse(code = 400, message = INVALID_PAYLOAD, response = ErrorResponse.class),
+                    @ApiResponse(code = 404, message = UNSUPPORTED_API, response = ErrorResponse.class),
+                    @ApiResponse(code = 405, message = INVALID_METHOD, response = ErrorResponse.class),
+                    @ApiResponse(code = 500, message = INTERNAL_ERROR, response = ErrorResponse.class)
+            })
+    @ResponseBody
+    public ResponseEntity<?> createCoursesOfSchool(
+            @ApiParam(name = "code", value = "School code", required = true)
+            @PathVariable(value = "code") String code,
+
+            @ApiParam(name = "Courses", value = "Courses with subjects for school", required = true)
+            @Valid @RequestBody CourseForm courseForm) {
+
+        courseForm.setSchoolCode(code);
+
+
+        return null;
+    }
 }

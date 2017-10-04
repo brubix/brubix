@@ -39,11 +39,11 @@ public class SchoolQueryController {
                     @ApiResponse(code = 405, message = INVALID_METHOD, response = ErrorResponse.class),
                     @ApiResponse(code = 500, message = INTERNAL_ERROR, response = ErrorResponse.class)
             })
-    public ResponseEntity<SchoolData> findSchoolByCode(
+    public ResponseEntity<SchoolQueryData> findSchoolByCode(
             @ApiParam(
                     name = "code", value = "School code",
                     required = true) @PathVariable(value = "code") String code) {
-        SchoolData schoolData = schoolQueryHandler.findSchoolByCode(code);
+        SchoolQueryData schoolData = schoolQueryHandler.findSchoolByCode(code);
         return new ResponseEntity<>(schoolData, HttpStatus.OK);
     }
 }

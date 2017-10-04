@@ -1,6 +1,7 @@
 package com.brubix.brubixservice.service.inventory.school;
 
 import com.brubix.brubixservice.controller.inventory.KYCData;
+import com.brubix.brubixservice.controller.inventory.school.CourseForm;
 import com.brubix.brubixservice.controller.inventory.school.SchoolForm;
 import com.brubix.brubixservice.exception.BrubixException;
 import com.brubix.brubixservice.exception.error.ErrorCode;
@@ -17,6 +18,7 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.transaction.Transactional;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -28,22 +30,27 @@ public class SchoolCommandHandlerImpl implements SchoolCommandHandler {
 
     private SchoolRepository schoolRepository;
     private CountryRepository countryRepository;
-
     private StateRepository stateRepository;
+
     private CodeGenerator schoolCodeGenerator;
     private SchoolFormCustomValidator schoolFormCustomValidator;
+    private CodeGenerator subjectCodeGenerator;
+
 
     public SchoolCommandHandlerImpl(SchoolRepository schoolRepository,
                                     CountryRepository countryRepository,
                                     StateRepository stateRepository,
                                     CodeGenerator schoolCodeGenerator,
-                                    SchoolFormCustomValidator schoolFormCustomValidator) {
+                                    SchoolFormCustomValidator schoolFormCustomValidator,
+                                    CodeGenerator subjectCodeGenerator) {
         this.schoolRepository = schoolRepository;
         this.countryRepository = countryRepository;
         this.stateRepository = stateRepository;
         this.schoolCodeGenerator = schoolCodeGenerator;
         this.schoolFormCustomValidator = schoolFormCustomValidator;
+        this.subjectCodeGenerator = subjectCodeGenerator;
     }
+
 
     @Override
     public SchoolCode create(SchoolForm schoolForm) {
@@ -67,6 +74,33 @@ public class SchoolCommandHandlerImpl implements SchoolCommandHandler {
             log.error("Error occurred" + ExceptionUtils.getStackTrace(ex.getCause()));
             throw new BrubixException(ErrorCode.LOADING_ERROR);
         }
+    }
+
+    @Override
+    @Transactional
+    public void create(CourseForm courseForm) {
+        School school = schoolRepository.findBySchoolCode(courseForm.getSchoolCode());
+        List<Course> courses = courseForm
+                .getCourses()
+                .stream()
+                .map(courseData -> {
+                    Course course = new Course();
+                    course.setName(courseData.getName());
+                    course.setDescription(courseData.getDescription());
+                    List<Subject> subjects = courseData.getSubjects()
+                            .stream()
+                            .map(subjectData -> {
+                                Subject subject = new Subject();
+                                subject.setName(subjectData.getName());
+                                subject.setDescription(subjectData.getDescription());
+                                subject.setCode(subjectCodeGenerator.generate());
+                                subject.setCourse(course);
+                                return subject;
+                            }).collect(Collectors.toList());
+                    course.setSubjects(subjects);
+                    return course;
+                }).collect(Collectors.toList());
+        school.setCourses(courses);
     }
 
     @Override
@@ -113,7 +147,6 @@ public class SchoolCommandHandlerImpl implements SchoolCommandHandler {
         mileStone.setCreatedAt(new Date());
         //FIXME - association with user entity and identity
         mileStone.setCreatedBy(1);
-
 
         school.setSchoolKyc(kycList);
         school.setAddresses(addresses);

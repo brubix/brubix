@@ -1,7 +1,7 @@
 package com.brubix.brubixservice.service.inventory.school;
 
 import com.brubix.brubixservice.controller.inventory.AddressData;
-import com.brubix.brubixservice.controller.inventory.school.SchoolData;
+import com.brubix.brubixservice.controller.inventory.school.SchoolQueryData;
 import com.brubix.brubixservice.exception.BrubixException;
 import com.brubix.brubixservice.repository.inventory.SchoolRepository;
 import com.brubix.entity.inventory.Address;
@@ -25,7 +25,7 @@ public class SchoolQueryHandlerImpl implements SchoolQueryHandler {
 
     @Override
     @Transactional
-    public SchoolData findSchoolByCode(String code) {
+    public SchoolQueryData findSchoolByCode(String code) {
         School school = schoolRepository.findBySchoolCode(code);
 
         if (school == null) {
@@ -33,7 +33,7 @@ public class SchoolQueryHandlerImpl implements SchoolQueryHandler {
             throw new BrubixException(INVALID_COUNTRY_CODE);
         }
 
-        return SchoolData
+        return SchoolQueryData
                 .builder()
                 .addresses(mapToAddress(school.getAddresses()))
                 .code(school.getSchoolCode())

@@ -44,6 +44,9 @@ public class School {
     @JoinColumn(name = "school_id")
     private List<KYC> schoolKyc;
 
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Course> courses;
+
     @Embedded
     private MileStone mileStone;
 }
