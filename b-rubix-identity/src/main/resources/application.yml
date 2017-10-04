@@ -17,4 +17,4 @@ brubix:
         token:
             timeout: 1800
         refresh-token:
-            timeout: 1800
+            timeout: 3600
