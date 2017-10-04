@@ -19,8 +19,11 @@ public class Privilege {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "name", nullable = false, unique = true)
+    @Column(name = "name", nullable = false, unique = true, length = 50)
     private String name;
+
+    @Column(name = "description", nullable = false)
+    private String description;
 
     @ManyToMany(mappedBy = "privileges")
     private List<Role> roles;

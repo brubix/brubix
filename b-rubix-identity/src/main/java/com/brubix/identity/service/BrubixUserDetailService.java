@@ -7,6 +7,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Slf4j
 public class BrubixUserDetailService implements UserDetailsService {
 
@@ -26,6 +29,25 @@ public class BrubixUserDetailService implements UserDetailsService {
                 throw new UsernameNotFoundException("User not found");
             }
         }
-        return new BrubixUserDetails(user.getName(), user.isEnabled(), user.getRoles());
+
+        List<BrubixUserDetails.UserRole> userRoles = user.getRoles()
+                .stream()
+                .map(role -> {
+                    BrubixUserDetails.UserRole userRole = new BrubixUserDetails.UserRole();
+                    userRole.setName(role.getName());
+                    userRole.setDescription(role.getDescription());
+                    userRole.setPrivileges(role.getPrivileges()
+                            .stream()
+                            .map(privilege -> {
+                                BrubixUserDetails.RolePrivilege rolePrivilege = new BrubixUserDetails.RolePrivilege();
+                                rolePrivilege.setName(privilege.getName());
+                                rolePrivilege.setDescription(privilege.getDescription());
+                                return rolePrivilege;
+                            }).collect(Collectors.toList()));
+                    return userRole;
+
+                }).collect(Collectors.toList());
+
+        return new BrubixUserDetails(user.getName(), user.isEnabled(), userRoles);
     }
 }

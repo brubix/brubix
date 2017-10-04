@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -17,11 +18,13 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Aut
 import org.springframework.security.oauth2.provider.approval.UserApprovalHandler;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 
+import static com.brubix.identity.configuration.OAuth2ResourceServer.RESOURCE_ID;
+
 @Configuration
 @EnableAuthorizationServer
 public class OAuth2AuthorizationServer extends AuthorizationServerConfigurerAdapter {
 
-    @Value("${brubix.oauth.token.timeout:3600}")
+    @Value("${brubix.oauth.token.timeout:1800}")
     private int tokenExpiration;
 
     @Value("${brubix.oauth.refresh-token.timeout:3600}")
@@ -61,13 +64,13 @@ public class OAuth2AuthorizationServer extends AuthorizationServerConfigurerAdap
         // as of now, only b-rubix services are client, so in-memory seems ok
         clients
                 .inMemory()
-                .withClient("brubix-service")
+                .withClient("brubix")
                 .secret("secret")
                 .scopes("read", "write", "trust")
                 .authorizedGrantTypes("password", "authorization_code", "refresh_token", "implicit")
                 .authorities("ROLE_CLIENT", "ROLE_TRUSTED_CLIENT")
                 .accessTokenValiditySeconds(tokenExpiration)
                 .refreshTokenValiditySeconds(refreshTokenExpiration)
-                .resourceIds("brubix");
+                .resourceIds(RESOURCE_ID);
     }
 }
