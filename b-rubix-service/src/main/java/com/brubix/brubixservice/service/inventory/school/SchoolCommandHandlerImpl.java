@@ -34,21 +34,18 @@ public class SchoolCommandHandlerImpl implements SchoolCommandHandler {
 
     private CodeGenerator schoolCodeGenerator;
     private SchoolFormCustomValidator schoolFormCustomValidator;
-    private CodeGenerator subjectCodeGenerator;
 
 
     public SchoolCommandHandlerImpl(SchoolRepository schoolRepository,
                                     CountryRepository countryRepository,
                                     StateRepository stateRepository,
                                     CodeGenerator schoolCodeGenerator,
-                                    SchoolFormCustomValidator schoolFormCustomValidator,
-                                    CodeGenerator subjectCodeGenerator) {
+                                    SchoolFormCustomValidator schoolFormCustomValidator) {
         this.schoolRepository = schoolRepository;
         this.countryRepository = countryRepository;
         this.stateRepository = stateRepository;
         this.schoolCodeGenerator = schoolCodeGenerator;
         this.schoolFormCustomValidator = schoolFormCustomValidator;
-        this.subjectCodeGenerator = subjectCodeGenerator;
     }
 
 
@@ -80,6 +77,11 @@ public class SchoolCommandHandlerImpl implements SchoolCommandHandler {
     @Transactional
     public void create(CourseForm courseForm) {
         School school = schoolRepository.findBySchoolCode(courseForm.getSchoolCode());
+
+        if (school == null) {
+            throw new BrubixException(ErrorCode.INVALID_SCHOOL_CODE);
+        }
+
         List<Course> courses = courseForm
                 .getCourses()
                 .stream()
@@ -87,17 +89,6 @@ public class SchoolCommandHandlerImpl implements SchoolCommandHandler {
                     Course course = new Course();
                     course.setName(courseData.getName());
                     course.setDescription(courseData.getDescription());
-                    List<Subject> subjects = courseData.getSubjects()
-                            .stream()
-                            .map(subjectData -> {
-                                Subject subject = new Subject();
-                                subject.setName(subjectData.getName());
-                                subject.setDescription(subjectData.getDescription());
-                                subject.setCode(subjectCodeGenerator.generate());
-                                subject.setCourse(course);
-                                return subject;
-                            }).collect(Collectors.toList());
-                    course.setSubjects(subjects);
                     return course;
                 }).collect(Collectors.toList());
         school.setCourses(courses);

@@ -25,10 +25,6 @@ public class Subject {
     @Column(name = "name", nullable = false, length = 100)
     private String name;
 
-
-    @Column(name = "code", unique = true, length = 50, nullable = false)
-    private String code;
-
     @Column(name = "description", nullable = false)
     private String description;
 

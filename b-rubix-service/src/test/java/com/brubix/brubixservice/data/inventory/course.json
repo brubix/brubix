@@ -1,0 +1,16 @@
+{
+  "courses": [
+    {
+      "description": "Standard 1",
+      "name": "STD1"
+    },
+    {
+      "description": "Standard 2",
+      "name": "STD2"
+    },
+    {
+      "description": "Standard 3",
+      "name": "STD3"
+    }
+  ]
+}

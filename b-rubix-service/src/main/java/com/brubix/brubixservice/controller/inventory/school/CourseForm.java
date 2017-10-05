@@ -27,31 +27,11 @@ public class CourseForm {
     public static class CourseData {
 
         @NotBlank(message = "{field.empty}")
-        @Length(max = 50, message = "{invalid.length.course.name}")
+        @Length(max = 100, message = "{invalid.length.course.name}")
         private String name;
 
         @NotBlank(message = "{field.empty}")
         @Length(max = 255, message = "{invalid.length.course.description}")
         private String description;
-
-        @Valid
-        @NotEmpty(message = "{field.empty}")
-        private List<SubjectData> subjects;
     }
-
-    @Getter
-    @Setter
-    public static class SubjectData {
-
-        @NotBlank(message = "{field.empty}")
-        @Length(max = 100, message = "{invalid.length.subject.name}")
-        private String name;
-
-
-        @NotBlank(message = "{field.empty}")
-        @Length(max = 255, message = "{invalid.length.subject.description}")
-        private String description;
-
-    }
-
 }

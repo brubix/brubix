@@ -18,8 +18,6 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Aut
 import org.springframework.security.oauth2.provider.approval.UserApprovalHandler;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 
-import javax.sql.DataSource;
-
 import static com.brubix.identity.configuration.OAuth2ResourceServer.RESOURCE_ID;
 
 @Configuration
@@ -37,9 +35,6 @@ public class OAuth2AuthorizationServer extends AuthorizationServerConfigurerAdap
 
     @Autowired
     private TokenStore tokenStore;
-
-    @Autowired
-    private DataSource dataSource;
 
     @Autowired
     private UserApprovalHandler userApprovalHandler;
@@ -61,7 +56,6 @@ public class OAuth2AuthorizationServer extends AuthorizationServerConfigurerAdap
                 .checkTokenAccess("isAuthenticated()");
     }
 
-
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer configurer) throws Exception {
         configurer
@@ -74,15 +68,16 @@ public class OAuth2AuthorizationServer extends AuthorizationServerConfigurerAdap
     // FIXME dynamically configuring clients
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
-        // as of now, only b-rubix services is the only client, so in-memory seems ok
         clients
-                .jdbc(dataSource)
+                // as of now, only b-rubix services is the only client, so in-memory seems ok
+                .inMemory()
                 .withClient("brubix")
                 .secret("secret")
-                // Not intended to support "implicit" grant type
-                .authorizedGrantTypes("password", "authorization_code", "refresh_token")
+                // Only password flow to be supported as of now,
+                // other flows available ("authorization_code", "refresh_token", "implicit")
+                .authorizedGrantTypes("password")
                 .scopes("read", "write", "trust")
-                .authorities("ROLE_CLIENT", "ROLE_TRUSTED_CLIENT")
+                .authorities("ROLE_CLIENT")
                 .accessTokenValiditySeconds(tokenExpiration)
                 .refreshTokenValiditySeconds(refreshTokenExpiration)
                 .resourceIds(RESOURCE_ID);

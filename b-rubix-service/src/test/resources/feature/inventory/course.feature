@@ -1,10 +1,22 @@
-@skip
-Feature: Create courses for school
+Feature: Create courses for a school
 
-  Scenario: Create school in system without school logo without KYC details and attachments
-    Given the user provided school name as "ABC school" and below addresses
+  Scenario: Create for a school
+    Given the user provided school name - "ABC school" , school id - "abc_school" and below addresses
       | first line     | second line | third line  | state code | country code | pin code |
       | HSR 3rd sector | BDA complex | BDA complex | KAR        | IND          | 560101   |
-      | Texas city 1   | Texas       | Texas       | TXS        | USA          | 765012   |
     When the user creates school
     Then a school code is generated
+    And the user creates below courses for school
+      | name | description |
+      | STD1 | standard 1  |
+      | STD2 | standard 2  |
+      | STD3 | standard 3  |
+      | STD4 | standard 4  |
+    When user finds all courses for school
+    Then user should get
+      | name | description |
+      | STD1 | standard 1  |
+      | STD2 | standard 2  |
+      | STD3 | standard 3  |
+      | STD4 | standard 4  |
+

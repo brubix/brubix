@@ -22,10 +22,10 @@ import static com.brubix.brubixservice.exception.error.ErrorMessages.*;
 @Api(tags = {ApplicationConstant.SCHOOL_TAG}, description = StringUtils.SPACE)
 public class SchoolCommandController {
 
-    private SchoolCommandHandler schoolDataLoader;
+    private SchoolCommandHandler schoolCommandHandler;
 
-    public SchoolCommandController(SchoolCommandHandler schoolDataLoader) {
-        this.schoolDataLoader = schoolDataLoader;
+    public SchoolCommandController(SchoolCommandHandler schoolCommandHandler) {
+        this.schoolCommandHandler = schoolCommandHandler;
     }
 
     //https://stackoverflow.com/questions/21329426/spring-mvc-multipart-request-with-json
@@ -60,14 +60,14 @@ public class SchoolCommandController {
     ) {
         school.setSchoolLogo(logo);
         school.setKycDocuments(kycDocuments);
-        SchoolCode schoolCode = schoolDataLoader.create(school);
+        SchoolCode schoolCode = schoolCommandHandler.create(school);
         return new ResponseEntity<>(schoolCode, HttpStatus.OK);
     }
 
 
     @PutMapping(path = "/{code}/courses",
             produces = {MediaType.APPLICATION_JSON_VALUE},
-            consumes = {MediaType.MULTIPART_FORM_DATA_VALUE}
+            consumes = {MediaType.APPLICATION_JSON_VALUE}
     )
     @ApiOperation(
             value = "Create courses for a school",
@@ -80,17 +80,16 @@ public class SchoolCommandController {
                     @ApiResponse(code = 405, message = INVALID_METHOD, response = ErrorResponse.class),
                     @ApiResponse(code = 500, message = INTERNAL_ERROR, response = ErrorResponse.class)
             })
-    @ResponseBody
     public ResponseEntity<?> createCoursesOfSchool(
             @ApiParam(name = "code", value = "School code", required = true)
             @PathVariable(value = "code") String code,
 
-            @ApiParam(name = "Courses", value = "Courses with subjects for school", required = true)
+            @ApiParam(name = "Courses", value = "Courses for school", required = true)
             @Valid @RequestBody CourseForm courseForm) {
 
         courseForm.setSchoolCode(code);
+        schoolCommandHandler.create(courseForm);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 
-
-        return null;
     }
 }

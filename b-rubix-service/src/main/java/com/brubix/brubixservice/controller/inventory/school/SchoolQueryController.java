@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 import static com.brubix.brubixservice.exception.error.ErrorMessages.*;
 
 @RestController
@@ -45,5 +47,27 @@ public class SchoolQueryController {
                     required = true) @PathVariable(value = "code") String code) {
         SchoolQueryData schoolData = schoolQueryHandler.findSchoolByCode(code);
         return new ResponseEntity<>(schoolData, HttpStatus.OK);
+    }
+
+
+    @GetMapping({"/{code}/courses"})
+    @ApiOperation(
+            value = "Get all courses for a school",
+            notes = "Get all courses for a school",
+            httpMethod = "GET")
+    @ApiResponses(
+            value = {
+                    @ApiResponse(code = 400, message = INVALID_HEADER, response = ErrorResponse.class),
+                    @ApiResponse(code = 400, message = INVALID_SCHOOL_CODE, response = ErrorResponse.class),
+                    @ApiResponse(code = 404, message = UNSUPPORTED_API, response = ErrorResponse.class),
+                    @ApiResponse(code = 405, message = INVALID_METHOD, response = ErrorResponse.class),
+                    @ApiResponse(code = 500, message = INTERNAL_ERROR, response = ErrorResponse.class)
+            })
+    public ResponseEntity<List<CourseQueryData>> findAllCoursesBySchoolCode(
+            @ApiParam(name = "code", value = "School code", required = true)
+            @PathVariable(value = "code") String schoolCode
+    ) {
+        List<CourseQueryData> courses = schoolQueryHandler.findAllCoursesBySchoolCode(schoolCode);
+        return new ResponseEntity<>(courses, HttpStatus.OK);
     }
 }
