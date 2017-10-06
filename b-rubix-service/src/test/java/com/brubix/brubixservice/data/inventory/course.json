@@ -1,16 +1,48 @@
 {
   "courses": [
     {
-      "description": "Standard 1",
-      "name": "STD1"
+      "name": "Standard 8",
+      "description": "Standard 8",
+      "subjects": [
+        {
+          "name": "Physics",
+          "description": "Physics"
+        },
+        {
+          "name": "Chemistry",
+          "description": "Chemistry"
+        },
+        {
+          "name": "Physics",
+          "description": "Physics"
+        },
+        {
+          "name": "Mathematics",
+          "description": "Mathematics"
+        }
+      ]
     },
     {
-      "description": "Standard 2",
-      "name": "STD2"
-    },
-    {
-      "description": "Standard 3",
-      "name": "STD3"
+      "name": "Standard 7",
+      "description": "Standard 7",
+      "subjects": [
+        {
+          "name": "Physics",
+          "description": "Physics"
+        },
+        {
+          "name": "Chemistry",
+          "description": "Chemistry"
+        },
+        {
+          "name": "Physics",
+          "description": "Physics"
+        },
+        {
+          "name": "Mathematics",
+          "description": "Mathematics"
+        }
+      ]
     }
   ]
 }

@@ -1,8 +1,8 @@
-package com.brubix.brubixservice.controller.reference;
+package com.brubix.brubixservice.controller.reference.country;
 
 import com.brubix.brubixservice.constant.ApplicationConstant;
 import com.brubix.brubixservice.exception.error.ErrorResponse;
-import com.brubix.brubixservice.service.reference.CountryQueryHandler;
+import com.brubix.brubixservice.service.reference.country.CountryQueryHandler;
 import io.swagger.annotations.*;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.HttpStatus;

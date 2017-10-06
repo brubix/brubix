@@ -1,6 +1,5 @@
 package com.brubix.brubixservice.configuration;
 
-import com.brubix.brubixservice.generator.CodeGenerator;
 import com.brubix.brubixservice.generator.SchoolCodeGenerator;
 import com.brubix.brubixservice.repository.inventory.SchoolRepository;
 import com.brubix.brubixservice.repository.inventory.SubjectRepository;
@@ -10,10 +9,14 @@ import com.brubix.brubixservice.service.inventory.school.SchoolCommandHandler;
 import com.brubix.brubixservice.service.inventory.school.SchoolCommandHandlerImpl;
 import com.brubix.brubixservice.service.inventory.school.SchoolQueryHandler;
 import com.brubix.brubixservice.service.inventory.school.SchoolQueryHandlerImpl;
-import com.brubix.brubixservice.service.reference.CountryCommandHandler;
-import com.brubix.brubixservice.service.reference.CountryCommandHandlerImpl;
-import com.brubix.brubixservice.service.reference.CountryQueryHandler;
-import com.brubix.brubixservice.service.reference.CountryQueryHandlerImpl;
+import com.brubix.brubixservice.service.reference.country.CountryCommandHandler;
+import com.brubix.brubixservice.service.reference.country.CountryCommandHandlerImpl;
+import com.brubix.brubixservice.service.reference.country.CountryQueryHandler;
+import com.brubix.brubixservice.service.reference.country.CountryQueryHandlerImpl;
+import com.brubix.brubixservice.service.reference.subject.SubjectCommandHandler;
+import com.brubix.brubixservice.service.reference.subject.SubjectCommandHandlerImpl;
+import com.brubix.brubixservice.service.reference.subject.SubjectQueryHandler;
+import com.brubix.brubixservice.service.reference.subject.SubjectQueryHandlerImpl;
 import com.brubix.brubixservice.validator.SchoolFormCustomValidator;
 import org.hibernate.validator.HibernateValidator;
 import org.springframework.beans.factory.annotation.Value;
@@ -45,9 +48,10 @@ public class BrubixServiceConfiguration {
                                                      CountryRepository countryRepository,
                                                      StateRepository stateRepository,
                                                      SchoolCodeGenerator schoolCodeGenerator,
-                                                     SchoolFormCustomValidator schoolFormCustomValidator) {
+                                                     SchoolFormCustomValidator schoolFormCustomValidator,
+                                                     SubjectRepository subjectRepository) {
         return new SchoolCommandHandlerImpl(schoolRepository, countryRepository, stateRepository,
-                schoolCodeGenerator, schoolFormCustomValidator);
+                schoolCodeGenerator, schoolFormCustomValidator, subjectRepository);
     }
 
     @Bean
@@ -58,6 +62,16 @@ public class BrubixServiceConfiguration {
     @Bean
     public SchoolCodeGenerator schoolCodeGenerator(SchoolRepository schoolRepository) {
         return new SchoolCodeGenerator(schoolRepository);
+    }
+
+    @Bean
+    public SubjectCommandHandler subjectCommandHandler(SubjectRepository subjectRepository) {
+        return new SubjectCommandHandlerImpl(subjectRepository);
+    }
+
+    @Bean
+    public SubjectQueryHandler subjectQueryHandler(SubjectRepository subjectRepository) {
+        return new SubjectQueryHandlerImpl(subjectRepository);
     }
 
     @Bean

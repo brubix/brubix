@@ -1,7 +1,9 @@
 package feature;
 
 
+import com.brubix.brubixservice.repository.inventory.SubjectRepository;
 import com.brubix.brubixservice.repository.reference.CountryRepository;
+import com.brubix.entity.inventory.Subject;
 import com.brubix.entity.reference.Country;
 import com.brubix.entity.reference.State;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,9 +19,35 @@ public class ReferenceDataLoader {
     @Autowired
     private CountryRepository countryRepository;
 
+    @Autowired
+    private SubjectRepository subjectRepository;
+
     @PostConstruct
     public void load() {
+        loadCountry();
+        loadSubjects();
+    }
 
+    private void loadSubjects() {
+        Subject math = new Subject();
+        math.setName("Mathematics");
+        math.setDescription("Mathematics");
+
+        Subject physics = new Subject();
+        physics.setName("Physics");
+        physics.setDescription("Physics");
+
+        Subject chemistry = new Subject();
+        chemistry.setName("Chemistry");
+        chemistry.setDescription("Chemistry");
+
+        Subject biology = new Subject();
+        biology.setName("Biology");
+        biology.setDescription("Biology");
+        subjectRepository.save(Arrays.asList(math, physics, chemistry, biology));
+    }
+
+    private void loadCountry() {
         Country india = new Country();
         india.setCode("IND");
         india.setCurrency("INR");

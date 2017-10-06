@@ -1,9 +1,9 @@
-package com.brubix.brubixservice.service.reference;
-
-import com.brubix.brubixservice.controller.reference.CountryData;
-import com.brubix.brubixservice.controller.reference.StateData;
+package com.brubix.brubixservice.service.reference.country;
+import com.brubix.brubixservice.controller.reference.country.CountryData;
+import com.brubix.brubixservice.controller.reference.country.StateData;
 import com.brubix.brubixservice.exception.BrubixException;
 import com.brubix.brubixservice.repository.reference.CountryRepository;
+import com.brubix.brubixservice.service.reference.country.CountryQueryHandler;
 import com.brubix.entity.reference.Country;
 import com.brubix.entity.reference.State;
 import lombok.extern.slf4j.Slf4j;

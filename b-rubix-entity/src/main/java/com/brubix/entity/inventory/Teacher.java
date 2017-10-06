@@ -28,11 +28,10 @@ public class Teacher extends User {
     @Temporal(TemporalType.DATE)
     private Date resignationDate;
 
-    @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "teacher_id")
-    private List<Subject> subjects;
-
     @ManyToOne(fetch = FetchType.LAZY)
     private School school;
+
+    @ManyToMany(mappedBy = "teachers")
+    private List<Subject> subjects;
 
 }

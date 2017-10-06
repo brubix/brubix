@@ -1,0 +1,20 @@
+{
+  "subjects": [
+    {
+      "name": "Mathematics",
+      "description": "Mathematics"
+    },
+    {
+      "name": "Physics",
+      "description": "Physics"
+    },
+    {
+      "name": "Chemistry",
+      "description": "Chemistry"
+    },
+    {
+      "name": "Biology",
+      "description": "Biology"
+    }
+  ]
+}

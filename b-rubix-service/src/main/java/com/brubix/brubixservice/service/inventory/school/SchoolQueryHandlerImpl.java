@@ -1,8 +1,9 @@
 package com.brubix.brubixservice.service.inventory.school;
 
 import com.brubix.brubixservice.controller.inventory.AddressData;
-import com.brubix.brubixservice.controller.inventory.school.CourseQueryData;
+import com.brubix.brubixservice.controller.inventory.school.CourseForm;
 import com.brubix.brubixservice.controller.inventory.school.SchoolQueryData;
+import com.brubix.brubixservice.controller.reference.subject.SubjectForm;
 import com.brubix.brubixservice.exception.BrubixException;
 import com.brubix.brubixservice.repository.inventory.SchoolRepository;
 import com.brubix.entity.inventory.Address;
@@ -48,7 +49,7 @@ public class SchoolQueryHandlerImpl implements SchoolQueryHandler {
 
     @Override
     @Transactional
-    public List<CourseQueryData> findAllCoursesBySchoolCode(String code) {
+    public List<CourseForm.CourseData> findAllCoursesBySchoolCode(String code) {
         School school = schoolRepository.findBySchoolCode(code);
         if (school == null) {
             log.info("School code provided as {} is not found in system", code);
@@ -62,25 +63,22 @@ public class SchoolQueryHandlerImpl implements SchoolQueryHandler {
 
     }
 
-    private CourseQueryData mapToCourse(Course course) {
-        return CourseQueryData
-                .builder()
-                .name(course.getName())
-                .description(course.getDescription())
-                .subjects(mapToSubject(course.getSubjects()))
-                .build();
+    private CourseForm.CourseData mapToCourse(Course course) {
+        CourseForm.CourseData courseData = new CourseForm.CourseData();
+        courseData.setName(course.getName());
+        courseData.setDescription(course.getDescription());
+        courseData.setSubjects(mapToSubject(course.getSubjects()));
+        return courseData;
     }
 
-    private List<CourseQueryData.SubjectQueryData> mapToSubject(List<Subject> subjects) {
+    private List<SubjectForm.SubjectData> mapToSubject(List<Subject> subjects) {
         return subjects
                 .stream()
                 .map(subject -> {
-                            return CourseQueryData
-                                    .SubjectQueryData
-                                    .builder()
-                                    .name(subject.getName())
-                                    .description(subject.getDescription())
-                                    .build();
+                            SubjectForm.SubjectData subjectData = new SubjectForm.SubjectData();
+                            subjectData.setName(subject.getName());
+                            subjectData.setDescription(subject.getDescription());
+                            return subjectData;
                         }
                 ).collect(Collectors.toList());
 

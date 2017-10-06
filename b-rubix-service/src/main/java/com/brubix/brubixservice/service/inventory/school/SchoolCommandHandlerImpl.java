@@ -3,10 +3,12 @@ package com.brubix.brubixservice.service.inventory.school;
 import com.brubix.brubixservice.controller.inventory.KYCData;
 import com.brubix.brubixservice.controller.inventory.school.CourseForm;
 import com.brubix.brubixservice.controller.inventory.school.SchoolForm;
+import com.brubix.brubixservice.controller.reference.subject.SubjectForm;
 import com.brubix.brubixservice.exception.BrubixException;
 import com.brubix.brubixservice.exception.error.ErrorCode;
 import com.brubix.brubixservice.generator.CodeGenerator;
 import com.brubix.brubixservice.repository.inventory.SchoolRepository;
+import com.brubix.brubixservice.repository.inventory.SubjectRepository;
 import com.brubix.brubixservice.repository.reference.CountryRepository;
 import com.brubix.brubixservice.repository.reference.StateRepository;
 import com.brubix.brubixservice.validator.SchoolFormCustomValidator;
@@ -34,18 +36,21 @@ public class SchoolCommandHandlerImpl implements SchoolCommandHandler {
 
     private CodeGenerator schoolCodeGenerator;
     private SchoolFormCustomValidator schoolFormCustomValidator;
+    private SubjectRepository subjectRepository;
 
 
     public SchoolCommandHandlerImpl(SchoolRepository schoolRepository,
                                     CountryRepository countryRepository,
                                     StateRepository stateRepository,
                                     CodeGenerator schoolCodeGenerator,
-                                    SchoolFormCustomValidator schoolFormCustomValidator) {
+                                    SchoolFormCustomValidator schoolFormCustomValidator,
+                                    SubjectRepository subjectRepository) {
         this.schoolRepository = schoolRepository;
         this.countryRepository = countryRepository;
         this.stateRepository = stateRepository;
         this.schoolCodeGenerator = schoolCodeGenerator;
         this.schoolFormCustomValidator = schoolFormCustomValidator;
+        this.subjectRepository = subjectRepository;
     }
 
 
@@ -66,7 +71,6 @@ public class SchoolCommandHandlerImpl implements SchoolCommandHandler {
                     .name(savedSchool.getSchoolName())
                     .build();
 
-
         } catch (DataAccessException ex) {
             log.error("Error occurred" + ExceptionUtils.getStackTrace(ex.getCause()));
             throw new BrubixException(ErrorCode.LOADING_ERROR);
@@ -77,21 +81,33 @@ public class SchoolCommandHandlerImpl implements SchoolCommandHandler {
     @Transactional
     public void create(CourseForm courseForm) {
         School school = schoolRepository.findBySchoolCode(courseForm.getSchoolCode());
-
         if (school == null) {
             throw new BrubixException(ErrorCode.INVALID_SCHOOL_CODE);
         }
-
-        List<Course> courses = courseForm
-                .getCourses()
-                .stream()
-                .map(courseData -> {
-                    Course course = new Course();
-                    course.setName(courseData.getName());
-                    course.setDescription(courseData.getDescription());
-                    return course;
-                }).collect(Collectors.toList());
+        List<Course> courses =
+                courseForm
+                        .getCourses()
+                        .stream()
+                        .map(courseData -> {
+                            Course course = new Course();
+                            course.setName(courseData.getName());
+                            course.setDescription(courseData.getDescription());
+                            course.setSubjects(mapToSubject(courseData.getSubjects()));
+                            return course;
+                        }).collect(Collectors.toList());
         school.setCourses(courses);
+    }
+
+    private List<Subject> mapToSubject(List<SubjectForm.SubjectData> subjectDataList) {
+        return subjectDataList
+                .stream()
+                .map(subjectData -> {
+                    Subject subject = subjectRepository.findByName(subjectData.getName());
+                    if (subject == null) {
+                        throw new BrubixException(ErrorCode.INVALID_SUBJECT_NAME);
+                    }
+                    return subject;
+                }).collect(Collectors.toList());
     }
 
     @Override

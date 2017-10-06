@@ -1,6 +1,6 @@
-package com.brubix.brubixservice.service.reference;
+package com.brubix.brubixservice.service.reference.country;
 
-import com.brubix.brubixservice.controller.reference.CountryData;
+import com.brubix.brubixservice.controller.reference.country.CountryData;
 
 import java.util.List;
 

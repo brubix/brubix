@@ -23,14 +23,21 @@ public class Course {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "name", unique = true, length = 100, nullable = false)
+    @Column(name = "name", length = 100, nullable = false)
     private String name;
 
     @Column(name = "description", nullable = false)
     private String description;
 
-    @OneToMany(mappedBy = "course", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToMany
+    @JoinTable(
+            name = "course_subject",
+            joinColumns = @JoinColumn(
+                    name = "course_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(
+                    name = "subject_id", referencedColumnName = "id"))
     private List<Subject> subjects;
 
-
+    @ManyToMany(mappedBy = "courses")
+    private List<School> schools;
 }

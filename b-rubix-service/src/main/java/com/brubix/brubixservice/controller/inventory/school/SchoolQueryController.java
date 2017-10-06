@@ -63,11 +63,11 @@ public class SchoolQueryController {
                     @ApiResponse(code = 405, message = INVALID_METHOD, response = ErrorResponse.class),
                     @ApiResponse(code = 500, message = INTERNAL_ERROR, response = ErrorResponse.class)
             })
-    public ResponseEntity<List<CourseQueryData>> findAllCoursesBySchoolCode(
+    public ResponseEntity<List<CourseForm.CourseData>> findAllCoursesBySchoolCode(
             @ApiParam(name = "code", value = "School code", required = true)
             @PathVariable(value = "code") String schoolCode
     ) {
-        List<CourseQueryData> courses = schoolQueryHandler.findAllCoursesBySchoolCode(schoolCode);
+        List<CourseForm.CourseData> courses = schoolQueryHandler.findAllCoursesBySchoolCode(schoolCode);
         return new ResponseEntity<>(courses, HttpStatus.OK);
     }
 }

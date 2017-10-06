@@ -1,5 +1,6 @@
 package com.brubix.brubixservice.controller.inventory.school;
 
+import com.brubix.brubixservice.controller.reference.subject.SubjectForm;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
@@ -33,5 +34,8 @@ public class CourseForm {
         @NotBlank(message = "{field.empty}")
         @Length(max = 255, message = "{invalid.length.course.description}")
         private String description;
+
+        @Valid
+        private List<SubjectForm.SubjectData> subjects;
     }
 }

@@ -1,4 +1,4 @@
-package com.brubix.brubixservice.controller.reference;
+package com.brubix.brubixservice.controller.reference.country;
 
 import lombok.Getter;
 import lombok.Setter;

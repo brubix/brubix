@@ -44,7 +44,13 @@ public class School {
     @JoinColumn(name = "school_id")
     private List<KYC> schoolKyc;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "school_course",
+            joinColumns = @JoinColumn(
+                    name = "school_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(
+                    name = "course_id", referencedColumnName = "id"))
     private List<Course> courses;
 
     @Embedded

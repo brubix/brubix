@@ -70,8 +70,8 @@ public class SchoolCommandController {
             consumes = {MediaType.APPLICATION_JSON_VALUE}
     )
     @ApiOperation(
-            value = "Create courses for a school",
-            notes = "Create courses for a school",
+            value = "Create courses for a school with subjects",
+            notes = "Create courses for a school with subjects",
             code = 204, response = String.class)
     @ApiResponses(
             value = {
@@ -84,7 +84,7 @@ public class SchoolCommandController {
             @ApiParam(name = "code", value = "School code", required = true)
             @PathVariable(value = "code") String code,
 
-            @ApiParam(name = "Courses", value = "Courses for school", required = true)
+            @ApiParam(name = "Courses", value = "Courses with subjects for school", required = true)
             @Valid @RequestBody CourseForm courseForm) {
 
         courseForm.setSchoolCode(code);

@@ -1,8 +1,8 @@
-package com.brubix.brubixservice.controller.reference;
+package com.brubix.brubixservice.controller.reference.subject;
 
 import com.brubix.brubixservice.constant.ApplicationConstant;
 import com.brubix.brubixservice.exception.error.ErrorResponse;
-import com.brubix.brubixservice.service.reference.CountryCommandHandler;
+import com.brubix.brubixservice.service.reference.subject.SubjectCommandHandler;
 import io.swagger.annotations.*;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.HttpStatus;
@@ -18,22 +18,23 @@ import javax.validation.Valid;
 import static com.brubix.brubixservice.exception.error.ErrorMessages.*;
 
 @RestController
-@RequestMapping(path = "/countries",
+@RequestMapping(path = "/subjects",
         produces = {MediaType.APPLICATION_JSON_VALUE},
         consumes = {MediaType.APPLICATION_JSON_VALUE})
-@Api(tags = {ApplicationConstant.COUNTRY_TAG}, description = StringUtils.SPACE)
-public class CountryCommandController {
+@Api(tags = {ApplicationConstant.SUBJECT_TAG}, description = StringUtils.SPACE)
+public class SubjectCommandController {
 
-    private CountryCommandHandler countryCommandHandler;
+    private SubjectCommandHandler subjectCommandHandler;
 
-    public CountryCommandController(CountryCommandHandler countryCommandHandler) {
-        this.countryCommandHandler = countryCommandHandler;
+    public SubjectCommandController(SubjectCommandHandler subjectCommandHandler) {
+        this.subjectCommandHandler = subjectCommandHandler;
     }
+
 
     @PostMapping(path = "")
     @ApiOperation(
-            value = "Load countries with states",
-            notes = "Load countries with states",
+            value = "Create subjects",
+            notes = "Create subjects",
             code = 204,
             response = String.class)
     @ApiResponses(
@@ -44,11 +45,11 @@ public class CountryCommandController {
                     @ApiResponse(code = 405, message = INVALID_METHOD, response = ErrorResponse.class),
                     @ApiResponse(code = 500, message = INTERNAL_ERROR, response = ErrorResponse.class)
             })
-    public ResponseEntity saveCountries(
-            @ApiParam(name = "Countries",
-                    value = "List of countries to be loaded",
-                    required = true) @RequestBody @Valid CountryForm countryForm) {
-        countryCommandHandler.save(countryForm.getCountries());
+    public ResponseEntity saveSubjects(
+            @ApiParam(name = "Subjects",
+                    value = "List of subjects to be created",
+                    required = true) @RequestBody @Valid SubjectForm subjectForm) {
+        subjectCommandHandler.save(subjectForm.getSubjects());
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

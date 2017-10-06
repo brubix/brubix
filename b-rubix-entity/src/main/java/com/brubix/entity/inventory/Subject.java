@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.List;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
@@ -22,12 +23,22 @@ public class Subject {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "name", nullable = false, length = 100)
+    @Column(name = "name", nullable = false, length = 100, unique = true)
     private String name;
 
     @Column(name = "description", nullable = false)
     private String description;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    private Course course;
+    @ManyToMany(mappedBy = "subjects")
+    private List<Course> courses;
+
+    @ManyToMany
+    @JoinTable(
+            name = "subject_teacher",
+            joinColumns = @JoinColumn(
+                    name = "subject_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(
+                    name = "teacher_id", referencedColumnName = "id"))
+    private List<Teacher> teachers;
+
 }
