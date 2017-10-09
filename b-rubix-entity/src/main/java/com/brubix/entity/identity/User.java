@@ -42,7 +42,8 @@ public abstract class User {
     @JoinColumn(name = "user_id")
     private List<Address> addresses;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
     private List<KYC> kyc;
 
     @Embedded
