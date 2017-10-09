@@ -39,24 +39,24 @@ public abstract class User {
     private Date dateOfBirth;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "person_id")
+    @JoinColumn(name = "user_id")
     private List<Address> addresses;
 
-    @OneToOne(cascade = CascadeType.ALL, optional = false, orphanRemoval = true, fetch = FetchType.LAZY)
-    private KYC kyc;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<KYC> kyc;
 
     @Embedded
     private MileStone mileStone;
 
-    @OneToMany(mappedBy = "person", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Phone> phones;
 
-    @OneToMany(mappedBy = "person", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Email> emails;
 
 
-    @Column(name = "password", nullable = false)
-    private String password;
+    //@Column(name = "password", nullable = false)
+    //private String password;
 
     @Column(name = "enabled", nullable = false)
     private boolean enabled;

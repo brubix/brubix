@@ -92,4 +92,38 @@ public class SchoolCommandController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 
     }
+
+    @PutMapping(path = "/{code}/teachers",
+            produces = {MediaType.APPLICATION_JSON_VALUE},
+            consumes = {MediaType.MULTIPART_FORM_DATA_VALUE}
+    )
+    @ApiOperation(
+            value = "Create teachers for a school",
+            notes = "Create teachers for school",
+            code = 200, response = SchoolCode.class)
+    @ApiResponses(
+            value = {
+                    @ApiResponse(code = 400, message = INVALID_PAYLOAD, response = ErrorResponse.class),
+                    @ApiResponse(code = 400, message = INVALID_KYC_FILE_UPLOADS, response = ErrorResponse.class),
+                    @ApiResponse(code = 400, message = INVALID_FILE, response = ErrorResponse.class),
+                    @ApiResponse(code = 404, message = UNSUPPORTED_API, response = ErrorResponse.class),
+                    @ApiResponse(code = 405, message = INVALID_METHOD, response = ErrorResponse.class),
+                    @ApiResponse(code = 500, message = INTERNAL_ERROR, response = ErrorResponse.class)
+            })
+    @ResponseBody
+    public ResponseEntity<?> createTeachersOfSchool(
+            @ApiParam(name = "code", value = "School code", required = true)
+            @PathVariable(value = "code") String code,
+
+            @ApiParam(name = "teachers", value = "Teachers for a  school", required = true)
+            @Valid @RequestBody TeacherForm teacherForm,
+
+            @ApiParam(name = "KYC", value = "KYC documents")
+            @RequestPart(value = "KYC", required = false) List<MultipartFile> kycDocuments) {
+
+        teacherForm.setSchoolCode(code);
+        //schoolCommandHandler.create(teacherForm);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+
+    }
 }

@@ -5,6 +5,7 @@ import com.brubix.brubixservice.controller.inventory.school.CourseForm;
 import com.brubix.brubixservice.controller.reference.subject.SubjectForm;
 import com.google.common.reflect.TypeToken;
 import cucumber.api.java.en.And;
+import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import feature.AbstractStepDef;
@@ -12,7 +13,6 @@ import feature.SharedDataContext;
 import org.assertj.core.api.Assertions;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import java.util.ArrayList;
@@ -20,8 +20,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
-
-import static org.assertj.core.api.Assertions.assertThat;
 
 public class CourseStepDef extends AbstractStepDef {
 
@@ -46,10 +44,10 @@ public class CourseStepDef extends AbstractStepDef {
         courseForm.setCourses(courses);
 
         HttpEntity requestEntity = new HttpEntity(courseForm, buildHeaders());
-        courseResponseEntity =
-                restTemplate.exchange(url, HttpMethod.PUT, requestEntity, String.class);
-        assertThat(courseResponseEntity.getStatusCodeValue())
-                .isEqualTo(HttpStatus.NO_CONTENT.value());
+        courseResponseEntity = restTemplate.exchange(url, HttpMethod.PUT, requestEntity, String.class);
+
+        // setting response entity in shared data context, so that it can be access from different step definition
+        SharedDataContext.setResponseEntity(courseResponseEntity);
     }
 
     @When("^user finds all courses for school$")
@@ -80,4 +78,11 @@ public class CourseStepDef extends AbstractStepDef {
     public void userCreatedSubjectForCourse(String course, List<SubjectForm.SubjectData> subjectDataList) {
         courseSubjects.put(course, subjectDataList);
     }
+
+    @Given("the user creates course \"([^\"]*)\" for school \"([^\"]*)\" with below subjects")
+    public void userCreatedSubjectForCourseForSchool(String course, String schoolCode, List<SubjectForm.SubjectData> subjectDataList) {
+        courseSubjects.put(course, subjectDataList);
+        SharedDataContext.setSchoolCode(schoolCode);
+    }
+
 }

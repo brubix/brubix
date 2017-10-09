@@ -23,5 +23,5 @@ public class Phone {
     private String number;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    private User person;
+    private User user;
 }

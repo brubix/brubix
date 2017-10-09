@@ -1,6 +1,7 @@
 package com.brubix.entity.inventory;
 
 import com.brubix.entity.content.Document;
+import com.brubix.entity.identity.User;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -32,4 +33,7 @@ public class KYC {
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "document_id")
     private Document document;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    private User user;
 }

@@ -27,7 +27,7 @@ import static org.apache.commons.lang3.StringUtils.isNotBlank;
 public class SchoolStepDef extends AbstractStepDef {
 
     private SchoolForm schoolForm;
-    private ResponseEntity<String> schoolCreateResponseEntity;
+    private ResponseEntity<String> responseEntity;
     private List<String> attachmentNames = new ArrayList<>();
     private String logo;
     private String schoolCode;
@@ -68,9 +68,9 @@ public class SchoolStepDef extends AbstractStepDef {
         HttpEntity<LinkedMultiValueMap<String, Object>> requestEntity = new HttpEntity(parts, headers);
 
         String url = "http://localhost:" + serverPort + contextPath + "/schools";
-        schoolCreateResponseEntity =
+        responseEntity =
                 restTemplate.exchange(url, HttpMethod.POST, requestEntity, String.class);
-
+        SharedDataContext.setResponseEntity(responseEntity);
     }
 
     @And("^the user has provided below kyc$")
@@ -95,8 +95,8 @@ public class SchoolStepDef extends AbstractStepDef {
 
     @Then("^a school code is generated$")
     public void aSchoolCodeIsGenerated() throws Exception {
-        Assertions.assertThat(schoolCreateResponseEntity.getStatusCode().value()).isEqualTo(200);
-        SchoolCode schoolCode = gson.fromJson(schoolCreateResponseEntity.getBody(), SchoolCode.class);
+        Assertions.assertThat(responseEntity.getStatusCode().value()).isEqualTo(200);
+        SchoolCode schoolCode = gson.fromJson(responseEntity.getBody(), SchoolCode.class);
         Assertions.assertThat(schoolCode.getName()).isEqualTo(schoolForm.getName());
         Assertions.assertThat(schoolCode.getCode()).contains("SCHL");
         this.schoolCode = schoolCode.getCode();
@@ -187,9 +187,10 @@ public class SchoolStepDef extends AbstractStepDef {
 
     @Then("^the user should get error as \"([^\"]*)\"$")
     public void theUserShouldGetError(String errorMessage) {
-        Assertions.assertThat(schoolCreateResponseEntity.getStatusCode()
+        ResponseEntity<String> responseEntity = SharedDataContext.getResponseEntity();
+        Assertions.assertThat(responseEntity.getStatusCode()
                 .value()).isEqualTo(HttpStatus.BAD_REQUEST.value());
-        String response = schoolCreateResponseEntity.getBody();
+        String response = responseEntity.getBody();
         ErrorResponse errorResponse = gson.fromJson(response, ErrorResponse.class);
         Assertions.assertThat(errorResponse.getMessage()).isEqualTo(errorMessage);
     }

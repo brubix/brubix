@@ -23,6 +23,6 @@ public class Email {
     private String email;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    private User person;
+    private User user;
 }
 

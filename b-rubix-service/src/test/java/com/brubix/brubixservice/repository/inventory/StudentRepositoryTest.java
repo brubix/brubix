@@ -78,7 +78,7 @@ public class StudentRepositoryTest {
         mileStone.setCreatedAt(new Date());
         mileStone.setCreatedBy(1);
 
-        student.setKyc(kyc);
+        student.setKyc(Arrays.asList(kyc));
         student.setAddresses(Arrays.asList(address));
         student.setMileStone(mileStone);
 
@@ -87,7 +87,7 @@ public class StudentRepositoryTest {
 
         // then
         Student savedStudent = studentRepository.findOne(1L);
-        assertThat(savedStudent.getKyc())
+        assertThat(savedStudent.getKyc().get(0))
                 .extracting("panCard", "drivingLicenseNumber", "adhaarNumber")
                 .contains("pan card", "license", "adhar number");
 

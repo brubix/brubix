@@ -49,8 +49,7 @@ Feature: Create courses for a school
       | name | description |
 
   #Negative scenario
-  @skip
-  Scenario: Create courses with subjects name without description for a school
+  Scenario: Create courses with subject name without description for a school
     Given the user provided school name - "ABC school" , school id - "abc_school" and below addresses
       | first line     | second line | third line  | state code | country code | pin code |
       | HSR 3rd sector | BDA complex | BDA complex | KAR        | IND          | 560101   |
@@ -60,6 +59,39 @@ Feature: Create courses for a school
       | name        | description |
       | Mathematics |             |
     Then the user creates courses for school
+    Then the user should get error as "Request payload is malformed or invalid"
 
+  Scenario: Create courses with subject description / without subject name
+    Given the user provided school name - "ABC school" , school id - "abc_school" and below addresses
+      | first line     | second line | third line  | state code | country code | pin code |
+      | HSR 3rd sector | BDA complex | BDA complex | KAR        | IND          | 560101   |
+    When the user creates school
+    Then a school code is generated
+    And the user creates course "Standard 7" for school with below subjects
+      | name | description |
+      |      |             |
+    Then the user creates courses for school
+    Then the user should get error as "Request payload is malformed or invalid"
 
+  Scenario: Create courses for a school not exist in system
+    Given the user creates course "Standard 7" for school "SCHL0001" with below subjects
+      | name        | description |
+      | Mathematics | Mathematics |
+      | Physics     | Physics     |
+    When the user creates courses for school
+    Then the user should get error as "School code is not found in system"
 
+  Scenario: Create courses with invalid subjects
+    Given the user provided school name - "ABC school" , school id - "abc_school" and below addresses
+      | first line     | second line | third line  | state code | country code | pin code |
+      | HSR 3rd sector | BDA complex | BDA complex | KAR        | IND          | 560101   |
+    When the user creates school
+    Then a school code is generated
+    And the user creates course "Standard 7" for school with below subjects
+      | name                 | description          |
+      | Mathematics          | Mathematics          |
+      | Physics              | Physics              |
+      | Chemistry            | Chemistry            |
+      | Astronomical Science | Astronomical Science |
+    When the user creates courses for school
+    Then the user should get error as "Subject is not found in system"

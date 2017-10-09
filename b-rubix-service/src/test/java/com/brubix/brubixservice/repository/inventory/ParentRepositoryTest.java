@@ -79,7 +79,7 @@ public class ParentRepositoryTest {
         parentMileStone.setCreatedAt(new Date());
         parentMileStone.setCreatedBy(1);
 
-        parent.setKyc(parentKyc);
+        parent.setKyc(Arrays.asList(parentKyc));
         parent.setAddresses(Arrays.asList(parentAddress));
         parent.setMileStone(parentMileStone);
 
@@ -97,7 +97,7 @@ public class ParentRepositoryTest {
 
         KYC wardKyc = new KYC();
         wardKyc.setKycType(KYCType.AADHAAR);
-        ward.setKyc(wardKyc);
+        ward.setKyc(Arrays.asList(wardKyc));
         ward.setParent(parent);
 
         parent.setWards(Arrays.asList(ward));
@@ -108,7 +108,7 @@ public class ParentRepositoryTest {
         // then
         // parent assertions
         Parent savedParent = parentRepository.findAll().get(0);
-        Assertions.assertThat(savedParent.getKyc())
+        Assertions.assertThat(savedParent.getKyc().get(0))
                 .extracting("panCard", "drivingLicenseNumber", "adhaarNumber")
                 .contains("pan card", "license", "adhar number");
 
