@@ -7,5 +7,6 @@ public interface ApplicationConstant {
     String COUNTRY_TAG = "Country";
     String SCHOOL_TAG = "School";
     String SUBJECT_TAG = "Subject";
+    String INSTITUTION_TYPE = "Institution-type";
 
 }

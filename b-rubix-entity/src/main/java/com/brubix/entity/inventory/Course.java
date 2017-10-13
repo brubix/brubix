@@ -1,5 +1,6 @@
 package com.brubix.entity.inventory;
 
+import com.brubix.entity.reference.Subject;
 import lombok.Getter;
 import lombok.Setter;
 

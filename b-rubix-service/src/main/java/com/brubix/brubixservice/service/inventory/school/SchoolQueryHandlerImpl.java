@@ -9,7 +9,7 @@ import com.brubix.brubixservice.repository.inventory.SchoolRepository;
 import com.brubix.entity.inventory.Address;
 import com.brubix.entity.inventory.Course;
 import com.brubix.entity.inventory.School;
-import com.brubix.entity.inventory.Subject;
+import com.brubix.entity.reference.Subject;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.transaction.Transactional;

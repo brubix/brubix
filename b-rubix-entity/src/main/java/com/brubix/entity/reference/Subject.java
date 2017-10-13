@@ -1,5 +1,7 @@
-package com.brubix.entity.inventory;
+package com.brubix.entity.reference;
 
+import com.brubix.entity.inventory.Course;
+import com.brubix.entity.inventory.Teacher;
 import lombok.Getter;
 import lombok.Setter;
 

@@ -1,7 +1,7 @@
 package com.brubix.brubixservice.service.reference.subject;
 
 import com.brubix.brubixservice.controller.reference.subject.SubjectForm;
-import com.brubix.entity.inventory.Subject;
+import com.brubix.entity.reference.Subject;
 
 import java.util.List;
 

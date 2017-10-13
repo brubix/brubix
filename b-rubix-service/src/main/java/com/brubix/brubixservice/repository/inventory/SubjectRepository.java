@@ -1,6 +1,6 @@
 package com.brubix.brubixservice.repository.inventory;
 
-import com.brubix.entity.inventory.Subject;
+import com.brubix.entity.reference.Subject;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**

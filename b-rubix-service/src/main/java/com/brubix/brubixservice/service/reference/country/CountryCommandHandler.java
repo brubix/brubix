@@ -9,5 +9,5 @@ public interface CountryCommandHandler {
 
     Country mapToEntity(CountryData countryData);
 
-    Void save(List<CountryData> data);
+    void save(List<CountryData> data);
 }

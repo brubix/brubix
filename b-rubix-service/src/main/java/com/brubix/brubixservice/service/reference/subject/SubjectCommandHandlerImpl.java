@@ -2,7 +2,7 @@ package com.brubix.brubixservice.service.reference.subject;
 
 import com.brubix.brubixservice.controller.reference.subject.SubjectForm;
 import com.brubix.brubixservice.repository.inventory.SubjectRepository;
-import com.brubix.entity.inventory.Subject;
+import com.brubix.entity.reference.Subject;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;

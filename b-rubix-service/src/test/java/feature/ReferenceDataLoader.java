@@ -3,7 +3,7 @@ package feature;
 
 import com.brubix.brubixservice.repository.inventory.SubjectRepository;
 import com.brubix.brubixservice.repository.reference.CountryRepository;
-import com.brubix.entity.inventory.Subject;
+import com.brubix.entity.reference.Subject;
 import com.brubix.entity.reference.Country;
 import com.brubix.entity.reference.State;
 import org.springframework.beans.factory.annotation.Autowired;

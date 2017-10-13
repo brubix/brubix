@@ -4,6 +4,7 @@ import com.brubix.brubixservice.generator.SchoolCodeGenerator;
 import com.brubix.brubixservice.repository.inventory.SchoolRepository;
 import com.brubix.brubixservice.repository.inventory.SubjectRepository;
 import com.brubix.brubixservice.repository.reference.CountryRepository;
+import com.brubix.brubixservice.repository.reference.InstitutionTypeRepository;
 import com.brubix.brubixservice.repository.reference.StateRepository;
 import com.brubix.brubixservice.service.inventory.school.SchoolCommandHandler;
 import com.brubix.brubixservice.service.inventory.school.SchoolCommandHandlerImpl;
@@ -13,6 +14,10 @@ import com.brubix.brubixservice.service.reference.country.CountryCommandHandler;
 import com.brubix.brubixservice.service.reference.country.CountryCommandHandlerImpl;
 import com.brubix.brubixservice.service.reference.country.CountryQueryHandler;
 import com.brubix.brubixservice.service.reference.country.CountryQueryHandlerImpl;
+import com.brubix.brubixservice.service.reference.institutiontype.InstitutionTypeCommandHandler;
+import com.brubix.brubixservice.service.reference.institutiontype.InstitutionTypeCommandHandlerImpl;
+import com.brubix.brubixservice.service.reference.institutiontype.InstitutionTypeQueryHandler;
+import com.brubix.brubixservice.service.reference.institutiontype.InstitutionTypeQueryHandlerImpl;
 import com.brubix.brubixservice.service.reference.subject.SubjectCommandHandler;
 import com.brubix.brubixservice.service.reference.subject.SubjectCommandHandlerImpl;
 import com.brubix.brubixservice.service.reference.subject.SubjectQueryHandler;
@@ -73,6 +78,18 @@ public class BrubixServiceConfiguration {
     public SubjectQueryHandler subjectQueryHandler(SubjectRepository subjectRepository) {
         return new SubjectQueryHandlerImpl(subjectRepository);
     }
+
+
+    @Bean
+    public InstitutionTypeCommandHandler institutionTypeCommandHandler(InstitutionTypeRepository institutionTypeRepository) {
+        return new InstitutionTypeCommandHandlerImpl(institutionTypeRepository);
+    }
+
+    @Bean
+    public InstitutionTypeQueryHandler institutionTypeQueryHandler(InstitutionTypeRepository institutionTypeRepository) {
+        return new InstitutionTypeQueryHandlerImpl(institutionTypeRepository);
+    }
+
 
     @Bean
     public Validator localValidatorFactoryBean(@Value("${hibernate.validator.fail-fast}") String failFast) {

@@ -1,6 +1,8 @@
 package com.brubix.entity.inventory;
 
+import com.brubix.entity.communication.Social;
 import com.brubix.entity.content.Document;
+import com.brubix.entity.reference.InstitutionType;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -44,6 +46,15 @@ public class School {
     @JoinColumn(name = "school_id")
     private List<KYC> schoolKyc;
 
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "social_id")
+    private Social social;
+
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "institution_type_id")
+    private InstitutionType institutionType;
+
+
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
             name = "school_course",
@@ -55,4 +66,5 @@ public class School {
 
     @Embedded
     private MileStone mileStone;
+
 }

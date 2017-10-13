@@ -14,6 +14,7 @@ import com.brubix.brubixservice.repository.reference.StateRepository;
 import com.brubix.brubixservice.validator.SchoolFormCustomValidator;
 import com.brubix.entity.content.Document;
 import com.brubix.entity.inventory.*;
+import com.brubix.entity.reference.Subject;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.springframework.dao.DataAccessException;

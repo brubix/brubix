@@ -23,7 +23,7 @@ public class CountryCommandHandlerImpl implements CountryCommandHandler {
     }
 
     @Override
-    public Void save(List<CountryData> data) {
+    public void save(List<CountryData> data) {
         log.info("Loading of countries started");
         List<Country> countries = data
                 .stream()
@@ -37,7 +37,6 @@ public class CountryCommandHandlerImpl implements CountryCommandHandler {
             log.error("Error occurred" + ExceptionUtils.getStackTrace(ex.getCause()));
             throw new BrubixException(ErrorCode.LOADING_ERROR);
         }
-        return null;
     }
 
     @Override
