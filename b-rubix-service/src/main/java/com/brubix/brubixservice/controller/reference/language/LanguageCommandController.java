@@ -1,8 +1,8 @@
-package com.brubix.brubixservice.controller.reference.institutiontype;
+package com.brubix.brubixservice.controller.reference.language;
 
 import com.brubix.brubixservice.constant.ApplicationConstant;
 import com.brubix.brubixservice.exception.error.ErrorResponse;
-import com.brubix.brubixservice.service.reference.institutiontype.InstitutionTypeCommandHandler;
+import com.brubix.brubixservice.service.reference.language.LanguageCommandHandler;
 import io.swagger.annotations.*;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.HttpStatus;
@@ -18,23 +18,23 @@ import javax.validation.Valid;
 import static com.brubix.brubixservice.exception.error.ErrorMessages.*;
 
 @RestController
-@RequestMapping(path = "/institutions",
+@RequestMapping(path = "/languages",
         produces = {MediaType.APPLICATION_JSON_VALUE},
         consumes = {MediaType.APPLICATION_JSON_VALUE})
-@Api(tags = {ApplicationConstant.INSTITUTION}, description = StringUtils.SPACE)
-public class InstitutionTypeCommandController {
+@Api(tags = {ApplicationConstant.LANGUAGE}, description = StringUtils.SPACE)
+public class LanguageCommandController {
 
+    private LanguageCommandHandler languageCommandHandler;
 
-    private InstitutionTypeCommandHandler commandHandler;
-
-    public InstitutionTypeCommandController(InstitutionTypeCommandHandler commandHandler) {
-        this.commandHandler = commandHandler;
+    public LanguageCommandController(LanguageCommandHandler languageCommandHandler) {
+        this.languageCommandHandler = languageCommandHandler;
     }
+
 
     @PostMapping(path = "")
     @ApiOperation(
-            value = "Save institution types",
-            notes = "Save institution types",
+            value = "Create reference languages in system",
+            notes = "Create reference languages in system",
             code = 204,
             response = String.class)
     @ApiResponses(
@@ -45,11 +45,11 @@ public class InstitutionTypeCommandController {
                     @ApiResponse(code = 405, message = INVALID_METHOD, response = ErrorResponse.class),
                     @ApiResponse(code = 500, message = INTERNAL_ERROR, response = ErrorResponse.class)
             })
-    public ResponseEntity saveInstitutionTypes(
-            @ApiParam(name = "Countries",
-                    value = "List of countries to be saved",
-                    required = true) @RequestBody @Valid InstitutionTypeForm form) {
-        commandHandler.save(form.getTypes());
+    public ResponseEntity saveLanguages(
+            @ApiParam(name = "Languages",
+                    value = "List of languages to be saved",
+                    required = true) @RequestBody @Valid LanguageForm languageForm) {
+         languageCommandHandler.save(languageForm.getLanguages());
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

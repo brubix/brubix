@@ -5,6 +5,7 @@ import com.brubix.brubixservice.repository.inventory.SchoolRepository;
 import com.brubix.brubixservice.repository.inventory.SubjectRepository;
 import com.brubix.brubixservice.repository.reference.CountryRepository;
 import com.brubix.brubixservice.repository.reference.InstitutionTypeRepository;
+import com.brubix.brubixservice.repository.reference.LanguageMediumRepository;
 import com.brubix.brubixservice.repository.reference.StateRepository;
 import com.brubix.brubixservice.service.inventory.school.SchoolCommandHandler;
 import com.brubix.brubixservice.service.inventory.school.SchoolCommandHandlerImpl;
@@ -18,6 +19,8 @@ import com.brubix.brubixservice.service.reference.institutiontype.InstitutionTyp
 import com.brubix.brubixservice.service.reference.institutiontype.InstitutionTypeCommandHandlerImpl;
 import com.brubix.brubixservice.service.reference.institutiontype.InstitutionTypeQueryHandler;
 import com.brubix.brubixservice.service.reference.institutiontype.InstitutionTypeQueryHandlerImpl;
+import com.brubix.brubixservice.service.reference.language.LanguageCommandHandler;
+import com.brubix.brubixservice.service.reference.language.LanguageCommandHandlerImpl;
 import com.brubix.brubixservice.service.reference.subject.SubjectCommandHandler;
 import com.brubix.brubixservice.service.reference.subject.SubjectCommandHandlerImpl;
 import com.brubix.brubixservice.service.reference.subject.SubjectQueryHandler;
@@ -90,6 +93,10 @@ public class BrubixServiceConfiguration {
         return new InstitutionTypeQueryHandlerImpl(institutionTypeRepository);
     }
 
+    @Bean
+    public LanguageCommandHandler languageCommandHandler(LanguageMediumRepository languageMediumRepository) {
+        return new LanguageCommandHandlerImpl(languageMediumRepository);
+    }
 
     @Bean
     public Validator localValidatorFactoryBean(@Value("${hibernate.validator.fail-fast}") String failFast) {

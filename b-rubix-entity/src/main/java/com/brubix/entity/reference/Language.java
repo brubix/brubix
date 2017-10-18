@@ -10,8 +10,8 @@ import static javax.persistence.GenerationType.IDENTITY;
 @Getter
 @Setter
 @Entity
-@Table(name = "language_medium", catalog = "brubix")
-public class LanguageMedium {
+@Table(name = "language", catalog = "brubix")
+public class Language {
 
     @Id
     @GeneratedValue(strategy = IDENTITY)

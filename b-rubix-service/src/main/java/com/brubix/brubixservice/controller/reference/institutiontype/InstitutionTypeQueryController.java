@@ -21,9 +21,9 @@ import java.util.List;
 import static com.brubix.brubixservice.exception.error.ErrorMessages.*;
 
 @RestController
-@RequestMapping(path = "/institution-type",
+@RequestMapping(path = "/institutions",
         produces = {MediaType.APPLICATION_JSON_VALUE})
-@Api(tags = {ApplicationConstant.INSTITUTION_TYPE}, description = StringUtils.SPACE)
+@Api(tags = {ApplicationConstant.INSTITUTION}, description = StringUtils.SPACE)
 public class InstitutionTypeQueryController {
 
     private InstitutionTypeQueryHandler queryHandler;

@@ -76,8 +76,9 @@ public class SwaggerConfiguration {
         Predicate<String> referencePath = PathSelectors.regex("/countries.*");
         Predicate<String> inventoryPath = PathSelectors.regex("/schools.*");
         Predicate<String> subjectPath = PathSelectors.regex("/subjects.*");
-        Predicate<String> institution = PathSelectors.regex("/institution.*");
-        return Predicates.or(referencePath, inventoryPath, subjectPath, institution);
+        Predicate<String> institution = PathSelectors.regex("/institutions.*");
+        Predicate<String> language = PathSelectors.regex("/languages.*");
+        return Predicates.or(referencePath, inventoryPath, subjectPath, institution, language);
     }
 
     private ApiInfo apiInfo() {
