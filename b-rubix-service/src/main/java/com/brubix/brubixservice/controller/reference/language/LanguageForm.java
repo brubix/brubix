@@ -1,5 +1,6 @@
 package com.brubix.brubixservice.controller.reference.language;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.validator.constraints.Length;
@@ -19,7 +20,7 @@ public class LanguageForm {
     private List<LanguageData> languages;
 
     @Getter
-    @Setter
+    @Builder
     public static class LanguageData {
         @NotBlank(message = "{field.empty}")
         @Length(max = 100, message = "{invalid.length.language}")

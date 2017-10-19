@@ -10,6 +10,8 @@ import com.brubix.brubixservice.service.inventory.school.SchoolQueryHandler;
 import com.brubix.brubixservice.service.inventory.school.SchoolQueryHandlerImpl;
 import com.brubix.brubixservice.service.reference.affiliation.AffiliationCommandHandler;
 import com.brubix.brubixservice.service.reference.affiliation.AffiliationCommandHandlerImpl;
+import com.brubix.brubixservice.service.reference.affiliation.AffiliationQueryHandler;
+import com.brubix.brubixservice.service.reference.affiliation.AffiliationQueryHandlerImpl;
 import com.brubix.brubixservice.service.reference.country.CountryCommandHandler;
 import com.brubix.brubixservice.service.reference.country.CountryCommandHandlerImpl;
 import com.brubix.brubixservice.service.reference.country.CountryQueryHandler;
@@ -20,6 +22,8 @@ import com.brubix.brubixservice.service.reference.institutiontype.InstitutionTyp
 import com.brubix.brubixservice.service.reference.institutiontype.InstitutionTypeQueryHandlerImpl;
 import com.brubix.brubixservice.service.reference.language.LanguageCommandHandler;
 import com.brubix.brubixservice.service.reference.language.LanguageCommandHandlerImpl;
+import com.brubix.brubixservice.service.reference.language.LanguageQueryHandler;
+import com.brubix.brubixservice.service.reference.language.LanguageQueryHandlerImpl;
 import com.brubix.brubixservice.service.reference.subject.SubjectCommandHandler;
 import com.brubix.brubixservice.service.reference.subject.SubjectCommandHandlerImpl;
 import com.brubix.brubixservice.service.reference.subject.SubjectQueryHandler;
@@ -98,8 +102,18 @@ public class BrubixServiceConfiguration {
     }
 
     @Bean
+    public LanguageQueryHandler languageQueryHandler(LanguageMediumRepository languageMediumRepository) {
+        return new LanguageQueryHandlerImpl(languageMediumRepository);
+    }
+
+    @Bean
     public AffiliationCommandHandler affiliationCommandHandlers(InstitutionAffiliationRepository affiliationRepository) {
         return new AffiliationCommandHandlerImpl(affiliationRepository);
+    }
+
+    @Bean
+    public AffiliationQueryHandler affiliationQueryHandlers(InstitutionAffiliationRepository affiliationRepository) {
+        return new AffiliationQueryHandlerImpl(affiliationRepository);
     }
 
     @Bean

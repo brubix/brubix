@@ -1,5 +1,6 @@
 package com.brubix.brubixservice.controller.reference.institutionboard;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.validator.constraints.Length;
@@ -17,9 +18,11 @@ public class AffiliationForm {
     @NotEmpty(message = "field.empty")
     private List<AffiliationForm.AffiliationData> boards;
 
+
+    @Builder
     @Getter
-    @Setter
     public static class AffiliationData {
+
         @NotBlank(message = "{field.empty}")
         @Length(max = 100, message = "{invalid.length.affiliation}")
         private String affiliation;

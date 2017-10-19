@@ -18,6 +18,7 @@ public class InstitutionTypeForm {
     @NotEmpty(message = "field.empty")
     private List<InstitutionTypeData> types;
 
+
     @Builder
     @Getter
     public static class InstitutionTypeData {
