@@ -23,7 +23,7 @@ import static com.brubix.brubixservice.exception.error.ErrorMessages.*;
 @RestController
 @RequestMapping(path = "/subjects",
         produces = {MediaType.APPLICATION_JSON_VALUE})
-@Api(tags = {ApplicationConstant.SUBJECT_TAG}, description = StringUtils.SPACE)
+@Api(tags = {ApplicationConstant.REFERENCE}, description = StringUtils.SPACE)
 public class SubjectQueryController {
 
     private SubjectQueryHandler subjectQueryHandler;

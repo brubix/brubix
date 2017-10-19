@@ -23,7 +23,7 @@ import static com.brubix.brubixservice.exception.error.ErrorMessages.*;
 @RestController
 @RequestMapping(path = "/institutions",
         produces = {MediaType.APPLICATION_JSON_VALUE})
-@Api(tags = {ApplicationConstant.INSTITUTION}, description = StringUtils.SPACE)
+@Api(tags = {ApplicationConstant.REFERENCE}, description = StringUtils.SPACE)
 public class InstitutionTypeQueryController {
 
     private InstitutionTypeQueryHandler queryHandler;

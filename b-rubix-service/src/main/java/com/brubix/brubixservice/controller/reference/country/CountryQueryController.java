@@ -16,7 +16,7 @@ import static com.brubix.brubixservice.exception.error.ErrorMessages.*;
 
 @RestController
 @RequestMapping(path = "/countries", produces = {MediaType.APPLICATION_JSON_VALUE})
-@Api(tags = {ApplicationConstant.COUNTRY_TAG}, description = StringUtils.SPACE)
+@Api(tags = {ApplicationConstant.REFERENCE}, description = StringUtils.SPACE)
 public class CountryQueryController {
 
     private CountryQueryHandler countryQueryHandler;

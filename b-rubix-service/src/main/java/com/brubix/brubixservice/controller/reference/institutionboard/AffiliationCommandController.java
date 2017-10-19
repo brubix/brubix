@@ -1,8 +1,8 @@
-package com.brubix.brubixservice.controller.reference.institutiontype;
+package com.brubix.brubixservice.controller.reference.institutionboard;
 
 import com.brubix.brubixservice.constant.ApplicationConstant;
 import com.brubix.brubixservice.exception.error.ErrorResponse;
-import com.brubix.brubixservice.service.reference.institutiontype.InstitutionTypeCommandHandler;
+import com.brubix.brubixservice.service.reference.affiliation.AffiliationCommandHandler;
 import io.swagger.annotations.*;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.HttpStatus;
@@ -18,23 +18,23 @@ import javax.validation.Valid;
 import static com.brubix.brubixservice.exception.error.ErrorMessages.*;
 
 @RestController
-@RequestMapping(path = "/institutions",
+@RequestMapping(path = "/affiliations",
         produces = {MediaType.APPLICATION_JSON_VALUE},
         consumes = {MediaType.APPLICATION_JSON_VALUE})
 @Api(tags = {ApplicationConstant.REFERENCE}, description = StringUtils.SPACE)
-public class InstitutionTypeCommandController {
+public class AffiliationCommandController {
 
+    private AffiliationCommandHandler affiliationCommandHandler;
 
-    private InstitutionTypeCommandHandler commandHandler;
-
-    public InstitutionTypeCommandController(InstitutionTypeCommandHandler commandHandler) {
-        this.commandHandler = commandHandler;
+    public AffiliationCommandController(AffiliationCommandHandler affiliationCommandHandler) {
+        this.affiliationCommandHandler = affiliationCommandHandler;
     }
+
 
     @PostMapping(path = "")
     @ApiOperation(
-            value = "Save institution types",
-            notes = "Save institution types",
+            value = "Save institution affiliations",
+            notes = "Save institution affiliations",
             code = 204,
             response = String.class)
     @ApiResponses(
@@ -45,11 +45,11 @@ public class InstitutionTypeCommandController {
                     @ApiResponse(code = 405, message = INVALID_METHOD, response = ErrorResponse.class),
                     @ApiResponse(code = 500, message = INTERNAL_ERROR, response = ErrorResponse.class)
             })
-    public ResponseEntity saveInstitutionTypes(
-            @ApiParam(name = "Institution types",
-                    value = "List of countries to be saved",
-                    required = true) @RequestBody @Valid InstitutionTypeForm form) {
-        commandHandler.save(form.getTypes());
+    public ResponseEntity saveBoards(
+            @ApiParam(name = "Affiliation types",
+                    value = "Institution affiliations to be saved",
+                    required = true) @RequestBody @Valid AffiliationForm form) {
+        affiliationCommandHandler.save(form.getBoards());
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

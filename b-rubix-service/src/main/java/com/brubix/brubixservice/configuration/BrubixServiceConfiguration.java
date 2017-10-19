@@ -3,14 +3,13 @@ package com.brubix.brubixservice.configuration;
 import com.brubix.brubixservice.generator.SchoolCodeGenerator;
 import com.brubix.brubixservice.repository.inventory.SchoolRepository;
 import com.brubix.brubixservice.repository.inventory.SubjectRepository;
-import com.brubix.brubixservice.repository.reference.CountryRepository;
-import com.brubix.brubixservice.repository.reference.InstitutionTypeRepository;
-import com.brubix.brubixservice.repository.reference.LanguageMediumRepository;
-import com.brubix.brubixservice.repository.reference.StateRepository;
+import com.brubix.brubixservice.repository.reference.*;
 import com.brubix.brubixservice.service.inventory.school.SchoolCommandHandler;
 import com.brubix.brubixservice.service.inventory.school.SchoolCommandHandlerImpl;
 import com.brubix.brubixservice.service.inventory.school.SchoolQueryHandler;
 import com.brubix.brubixservice.service.inventory.school.SchoolQueryHandlerImpl;
+import com.brubix.brubixservice.service.reference.affiliation.AffiliationCommandHandler;
+import com.brubix.brubixservice.service.reference.affiliation.AffiliationCommandHandlerImpl;
 import com.brubix.brubixservice.service.reference.country.CountryCommandHandler;
 import com.brubix.brubixservice.service.reference.country.CountryCommandHandlerImpl;
 import com.brubix.brubixservice.service.reference.country.CountryQueryHandler;
@@ -96,6 +95,11 @@ public class BrubixServiceConfiguration {
     @Bean
     public LanguageCommandHandler languageCommandHandler(LanguageMediumRepository languageMediumRepository) {
         return new LanguageCommandHandlerImpl(languageMediumRepository);
+    }
+
+    @Bean
+    public AffiliationCommandHandler affiliationCommandHandlers(InstitutionAffiliationRepository affiliationRepository) {
+        return new AffiliationCommandHandlerImpl(affiliationRepository);
     }
 
     @Bean

@@ -21,7 +21,7 @@ import static com.brubix.brubixservice.exception.error.ErrorMessages.*;
 @RequestMapping(path = "/languages",
         produces = {MediaType.APPLICATION_JSON_VALUE},
         consumes = {MediaType.APPLICATION_JSON_VALUE})
-@Api(tags = {ApplicationConstant.LANGUAGE}, description = StringUtils.SPACE)
+@Api(tags = {ApplicationConstant.REFERENCE}, description = StringUtils.SPACE)
 public class LanguageCommandController {
 
     private LanguageCommandHandler languageCommandHandler;

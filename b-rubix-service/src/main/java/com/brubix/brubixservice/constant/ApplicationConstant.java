@@ -9,6 +9,7 @@ public interface ApplicationConstant {
     String SUBJECT_TAG = "Subject";
     String INSTITUTION = "Institution";
     String LANGUAGE = "Language";
+    String REFERENCE = "Reference";
 
 
 }

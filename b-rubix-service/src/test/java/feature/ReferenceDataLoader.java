@@ -3,6 +3,7 @@ package feature;
 
 import com.brubix.brubixservice.repository.inventory.SubjectRepository;
 import com.brubix.brubixservice.repository.reference.CountryRepository;
+import com.brubix.brubixservice.repository.reference.InstitutionAffiliationRepository;
 import com.brubix.brubixservice.repository.reference.InstitutionTypeRepository;
 import com.brubix.brubixservice.repository.reference.LanguageMediumRepository;
 import com.brubix.entity.reference.*;
@@ -29,12 +30,38 @@ public class ReferenceDataLoader {
     @Autowired
     private LanguageMediumRepository languageMediumRepository;
 
+    @Autowired
+    private InstitutionAffiliationRepository institutionAffiliationRepository;
+
     @PostConstruct
     public void load() {
         loadCountry();
         loadSubjects();
         loadInstitutionTypes();
         loadLanguage();
+        loadInstitutionAffiliations();
+    }
+
+    private void loadInstitutionAffiliations() {
+        InstitutionAffiliation cbse = new InstitutionAffiliation();
+        cbse.setAffiliation("CBSE");
+        cbse.setDescription("Central board of secondary education");
+
+        InstitutionAffiliation icse = new InstitutionAffiliation();
+        icse.setAffiliation("ICSE");
+        icse.setDescription("International council of secondary education");
+
+
+        InstitutionAffiliation igcse = new InstitutionAffiliation();
+        igcse.setAffiliation("IGCSE");
+        igcse.setDescription("IGCSE");
+
+
+        InstitutionAffiliation university = new InstitutionAffiliation();
+        university.setAffiliation("UNIV");
+        university.setDescription("University");
+
+        institutionAffiliationRepository.save(Arrays.asList(cbse, icse, igcse, university));
     }
 
     private void loadLanguage() {
