@@ -2,6 +2,7 @@ package feature.inventory;
 
 import com.brubix.brubixservice.controller.inventory.AddressData;
 import com.brubix.brubixservice.controller.inventory.KYCData;
+import com.brubix.brubixservice.controller.inventory.SocialData;
 import com.brubix.brubixservice.controller.inventory.school.SchoolForm;
 import com.brubix.brubixservice.controller.inventory.school.SchoolQueryData;
 import com.brubix.brubixservice.exception.error.ErrorResponse;
@@ -185,6 +186,15 @@ public class SchoolStepDef extends AbstractStepDef {
                 .containsAll(addressDataList);*/
     }
 
+    @Then("^below social details should be present$")
+    public void belowSocialDetailsShouldBePresent(List<SocialData> socialData) {
+        SocialData social = schoolDataResponseEntity.getBody().getSocial();
+        Assertions.assertThat(social.getFaceBook()).isEqualTo(socialData.get(0).getFaceBook());
+        Assertions.assertThat(social.getGooglePlus()).isEqualTo(socialData.get(0).getGooglePlus());
+        Assertions.assertThat(social.getLinkedIn()).isEqualTo(socialData.get(0).getLinkedIn());
+        Assertions.assertThat(social.getTwitter()).isEqualTo(socialData.get(0).getTwitter());
+    }
+
     @Then("^the user should get error as \"([^\"]*)\"$")
     public void theUserShouldGetError(String errorMessage) {
         ResponseEntity<String> responseEntity = SharedDataContext.getResponseEntity();
@@ -193,5 +203,10 @@ public class SchoolStepDef extends AbstractStepDef {
         String response = responseEntity.getBody();
         ErrorResponse errorResponse = gson.fromJson(response, ErrorResponse.class);
         Assertions.assertThat(errorResponse.getMessage()).isEqualTo(errorMessage);
+    }
+
+    @And("^the user has provided below social details$")
+    public void theUserHasSocialDetails(List<SocialData> socialData) {
+        schoolForm.setSocial(socialData.get(0));
     }
 }

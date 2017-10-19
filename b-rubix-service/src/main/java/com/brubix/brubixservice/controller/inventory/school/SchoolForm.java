@@ -2,6 +2,7 @@ package com.brubix.brubixservice.controller.inventory.school;
 
 import com.brubix.brubixservice.controller.inventory.AddressData;
 import com.brubix.brubixservice.controller.inventory.KYCData;
+import com.brubix.brubixservice.controller.inventory.SocialData;
 import com.brubix.brubixservice.validator.constraint.BiFieldMatch;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
@@ -32,13 +33,18 @@ public class SchoolForm {
     @NotEmpty(message = "{field.empty}")
     private List<AddressData> addresses;
 
+    @Valid
+    private List<KYCData> kyc;
+
+    @Valid
+    private SocialData social;
+
     @JsonIgnore
     private MultipartFile schoolLogo;
 
     @JsonIgnore
     private List<MultipartFile> kycDocuments;
 
-    @Valid
-    private List<KYCData> kyc;
+
 
 }

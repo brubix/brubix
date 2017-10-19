@@ -1,11 +1,13 @@
 package com.brubix.brubixservice.service.inventory.school;
 
 import com.brubix.brubixservice.controller.inventory.AddressData;
+import com.brubix.brubixservice.controller.inventory.SocialData;
 import com.brubix.brubixservice.controller.inventory.school.CourseForm;
 import com.brubix.brubixservice.controller.inventory.school.SchoolQueryData;
 import com.brubix.brubixservice.controller.reference.subject.SubjectForm;
 import com.brubix.brubixservice.exception.BrubixException;
 import com.brubix.brubixservice.repository.inventory.SchoolRepository;
+import com.brubix.entity.communication.Social;
 import com.brubix.entity.inventory.Address;
 import com.brubix.entity.inventory.Course;
 import com.brubix.entity.inventory.School;
@@ -40,10 +42,22 @@ public class SchoolQueryHandlerImpl implements SchoolQueryHandler {
         return SchoolQueryData
                 .builder()
                 .addresses(mapToAddress(school.getAddresses()))
+                .social(mapSocial(school.getSocial()))
                 .code(school.getSchoolCode())
                 .name(school.getSchoolName())
                 .logo(school.getLogo() != null ? school.getLogo().getContent() : null)
                 .build();
+    }
+
+    private SocialData mapSocial(Social social) {
+        return social != null ?
+                SocialData.builder()
+                        .faceBook(social.getFaceBook())
+                        .googlePlus(social.getGPlus())
+                        .linkedIn(social.getLinkedIn())
+                        .twitter(social.getTwitter())
+                        .build()
+                : null;
     }
 
 

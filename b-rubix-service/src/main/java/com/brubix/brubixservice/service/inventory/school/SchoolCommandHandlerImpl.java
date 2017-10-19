@@ -1,6 +1,7 @@
 package com.brubix.brubixservice.service.inventory.school;
 
 import com.brubix.brubixservice.controller.inventory.KYCData;
+import com.brubix.brubixservice.controller.inventory.SocialData;
 import com.brubix.brubixservice.controller.inventory.school.CourseForm;
 import com.brubix.brubixservice.controller.inventory.school.SchoolForm;
 import com.brubix.brubixservice.controller.reference.subject.SubjectForm;
@@ -12,10 +13,12 @@ import com.brubix.brubixservice.repository.inventory.SubjectRepository;
 import com.brubix.brubixservice.repository.reference.CountryRepository;
 import com.brubix.brubixservice.repository.reference.StateRepository;
 import com.brubix.brubixservice.validator.SchoolFormCustomValidator;
+import com.brubix.entity.communication.Social;
 import com.brubix.entity.content.Document;
 import com.brubix.entity.inventory.*;
 import com.brubix.entity.reference.Subject;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.springframework.dao.DataAccessException;
 import org.springframework.util.CollectionUtils;
@@ -159,7 +162,25 @@ public class SchoolCommandHandlerImpl implements SchoolCommandHandler {
         school.setSchoolKyc(kycList);
         school.setAddresses(addresses);
         school.setMileStone(mileStone);
+
+        //map to social data
+        SocialData socialData = schoolForm.getSocial();
+        if (anySocialLinkPresent(socialData)) {
+            Social social = new Social();
+            social.setFaceBook(socialData.getFaceBook());
+            social.setGPlus(socialData.getGooglePlus());
+            social.setLinkedIn(socialData.getLinkedIn());
+            social.setTwitter(socialData.getTwitter());
+            school.setSocial(social);
+        }
         return school;
+    }
+
+    private boolean anySocialLinkPresent(SocialData socialData) {
+        return socialData != null && (StringUtils.isNotBlank(socialData.getFaceBook())
+                || StringUtils.isNotBlank(socialData.getGooglePlus())
+                || StringUtils.isNotBlank(socialData.getLinkedIn())
+                || StringUtils.isNotBlank(socialData.getTwitter()));
     }
 
     private Document createDocument(MultipartFile file) {
