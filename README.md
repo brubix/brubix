@@ -1,25 +1,14 @@
 # b-Rubix
 
-## Set up MySQL ##
-
-    Download MySQL and install, then run below commands
-         
+## Prerequisite  ##
     
-    mysql> create database brubix;
-    mysql> create user 'brubix'@'localhost' identified by 'brubix';
-    mysql> grant all on brubix.* to 'brubix'@'localhost';    
-
+    1. Ensure docker is installed
+    2. Ensure internet connectivity, to pull images from public docker registry
+    
 ## Running b-Rubix in local ##
-    $ cd brubix
-    $ mvn clean install
-    $ cd b-rubix-service
-    $ mvn spring-boot:run
+    $ ./start.sh
 
 ## b-Rubix Swagger ##  
-    http://localhost:8080/v1/swagger-ui.html
-    
-## b-Rubix Sample Data ##
-    https://github.com/brubix/brubix/tree/master/b-rubix-service/src/test/java/com/brubix/brubixservice/data
-      
+    http://localhost:8080/v1/swagger-ui.html              
   
     
