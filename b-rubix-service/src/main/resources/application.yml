@@ -20,3 +20,13 @@ server:
 hibernate:
     validator:
         fail-fast: false
+
+endpoints:
+    flyway:
+        web:
+            enabled : true
+flyway:
+    baseline-on-migrate: true
+    enabled: false
+
+
