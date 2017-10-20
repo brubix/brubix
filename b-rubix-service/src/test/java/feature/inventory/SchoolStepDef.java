@@ -143,6 +143,7 @@ public class SchoolStepDef extends AbstractStepDef {
         SchoolQueryData schoolQueryData = schoolDataResponseEntity.getBody();
         Assertions.assertThat(schoolQueryData.getName()).isEqualTo(schoolName);
         Assertions.assertThat(schoolQueryData.getLogo()).isNull();
+        Assertions.assertThat(schoolQueryData.getSocial()).isNull();
 
         /*Assertions.assertThat(schoolData.getAddresses())
                 .hasSize(2)

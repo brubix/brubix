@@ -228,7 +228,7 @@
             <id>release</id>
             <properties>
                 <docker.push.image>false</docker.push.image>
-                <maven.test.skip>true</maven.test.skip>
+                <maven.test.skip>false</maven.test.skip>
                 <imageVersion>${project.version}</imageVersion>
             </properties>
         </profile>

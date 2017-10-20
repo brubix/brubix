@@ -181,5 +181,9 @@ public class ReferenceDataLoader {
     @PreDestroy
     public void unload() {
         countryRepository.deleteAll();
+        subjectRepository.deleteAll();
+        institutionTypeRepository.deleteAll();
+        languageMediumRepository.deleteAll();
+        institutionAffiliationRepository.deleteAll();
     }
 }
