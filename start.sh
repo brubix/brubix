@@ -13,5 +13,9 @@ docker run --name b-rubix-mysql -e MYSQL_ROOT_PASSWORD=admin -e MYSQL_DATABASE=b
 echo "Waiting 20 seconds for MySQL to come up"
 sleep 20s
 
+# start b-rubix-identity container
+docker run --name b-rubix-identity --link b-rubix-mysql:localhost -p 8090:8090 -d b-rubix-identity:SNAPSHOT
+
+
 # start b-rubix-service container
 docker run --name b-rubix-service --link b-rubix-mysql:localhost -p 8080:8080 -d b-rubix-service:SNAPSHOT

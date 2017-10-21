@@ -10,7 +10,7 @@ spring:
             ddl-auto: create-drop
 server:
     context-path: /v1
-    port: 8080
+    port: 8090
 
 brubix:
     oauth:

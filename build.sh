@@ -13,3 +13,8 @@ docker pull mysql
 # build docker image for b-rubix-server
 cd b-rubix-service
 mvn package -Pdocker -DskipTests
+
+# build docker image for b-rubix-identity
+cd ..
+cd b-rubix-identity
+mvn package -Pdocker -DskipTests
