@@ -12,7 +12,7 @@ import org.junit.runner.RunWith;
         glue = {"feature"},
         snippets = SnippetType.CAMELCASE,
         tags = {"~@skip", "~@ignore"},
-        features = "src/test/resources/feature/inventory/school.feature")
+        features = "src/test/resources/feature")
 public class CucumberRunnerTest {
 
 }

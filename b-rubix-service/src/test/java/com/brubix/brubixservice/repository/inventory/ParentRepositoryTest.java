@@ -63,8 +63,8 @@ public class ParentRepositoryTest {
         parent.setDateOfBirth(new Date());
         parent.setName("Mr Parent");
 
-        KYC parentKyc = new KYC();
-        parentKyc.setKycType(KYCType.AADHAAR);
+        DocumentInfo parentKyc = new DocumentInfo();
+        parentKyc.setDocumentType(DocumentType.AADHAAR);
 
         Address parentAddress = new Address();
         parentAddress.setFirstLine("first line");
@@ -79,7 +79,7 @@ public class ParentRepositoryTest {
         parentMileStone.setCreatedAt(new Date());
         parentMileStone.setCreatedBy(1);
 
-        parent.setKyc(Arrays.asList(parentKyc));
+        parent.setDocuments(Arrays.asList(parentKyc));
         parent.setAddresses(Arrays.asList(parentAddress));
         parent.setMileStone(parentMileStone);
 
@@ -95,9 +95,9 @@ public class ParentRepositoryTest {
         wardMileStone.setCreatedBy(1);
         ward.setMileStone(wardMileStone);
 
-        KYC wardKyc = new KYC();
-        wardKyc.setKycType(KYCType.AADHAAR);
-        ward.setKyc(Arrays.asList(wardKyc));
+        DocumentInfo wardKyc = new DocumentInfo();
+        wardKyc.setDocumentType(DocumentType.AADHAAR);
+        ward.setDocuments(Arrays.asList(wardKyc));
         ward.setParent(parent);
 
         parent.setWards(Arrays.asList(ward));
@@ -108,7 +108,7 @@ public class ParentRepositoryTest {
         // then
         // parent assertions
         Parent savedParent = parentRepository.findAll().get(0);
-        Assertions.assertThat(savedParent.getKyc().get(0))
+        Assertions.assertThat(savedParent.getDocuments().get(0))
                 .extracting("panCard", "drivingLicenseNumber", "adhaarNumber")
                 .contains("pan card", "license", "adhar number");
 
@@ -129,7 +129,7 @@ public class ParentRepositoryTest {
 
         Assertions.assertThat(savedParent.getName()).isEqualTo("Mr Parent");
 
-        Assertions.assertThat(savedParent.getWards().get(0).getKyc())
+        Assertions.assertThat(savedParent.getWards().get(0).getDocuments())
                 .extracting("adhaarNumber")
                 .contains("wadharnumber");
 

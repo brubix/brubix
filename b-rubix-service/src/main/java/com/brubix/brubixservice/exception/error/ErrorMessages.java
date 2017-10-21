@@ -21,7 +21,7 @@ public interface ErrorMessages {
 
     String INVALID_COUNTRY_CODE = "Country code is not found in system";
 
-    String INVALID_KYC_FILE_UPLOADS = "Number of KYC documents uploaded not matching with KYC data provided";
+    String INVALID_DOCUMENT_FILE_UPLOADS = "Correct document details or attachments are not provided";
 
     String INVALID_SCHOOL_CODE = "School code is not found in system";
 

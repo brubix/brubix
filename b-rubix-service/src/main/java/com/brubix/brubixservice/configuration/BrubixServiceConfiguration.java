@@ -1,13 +1,14 @@
 package com.brubix.brubixservice.configuration;
 
+import com.brubix.brubixservice.controller.inventory.document.DocumentFormCustomValidator;
 import com.brubix.brubixservice.generator.SchoolCodeGenerator;
+import com.brubix.brubixservice.repository.content.DocumentInfoRepository;
 import com.brubix.brubixservice.repository.inventory.SchoolRepository;
 import com.brubix.brubixservice.repository.inventory.SubjectRepository;
 import com.brubix.brubixservice.repository.reference.*;
-import com.brubix.brubixservice.service.inventory.school.SchoolCommandHandler;
-import com.brubix.brubixservice.service.inventory.school.SchoolCommandHandlerImpl;
-import com.brubix.brubixservice.service.inventory.school.SchoolQueryHandler;
-import com.brubix.brubixservice.service.inventory.school.SchoolQueryHandlerImpl;
+import com.brubix.brubixservice.service.inventory.document.DocumentCommandHandler;
+import com.brubix.brubixservice.service.inventory.document.DocumentCommandHandlerImpl;
+import com.brubix.brubixservice.service.inventory.school.*;
 import com.brubix.brubixservice.service.reference.affiliation.AffiliationCommandHandler;
 import com.brubix.brubixservice.service.reference.affiliation.AffiliationCommandHandlerImpl;
 import com.brubix.brubixservice.service.reference.affiliation.AffiliationQueryHandler;
@@ -28,7 +29,6 @@ import com.brubix.brubixservice.service.reference.subject.SubjectCommandHandler;
 import com.brubix.brubixservice.service.reference.subject.SubjectCommandHandlerImpl;
 import com.brubix.brubixservice.service.reference.subject.SubjectQueryHandler;
 import com.brubix.brubixservice.service.reference.subject.SubjectQueryHandlerImpl;
-import com.brubix.brubixservice.validator.SchoolFormCustomValidator;
 import org.hibernate.validator.HibernateValidator;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -117,6 +117,14 @@ public class BrubixServiceConfiguration {
     }
 
     @Bean
+    public DocumentCommandHandler documentCommandHandler(DocumentInfoRepository documentInfoRepository,
+                                                         DocumentFormCustomValidator documentFormCustomValidator,
+                                                         SchoolRepository schoolRepository) {
+        return new DocumentCommandHandlerImpl(documentInfoRepository, documentFormCustomValidator, schoolRepository);
+    }
+
+
+    @Bean
     public Validator localValidatorFactoryBean(@Value("${hibernate.validator.fail-fast}") String failFast) {
         ValidatorFactory validatorFactory = Validation.byProvider(HibernateValidator.class)
                 .configure()
@@ -124,6 +132,13 @@ public class BrubixServiceConfiguration {
                 .buildValidatorFactory();
         return validatorFactory.getValidator();
     }
+
+    @Bean
+    public DocumentFormCustomValidator documentFormCustomValidator(Validator validator) {
+        SpringValidatorAdapter springValidatorAdapter = new SpringValidatorAdapter(validator);
+        return new DocumentFormCustomValidator(springValidatorAdapter);
+    }
+
 
     @Bean
     public SchoolFormCustomValidator schoolFormCustomValidator(Validator validator) {

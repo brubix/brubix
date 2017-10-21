@@ -10,6 +10,7 @@ public interface ApplicationConstant {
     String INSTITUTION = "Institution";
     String LANGUAGE = "Language";
     String REFERENCE = "Reference";
+    String DOCUMENTS = "Document";
 
 
 }

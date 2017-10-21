@@ -41,8 +41,8 @@ public class SchoolCreationReferenceQueryController {
 
     @GetMapping(path = "")
     @ApiOperation(
-            value = "Returns all reference data required for to create a school",
-            notes = "Returns all reference data required for to create a school",
+            value = "Returns all reference data required for to upload a school",
+            notes = "Returns all reference data required for to upload a school",
             code = 200,
             response = SchoolCreationReferenceData.class)
     @ApiResponses(

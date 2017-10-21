@@ -4,7 +4,7 @@ import com.brubix.entity.communication.Email;
 import com.brubix.entity.communication.Phone;
 import com.brubix.entity.communication.Social;
 import com.brubix.entity.inventory.Address;
-import com.brubix.entity.inventory.KYC;
+import com.brubix.entity.inventory.DocumentInfo;
 import com.brubix.entity.inventory.MileStone;
 import lombok.Getter;
 import lombok.Setter;
@@ -45,7 +45,7 @@ public abstract class User {
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
-    private List<KYC> kyc;
+    private List<DocumentInfo> documents;
 
     @Embedded
     private MileStone mileStone;

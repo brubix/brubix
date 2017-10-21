@@ -1,6 +1,5 @@
 Feature: Create school in system
 
-
   Scenario: Create school in system without school logo without KYC details / attachments / social details
     Given the user provided school name - "ABC school" , school id - "abc_school" and below addresses
       | first line     | second line | third line  | state code | country code | pin code |
@@ -13,7 +12,6 @@ Feature: Create school in system
       | first line     | second line | third line  | state code | country code | pin code |
       | HSR 3rd sector | BDA complex | BDA complex | KAR        | IND          | 560101   |
       | Texas city 1   | Texas       | Texas       | TXS        | USA          | 765012   |
-
 
   Scenario: Create school in system  with KYC detail with school logo / KYC attachments / social details
     Given the user provided school name - "XYZ school" , school id - "xyz_school" and below addresses
@@ -83,7 +81,8 @@ Feature: Create school in system
     When the user creates school
     Then the user should get error as "Request payload is malformed or invalid"
 
-
+  # FIXME - Need to fixe once form validation for School decided
+  @skip
   Scenario: Create school in system without school logo / KYC details and with KYC attachments
     Given the user provided school name - "XYZ school" , school id - "xyz_school" and below addresses
       | first line     | second line | third line | state code | country code | pin code |

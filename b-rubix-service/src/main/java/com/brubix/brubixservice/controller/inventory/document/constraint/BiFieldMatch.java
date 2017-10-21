@@ -1,4 +1,4 @@
-package com.brubix.brubixservice.validator.constraint;
+package com.brubix.brubixservice.controller.inventory.document.constraint;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;
@@ -12,7 +12,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 @Target({TYPE, ANNOTATION_TYPE})
 @Retention(RUNTIME)
-@Constraint(validatedBy = KYCConstraintValidator.class)
+@Constraint(validatedBy = DocumentConstraintValidator.class)
 @Documented
 public @interface BiFieldMatch {
     String message() default "{constraints.fieldmatch}";

@@ -1,6 +1,6 @@
 package com.brubix.brubixservice.service.inventory.school;
 
-import com.brubix.brubixservice.controller.inventory.KYCData;
+import com.brubix.brubixservice.controller.inventory.DocumentData;
 import com.brubix.brubixservice.controller.inventory.SocialData;
 import com.brubix.brubixservice.controller.inventory.school.CourseForm;
 import com.brubix.brubixservice.controller.inventory.school.SchoolForm;
@@ -12,7 +12,6 @@ import com.brubix.brubixservice.repository.inventory.SchoolRepository;
 import com.brubix.brubixservice.repository.inventory.SubjectRepository;
 import com.brubix.brubixservice.repository.reference.CountryRepository;
 import com.brubix.brubixservice.repository.reference.StateRepository;
-import com.brubix.brubixservice.validator.SchoolFormCustomValidator;
 import com.brubix.entity.communication.Social;
 import com.brubix.entity.content.Document;
 import com.brubix.entity.inventory.*;
@@ -138,12 +137,12 @@ public class SchoolCommandHandlerImpl implements SchoolCommandHandler {
 
         // map KYCs
         int size = CollectionUtils.isEmpty(schoolForm.getKyc()) ? 0 : schoolForm.getKyc().size();
-        List<KYC> kycList = new ArrayList<>();
+        List<DocumentInfo> kycList = new ArrayList<>();
         for (int i = 0; i < size; i++) {
-            KYCData kycData = schoolForm.getKyc().get(i);
+            DocumentData kycData = schoolForm.getKyc().get(i);
 
-            KYC kyc = new KYC();
-            kyc.setKycType(KYCType.getType(kycData.getType()));
+            DocumentInfo kyc = new DocumentInfo();
+            kyc.setDocumentType(DocumentType.getType(kycData.getType()));
             kyc.setNumber(kycData.getNumber());
 
             if (!CollectionUtils.isEmpty(schoolForm.getKycDocuments())) {
@@ -159,7 +158,7 @@ public class SchoolCommandHandlerImpl implements SchoolCommandHandler {
         //FIXME - association with user entity and identity
         mileStone.setCreatedBy(1);
 
-        school.setSchoolKyc(kycList);
+        school.setDocuments(kycList);
         school.setAddresses(addresses);
         school.setMileStone(mileStone);
 

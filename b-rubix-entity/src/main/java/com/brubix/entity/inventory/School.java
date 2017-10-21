@@ -44,7 +44,7 @@ public class School {
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "school_id")
-    private List<KYC> schoolKyc;
+    private List<DocumentInfo> documents;
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "social_id")

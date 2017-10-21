@@ -1,7 +1,7 @@
 package feature.inventory;
 
 import com.brubix.brubixservice.controller.inventory.AddressData;
-import com.brubix.brubixservice.controller.inventory.KYCData;
+import com.brubix.brubixservice.controller.inventory.DocumentData;
 import com.brubix.brubixservice.controller.inventory.SocialData;
 import com.brubix.brubixservice.controller.inventory.school.SchoolForm;
 import com.brubix.brubixservice.controller.inventory.school.SchoolQueryData;
@@ -57,11 +57,11 @@ public class SchoolStepDef extends AbstractStepDef {
             parts.add("LOGO", logoResource);
         }
 
-        // school KYC documents
+        // school DocumentInfo documents
         for (String attachment : attachmentNames) {
             FileSystemResource resource = new FileSystemResource(this.getClass()
                     .getClassLoader().getResource("doc/" + attachment).getPath());
-            parts.add("KYC", resource);
+            parts.add("DocumentInfo", resource);
         }
 
         HttpHeaders headers = new HttpHeaders();
@@ -75,11 +75,11 @@ public class SchoolStepDef extends AbstractStepDef {
     }
 
     @And("^the user has provided below kyc$")
-    public void theUserHasBelowKyc(List<TestKYCData> testKYCData) {
+    public void theUserHasBelowKyc(List<TestDocumentData> testKYCData) {
         schoolForm.setKyc(testKYCData.
                 stream()
                 .map(kyc -> {
-                    KYCData kycData = new KYCData();
+                    DocumentData kycData = new DocumentData();
                     kycData.setNumber(kyc.getNumber());
                     kycData.setType(kyc.getType());
                     if (isNotBlank(kyc.getDocument())) {

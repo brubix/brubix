@@ -1,7 +1,7 @@
 package com.brubix.brubixservice.controller.inventory.school;
 
 import com.brubix.brubixservice.controller.inventory.AddressData;
-import com.brubix.brubixservice.controller.inventory.KYCData;
+import com.brubix.brubixservice.controller.inventory.DocumentData;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
@@ -22,7 +22,7 @@ public class TeacherForm {
 
     private List<AddressData> addresses;
 
-    private List<KYCData> kyc;
+    private List<DocumentData> kyc;
 
     private Date joiningDate;
 

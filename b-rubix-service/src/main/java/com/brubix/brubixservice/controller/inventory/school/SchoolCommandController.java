@@ -40,7 +40,7 @@ public class SchoolCommandController {
     @ApiResponses(
             value = {
                     @ApiResponse(code = 400, message = INVALID_PAYLOAD, response = ErrorResponse.class),
-                    @ApiResponse(code = 400, message = INVALID_KYC_FILE_UPLOADS, response = ErrorResponse.class),
+                    @ApiResponse(code = 400, message = INVALID_DOCUMENT_FILE_UPLOADS, response = ErrorResponse.class),
                     @ApiResponse(code = 400, message = INVALID_FILE, response = ErrorResponse.class),
                     @ApiResponse(code = 404, message = UNSUPPORTED_API, response = ErrorResponse.class),
                     @ApiResponse(code = 405, message = INVALID_METHOD, response = ErrorResponse.class),
@@ -54,8 +54,8 @@ public class SchoolCommandController {
             @ApiParam(name = "LOGO", value = "School Logo")
             @RequestPart(value = "LOGO", required = false) MultipartFile logo,
 
-            @ApiParam(name = "KYC", value = "KYC documents")
-            @RequestPart(value = "KYC", required = false) List<MultipartFile> kycDocuments
+            @ApiParam(name = "DocumentInfo", value = "DocumentInfo documents")
+            @RequestPart(value = "DocumentInfo", required = false) List<MultipartFile> kycDocuments
 
     ) {
         school.setSchoolLogo(logo);
@@ -104,7 +104,7 @@ public class SchoolCommandController {
     @ApiResponses(
             value = {
                     @ApiResponse(code = 400, message = INVALID_PAYLOAD, response = ErrorResponse.class),
-                    @ApiResponse(code = 400, message = INVALID_KYC_FILE_UPLOADS, response = ErrorResponse.class),
+                    @ApiResponse(code = 400, message = INVALID_DOCUMENT_FILE_UPLOADS, response = ErrorResponse.class),
                     @ApiResponse(code = 400, message = INVALID_FILE, response = ErrorResponse.class),
                     @ApiResponse(code = 404, message = UNSUPPORTED_API, response = ErrorResponse.class),
                     @ApiResponse(code = 405, message = INVALID_METHOD, response = ErrorResponse.class),
@@ -118,11 +118,11 @@ public class SchoolCommandController {
             @ApiParam(name = "teachers", value = "Teachers for a  school", required = true)
             @Valid @RequestBody TeacherForm teacherForm,
 
-            @ApiParam(name = "KYC", value = "KYC documents")
-            @RequestPart(value = "KYC", required = false) List<MultipartFile> kycDocuments) {
+            @ApiParam(name = "DocumentInfo", value = "DocumentInfo documents")
+            @RequestPart(value = "DocumentInfo", required = false) List<MultipartFile> kycDocuments) {
 
         teacherForm.setSchoolCode(code);
-        //schoolCommandHandler.create(teacherForm);
+        //schoolCommandHandler.upload(teacherForm);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 
     }

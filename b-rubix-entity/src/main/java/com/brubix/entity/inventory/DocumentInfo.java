@@ -14,19 +14,19 @@ import static javax.persistence.GenerationType.IDENTITY;
 @Getter
 @Setter
 @Entity
-@Table(name = "kyc", catalog = "brubix")
-public class KYC {
+@Table(name = "document_info", catalog = "brubix")
+public class DocumentInfo {
 
     @Id
     @GeneratedValue(strategy = IDENTITY)
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "kyc_type", nullable = false, length = 50)
+    @Column(name = "document_type", nullable = false, length = 50)
     @Enumerated(EnumType.STRING)
-    private KYCType kycType;
+    private DocumentType documentType;
 
-    @Column(name = "kyc_number", length = 20, nullable = false)
+    @Column(name = "document_number", length = 20, nullable = true)
     private String number;
 
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)

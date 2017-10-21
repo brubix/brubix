@@ -62,8 +62,8 @@ public class StudentRepositoryTest {
         student.setDateOfBirth(new Date());
         student.setName("Mr Robin");
 
-        KYC kyc = new KYC();
-        kyc.setKycType(KYCType.PAN_CARD);
+        DocumentInfo kyc = new DocumentInfo();
+        kyc.setDocumentType(DocumentType.PAN_CARD);
 
         Address address = new Address();
         address.setFirstLine("first line");
@@ -78,7 +78,7 @@ public class StudentRepositoryTest {
         mileStone.setCreatedAt(new Date());
         mileStone.setCreatedBy(1);
 
-        student.setKyc(Arrays.asList(kyc));
+        student.setDocuments(Arrays.asList(kyc));
         student.setAddresses(Arrays.asList(address));
         student.setMileStone(mileStone);
 
@@ -87,7 +87,7 @@ public class StudentRepositoryTest {
 
         // then
         Student savedStudent = studentRepository.findOne(1L);
-        assertThat(savedStudent.getKyc().get(0))
+        assertThat(savedStudent.getDocuments().get(0))
                 .extracting("panCard", "drivingLicenseNumber", "adhaarNumber")
                 .contains("pan card", "license", "adhar number");
 
