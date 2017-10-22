@@ -56,7 +56,7 @@ public class TeacherRepositoryTest {
         country.setStates(Arrays.asList(state));
         countryRepository.save(country);
 
-        Teacher teacher = new Teacher();
+        Faculty teacher = new Faculty();
         teacher.setJoiningDate(new Date());
         teacher.setResignationDate(new Date());
         teacher.setDateOfBirth(new Date());
@@ -86,7 +86,7 @@ public class TeacherRepositoryTest {
         teacherRepository.save(teacher);
 
         // then
-        Teacher savedTeacher = teacherRepository.findOne(1L);
+        Faculty savedTeacher = teacherRepository.findOne(1L);
         assertThat(savedTeacher.getDocuments().get(0))
                 .extracting("panCard", "drivingLicenseNumber", "adhaarNumber")
                 .contains("pan card", "license", "adhar number");

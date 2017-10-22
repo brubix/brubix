@@ -25,7 +25,7 @@ import static javax.persistence.GenerationType.IDENTITY;
 @DiscriminatorColumn(name = "user_type", discriminatorType = DiscriminatorType.STRING)
 @Getter
 @Setter
-public abstract class User {
+public class User {
 
     @Id
     @GeneratedValue(strategy = IDENTITY)

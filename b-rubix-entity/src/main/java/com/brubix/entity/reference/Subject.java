@@ -1,7 +1,7 @@
 package com.brubix.entity.reference;
 
 import com.brubix.entity.inventory.Course;
-import com.brubix.entity.inventory.Teacher;
+import com.brubix.entity.inventory.Faculty;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -36,11 +36,11 @@ public class Subject {
 
     @ManyToMany
     @JoinTable(
-            name = "subject_teacher",
+            name = "subjects_faculties",
             joinColumns = @JoinColumn(
                     name = "subject_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(
-                    name = "teacher_id", referencedColumnName = "id"))
-    private List<Teacher> teachers;
+                    name = "faculty_id", referencedColumnName = "id"))
+    private List<Faculty> faculties;
 
 }
