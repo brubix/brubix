@@ -8,14 +8,14 @@ import com.brubix.brubixservice.controller.reference.subject.SubjectForm;
 import com.brubix.brubixservice.exception.BrubixException;
 import com.brubix.brubixservice.repository.inventory.SchoolRepository;
 import com.brubix.entity.communication.Social;
-import com.brubix.entity.inventory.Address;
-import com.brubix.entity.inventory.Course;
-import com.brubix.entity.inventory.School;
+import com.brubix.entity.content.Document;
+import com.brubix.entity.inventory.*;
 import com.brubix.entity.reference.Subject;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static com.brubix.brubixservice.exception.error.ErrorCode.INVALID_SCHOOL_CODE;
@@ -39,15 +39,22 @@ public class SchoolQueryHandlerImpl implements SchoolQueryHandler {
             throw new BrubixException(INVALID_SCHOOL_CODE);
         }
 
+        Optional<DocumentInfo> profileOptional = school.getDocuments()
+                .stream()
+                .filter(documentInfo -> documentInfo.getDocumentType() == DocumentType.PROFILE)
+                .findAny();
+        Document profile = profileOptional.isPresent() ? profileOptional.get().getDocument() : null;
+
         return SchoolQueryData
                 .builder()
                 .addresses(mapToAddress(school.getAddresses()))
                 .social(mapSocial(school.getSocial()))
                 .code(school.getSchoolCode())
                 .name(school.getSchoolName())
-                .logo(school.getLogo() != null ? school.getLogo().getContent() : null)
+                .logo(profile != null ? profile.getContent() : null)
                 .build();
     }
+
 
     private SocialData mapSocial(Social social) {
         return social != null ?

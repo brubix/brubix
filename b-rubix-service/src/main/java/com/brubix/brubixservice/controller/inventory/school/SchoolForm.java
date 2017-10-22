@@ -19,7 +19,7 @@ import java.util.List;
 @Setter
 // FIXME - once school form validation decided
 /*@BiFieldMatch.List({
-        @BiFieldMatch(first = "documents", second = "kycDocuments", message = "{invalid.documents.attachments}")})*/
+        @BiFieldMatch(first = "documents", second = "attachments", message = "{invalid.documents.attachments}")})*/
 public class SchoolForm {
 
     @NotBlank(message = "{field.empty}")
@@ -35,16 +35,16 @@ public class SchoolForm {
     private List<AddressData> addresses;
 
     @Valid
-    private List<DocumentData> kyc;
+    private List<DocumentData> documents;
 
     @Valid
     private SocialData social;
 
     @JsonIgnore
-    private MultipartFile schoolLogo;
+    private MultipartFile profilePicture;
 
     @JsonIgnore
-    private List<MultipartFile> kycDocuments;
+    private List<MultipartFile> attachments;
 
 
 

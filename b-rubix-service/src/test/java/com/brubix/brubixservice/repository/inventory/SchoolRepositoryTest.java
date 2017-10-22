@@ -4,9 +4,7 @@ import com.brubix.brubixservice.repository.content.DocumentRepository;
 import com.brubix.brubixservice.repository.reference.CountryRepository;
 import com.brubix.brubixservice.repository.reference.StateRepository;
 import com.brubix.entity.content.Document;
-import com.brubix.entity.inventory.Address;
-import com.brubix.entity.inventory.MileStone;
-import com.brubix.entity.inventory.School;
+import com.brubix.entity.inventory.*;
 import com.brubix.entity.reference.Country;
 import com.brubix.entity.reference.State;
 import org.junit.Test;
@@ -65,10 +63,15 @@ public class SchoolRepositoryTest {
         address.setState(stateRepository.getOne(1L));
         address.setCountry(countryRepository.getOne(1L));
 
+
         Document logo = new Document();
         logo.setContent(new String("Sample document data").getBytes());
         logo.setDocumentName("Sample Document");
         logo.setMimeType("text/plain");
+
+        DocumentInfo documentInfo = new DocumentInfo();
+        documentInfo.setDocumentType(DocumentType.PROFILE);
+        documentInfo.setDocument(logo);
 
         MileStone mileStone = new MileStone();
         mileStone.setCreatedAt(new Date());
@@ -79,7 +82,7 @@ public class SchoolRepositoryTest {
         school.setSchoolCode("MSCH");
         school.setAddresses(Arrays.asList(address));
         school.setMileStone(mileStone);
-        school.setLogo(logo);
+        school.setDocuments(Arrays.asList(documentInfo));
 
         schoolRepository.save(school);
 
@@ -98,7 +101,13 @@ public class SchoolRepositoryTest {
         assertThat(savedSchool.getSchoolName()).isEqualTo("My School");
         assertThat(savedSchool.getSchoolCode()).isEqualTo("MSCH");
 
-        assertThat(savedSchool.getLogo())
+        DocumentInfo profilePictureInfo = savedSchool.getDocuments()
+                .stream()
+                .filter(document -> document.getDocumentType() == DocumentType.PROFILE)
+                .findAny()
+                .get();
+
+        assertThat(profilePictureInfo.getDocument())
                 .extracting("documentName", "content", "mimeType")
                 .contains("Sample Document", "Sample document data".getBytes(), "text/plain");
 

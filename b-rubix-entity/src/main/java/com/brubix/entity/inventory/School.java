@@ -1,7 +1,6 @@
 package com.brubix.entity.inventory;
 
 import com.brubix.entity.communication.Social;
-import com.brubix.entity.content.Document;
 import com.brubix.entity.reference.InstitutionType;
 import lombok.Getter;
 import lombok.Setter;
@@ -37,10 +36,6 @@ public class School {
 
     @OneToMany(mappedBy = "school", cascade = CascadeType.ALL)
     private List<Teacher> teachers;
-
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "logo_document_id")
-    private Document logo;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "school_id")

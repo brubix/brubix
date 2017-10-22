@@ -54,14 +54,14 @@ public class SchoolStepDef extends AbstractStepDef {
         if (logo != null) {
             FileSystemResource logoResource = new FileSystemResource(this.getClass()
                     .getClassLoader().getResource(logo).getPath());
-            parts.add("LOGO", logoResource);
+            parts.add("profile", logoResource);
         }
 
         // school DocumentInfo documents
         for (String attachment : attachmentNames) {
             FileSystemResource resource = new FileSystemResource(this.getClass()
                     .getClassLoader().getResource("doc/" + attachment).getPath());
-            parts.add("DocumentInfo", resource);
+            parts.add("attachments", resource);
         }
 
         HttpHeaders headers = new HttpHeaders();
@@ -76,7 +76,7 @@ public class SchoolStepDef extends AbstractStepDef {
 
     @And("^the user has provided below kyc$")
     public void theUserHasBelowKyc(List<TestDocumentData> testKYCData) {
-        schoolForm.setKyc(testKYCData.
+        schoolForm.setDocuments(testKYCData.
                 stream()
                 .map(kyc -> {
                     DocumentData kycData = new DocumentData();

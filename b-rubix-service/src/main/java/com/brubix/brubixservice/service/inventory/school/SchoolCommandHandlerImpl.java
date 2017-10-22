@@ -119,7 +119,16 @@ public class SchoolCommandHandlerImpl implements SchoolCommandHandler {
         School school = new School();
         school.setSchoolName(schoolForm.getName());
         school.setSchoolCode(schoolCodeGenerator.generate());
-        school.setLogo(schoolForm.getSchoolLogo() != null ? createDocument(schoolForm.getSchoolLogo()) : null);
+
+        List<DocumentInfo> documentInfoList = new ArrayList<>();
+
+        Document profileDocument = schoolForm.getProfilePicture() != null ? createDocument(schoolForm.getProfilePicture()) : null;
+        if (profileDocument != null) {
+            DocumentInfo profileDocumentInfo = new DocumentInfo();
+            profileDocumentInfo.setDocumentType(DocumentType.PROFILE);
+            profileDocumentInfo.setDocument(profileDocument);
+            documentInfoList.add(profileDocumentInfo);
+        }
 
         // map addresses
         List<Address> addresses = schoolForm.getAddresses()
@@ -136,20 +145,24 @@ public class SchoolCommandHandlerImpl implements SchoolCommandHandler {
                 }).collect(Collectors.toList());
 
         // map KYCs
-        int size = CollectionUtils.isEmpty(schoolForm.getKyc()) ? 0 : schoolForm.getKyc().size();
-        List<DocumentInfo> kycList = new ArrayList<>();
+        int size = CollectionUtils.isEmpty(schoolForm.getDocuments()) ? 0 : schoolForm.getDocuments().size();
         for (int i = 0; i < size; i++) {
-            DocumentData kycData = schoolForm.getKyc().get(i);
+            DocumentData documentData = schoolForm.getDocuments().get(i);
 
-            DocumentInfo kyc = new DocumentInfo();
-            kyc.setDocumentType(DocumentType.getType(kycData.getType()));
-            kyc.setNumber(kycData.getNumber());
+            DocumentInfo documentInfo = new DocumentInfo();
+            documentInfo.setDocumentType(DocumentType.getType(documentData.getType()));
+            documentInfo.setNumber(documentData.getNumber());
 
-            if (!CollectionUtils.isEmpty(schoolForm.getKycDocuments())) {
-                MultipartFile kycFile = schoolForm.getKycDocuments().get(i);
-                kyc.setDocument(kycFile != null ? createDocument(kycFile) : null);
+            if (!CollectionUtils.isEmpty(schoolForm.getAttachments())) {
+                // FIXME - Nasty way need to re-factor
+                try {
+                    MultipartFile attachment = schoolForm.getAttachments().get(i);
+                    documentInfo.setDocument(attachment != null ? createDocument(attachment) : null);
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    log.info("Attachment not provided for document type" + documentData.getType());
+                }
             }
-            kycList.add(kyc);
+            documentInfoList.add(documentInfo);
         }
 
         // map Milestones
@@ -158,7 +171,7 @@ public class SchoolCommandHandlerImpl implements SchoolCommandHandler {
         //FIXME - association with user entity and identity
         mileStone.setCreatedBy(1);
 
-        school.setDocuments(kycList);
+        school.setDocuments(documentInfoList);
         school.setAddresses(addresses);
         school.setMileStone(mileStone);
 

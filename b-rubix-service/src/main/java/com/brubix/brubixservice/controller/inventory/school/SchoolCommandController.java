@@ -51,15 +51,15 @@ public class SchoolCommandController {
             @ApiParam(name = "school", value = "School to be created")
             @Valid @RequestPart(value = "school") SchoolForm school,
 
-            @ApiParam(name = "LOGO", value = "School Logo")
-            @RequestPart(value = "LOGO", required = false) MultipartFile logo,
+            @ApiParam(name = "profile", value = "School profile picture")
+            @RequestPart(value = "profile", required = false) MultipartFile profilePic,
 
-            @ApiParam(name = "DocumentInfo", value = "DocumentInfo documents")
-            @RequestPart(value = "DocumentInfo", required = false) List<MultipartFile> kycDocuments
+            @ApiParam(name = "attachments", value = "Attachments")
+            @RequestPart(value = "attachments", required = false) List<MultipartFile> attachments
 
     ) {
-        school.setSchoolLogo(logo);
-        school.setKycDocuments(kycDocuments);
+        school.setProfilePicture(profilePic);
+        school.setAttachments(attachments);
         SchoolCode schoolCode = schoolCommandHandler.create(school);
         return new ResponseEntity<>(schoolCode, HttpStatus.OK);
     }
