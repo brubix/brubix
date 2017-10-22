@@ -49,11 +49,13 @@ public class OAuth2AuthorizationServer extends AuthorizationServerConfigurerAdap
         return new BCryptPasswordEncoder();
     }
 
+
     @Override
     public void configure(AuthorizationServerSecurityConfigurer oauthServer) throws Exception {
         oauthServer
                 .tokenKeyAccess("permitAll()")
-                .checkTokenAccess("isAuthenticated()");
+                .checkTokenAccess("isAuthenticated()")
+                .allowFormAuthenticationForClients();
     }
 
     @Override
@@ -62,7 +64,8 @@ public class OAuth2AuthorizationServer extends AuthorizationServerConfigurerAdap
                 .authenticationManager(authenticationManager)
                 .userDetailsService(userDetailsService)
                 .tokenStore(tokenStore)
-                .userApprovalHandler(userApprovalHandler);
+                .userApprovalHandler(userApprovalHandler)
+                .reuseRefreshTokens(false);
     }
 
     // FIXME dynamically configuring clients
@@ -73,11 +76,9 @@ public class OAuth2AuthorizationServer extends AuthorizationServerConfigurerAdap
                 .inMemory()
                 .withClient("brubix")
                 .secret("secret")
-                // Only password flow to be supported as of now,
-                // other flows available ("authorization_code", "refresh_token", "implicit")
-                .authorizedGrantTypes("password")
+                .authorizedGrantTypes("password", "authorization_code", "refresh_token", "implicit")
                 .scopes("read", "write", "trust")
-                .authorities("ROLE_CLIENT")
+                .authorities("ROLE_CLIENT", "ROLE_TRUSTED_CLIENT")
                 .accessTokenValiditySeconds(tokenExpiration)
                 .refreshTokenValiditySeconds(refreshTokenExpiration)
                 .resourceIds(RESOURCE_ID);
