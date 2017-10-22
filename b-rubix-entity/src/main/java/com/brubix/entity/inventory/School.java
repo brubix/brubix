@@ -31,11 +31,12 @@ public class School {
     private String schoolCode;
 
     @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "school_id", nullable = false)
+    @JoinColumn(name = "school_id")
     private List<Address> addresses;
 
     @OneToMany(mappedBy = "school", cascade = CascadeType.ALL)
     private List<Teacher> teachers;
+
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "school_id")

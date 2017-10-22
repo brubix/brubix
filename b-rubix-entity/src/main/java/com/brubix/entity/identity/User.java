@@ -56,8 +56,8 @@ public abstract class User {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Email> emails;
 
-    //@Column(name = "password", nullable = false)
-    //private String password;
+    @Column(name = "password", nullable = false)
+    private String password;
 
     @Column(name = "enabled", nullable = false)
     private boolean enabled;

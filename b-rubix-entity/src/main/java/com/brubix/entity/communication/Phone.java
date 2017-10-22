@@ -22,6 +22,6 @@ public class Phone {
     @Column(name = "number", nullable = false, unique = true)
     private String number;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private User user;
 }
