@@ -2,9 +2,13 @@ package com.brubix.identity.configuration;
 
 import com.brubix.identity.repository.UserRepository;
 import com.brubix.identity.service.BrubixUserDetailService;
+import com.brubix.identity.service.UserService;
+import com.brubix.identity.service.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
@@ -23,6 +27,7 @@ import javax.sql.DataSource;
 
 @Configuration
 @EnableWebSecurity
+@Order(SecurityProperties.ACCESS_OVERRIDE_ORDER)
 public class OAuth2SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Autowired
@@ -40,17 +45,15 @@ public class OAuth2SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-                .authorizeRequests()
-                .antMatchers("/oauth/token")
-                .permitAll();
-        http
-                .antMatcher("/**")
-                .authorizeRequests()
-                .anyRequest()
-                .authenticated()
-                .and()
                 .csrf()
-                .disable();
+                .disable()
+                .anonymous()
+                .disable()
+                .authorizeRequests()
+                .antMatchers("/oauth/token").permitAll()
+                .antMatchers("/oauth/check_token").authenticated()
+                .anyRequest()
+                .authenticated();
     }
 
     @Override
@@ -87,4 +90,8 @@ public class OAuth2SecurityConfiguration extends WebSecurityConfigurerAdapter {
         return new BrubixUserDetailService(userRepository);
     }
 
+    @Bean
+    public UserService userService(UserRepository userRepository) {
+        return new UserServiceImpl(userRepository);
+    }
 }

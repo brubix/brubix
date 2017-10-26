@@ -35,7 +35,11 @@ public class School {
     private List<Address> addresses;
 
     @OneToMany(mappedBy = "school", cascade = CascadeType.ALL)
-    private List<Faculty> teachers;
+    private List<Faculty> faculties;
+
+
+    @OneToMany(mappedBy = "school", cascade = CascadeType.ALL)
+    private List<NonFaculty> nonFaculties;
 
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)

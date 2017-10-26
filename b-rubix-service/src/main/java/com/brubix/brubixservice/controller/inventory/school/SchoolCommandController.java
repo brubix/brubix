@@ -93,13 +93,13 @@ public class SchoolCommandController {
 
     }
 
-    @PutMapping(path = "/{code}/teachers",
+    @PutMapping(path = "/{code}/faculties",
             produces = {MediaType.APPLICATION_JSON_VALUE},
             consumes = {MediaType.MULTIPART_FORM_DATA_VALUE}
     )
     @ApiOperation(
-            value = "Create teachers for a school",
-            notes = "Create teachers for school",
+            value = "Create faculties for a school",
+            notes = "Create faculties for school",
             code = 200, response = SchoolCode.class)
     @ApiResponses(
             value = {
@@ -115,7 +115,7 @@ public class SchoolCommandController {
             @ApiParam(name = "code", value = "School code", required = true)
             @PathVariable(value = "code") String code,
 
-            @ApiParam(name = "teachers", value = "Teachers for a  school", required = true)
+            @ApiParam(name = "faculties", value = "Teachers for a  school", required = true)
             @Valid @RequestBody TeacherForm teacherForm,
 
             @ApiParam(name = "DocumentInfo", value = "DocumentInfo documents")

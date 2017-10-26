@@ -9,9 +9,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.embedded.LocalServerPort;
 import org.springframework.boot.test.context.SpringBootContextLoader;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.*;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.web.client.RestTemplate;
 
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
 
@@ -27,7 +27,7 @@ public abstract class AbstractStepDef {
     protected String contextPath;
 
     @Autowired
-    protected RestTemplate restTemplate;
+    protected TestRestTemplate restTemplate;
 
     @Getter
     @LocalServerPort
