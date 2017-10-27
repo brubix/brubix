@@ -25,7 +25,7 @@ server:
 hibernate:
     validator:
         fail-fast: false
-        endpoints:
+
 endpoints:
     flyway:
         web:
