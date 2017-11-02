@@ -34,11 +34,11 @@ public class School {
     @JoinColumn(name = "school_id")
     private List<Address> addresses;
 
-    @OneToMany(mappedBy = "school", cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL)
     private List<Faculty> faculties;
 
 
-    @OneToMany(mappedBy = "school", cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL)
     private List<NonFaculty> nonFaculties;
 
 

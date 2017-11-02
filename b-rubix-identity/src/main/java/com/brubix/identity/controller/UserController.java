@@ -30,7 +30,7 @@ public class UserController {
     @GetMapping(path = "")
     @ApiOperation(
             value = "Get logged in user details",
-            notes = "Gset logged in user details",
+            notes = "Get logged in user details",
             response = BrubixUserDetails.class)
     public ResponseEntity<Principal> user(Principal principal) {
         BrubixUserDetails brubixUserDetails = userService.getUserDetailsByIdentifier(principal.getName());

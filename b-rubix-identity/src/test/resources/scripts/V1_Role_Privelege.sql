@@ -9,7 +9,7 @@ VALUES
     (2,'Can access student functionalities of a perticular school','STUDENT'),
     (3, 'Can access PARENT functionalities of a perticular school','PARENT'),
     (4, 'Can access GUARDIAN functionalities of a perticular school','GUARDIAN'),
-    (5,'The administrator has access to all functionalities of perticular school','ADMINISTRATOR'),
+    (5,'The administrator has access to all functionality of particular school','ADMINISTRATOR'),
     (6,'The super administrator has access to all functionalities for all schools','SUPER ADMINISTRATOR');
 
 INSERT INTO `privilege`

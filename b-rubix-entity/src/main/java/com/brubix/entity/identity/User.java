@@ -6,6 +6,7 @@ import com.brubix.entity.communication.Social;
 import com.brubix.entity.inventory.Address;
 import com.brubix.entity.inventory.DocumentInfo;
 import com.brubix.entity.inventory.MileStone;
+import com.brubix.entity.inventory.School;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -61,6 +62,9 @@ public class User {
 
     @Column(name = "enabled", nullable = false)
     private boolean enabled;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    private School school;
 
     @ManyToMany
     @JoinTable(

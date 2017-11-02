@@ -4,7 +4,10 @@ import com.brubix.entity.identity.User;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.MappedSuperclass;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import java.util.Date;
 
 @Getter
@@ -20,6 +23,4 @@ public abstract class Staff extends User {
     @Temporal(TemporalType.DATE)
     private Date resignationDate;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    private School school;
 }
