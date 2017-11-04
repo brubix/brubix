@@ -50,8 +50,6 @@ public class OAuth2SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .anonymous()
                 .disable()
                 .authorizeRequests()
-                .antMatchers("/oauth/token").permitAll()
-                .antMatchers("/oauth/check_token").authenticated()
                 .anyRequest()
                 .authenticated();
     }

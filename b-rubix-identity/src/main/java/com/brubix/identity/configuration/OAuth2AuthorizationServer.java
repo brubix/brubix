@@ -54,7 +54,7 @@ public class OAuth2AuthorizationServer extends AuthorizationServerConfigurerAdap
     public void configure(AuthorizationServerSecurityConfigurer oauthServer) throws Exception {
         oauthServer
                 .tokenKeyAccess("permitAll()")
-                .checkTokenAccess("isAuthenticated()")
+                .checkTokenAccess("permitAll()")
                 .allowFormAuthenticationForClients();
     }
 
@@ -78,7 +78,7 @@ public class OAuth2AuthorizationServer extends AuthorizationServerConfigurerAdap
                 .secret("secret")
                 .authorizedGrantTypes("password", "authorization_code", "refresh_token", "implicit")
                 .scopes("read", "write", "trust")
-                .authorities("ROLE_CLIENT", "ROLE_TRUSTED_CLIENT")
+                .authorities("ROLE_CLIENT")
                 .accessTokenValiditySeconds(tokenExpiration)
                 .refreshTokenValiditySeconds(refreshTokenExpiration)
                 .resourceIds(RESOURCE_ID);

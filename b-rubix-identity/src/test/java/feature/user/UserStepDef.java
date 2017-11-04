@@ -123,7 +123,7 @@ public class UserStepDef extends AbstractStepDef {
 
     }
 
-    @Given("^below \"([^\"]*)\" is going be created in system$")
+    @Given("^below \"([^\"]*)\" is going to be created in system$")
     public void belowUserCreatedInSystem(String role, List<NonFaculty> users) {
         this.role = role;
         nonFaculty = users.get(0);
@@ -234,5 +234,18 @@ public class UserStepDef extends AbstractStepDef {
         BrubixUserDetails.AssociatedSchool expectedSchool = SharedDataContext.getBrubixUserDetails().getSchool();
         Assertions.assertThat(expectedSchool.getName()).isEqualTo(schoolName);
         Assertions.assertThat(expectedSchool.getCode()).isNotBlank();
+    }
+
+    @When("called check token end point by providing access token")
+    public void whenCalledValidateAccessToken() {
+        String url = "http://localhost:" + serverPort + contextPath + "/oauth/check_token?token=" + access_token;
+        ResponseEntity<String> data = restTemplate.getForEntity(url, String.class);
+        SharedDataContext.setResponseEntity(data);
+    }
+
+    @Then("should get user name as \"([^\"]*)\"")
+    public void shouldGetUserNameAs(String userName) throws Exception{
+        ResponseEntity<String> responseEntity = SharedDataContext.getResponseEntity();
+        Assertions.assertThat(new JSONObject(responseEntity.getBody()).get("user_name")).isEqualTo(userName);
     }
 }

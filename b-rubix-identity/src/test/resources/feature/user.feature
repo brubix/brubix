@@ -1,6 +1,7 @@
 Feature: Get logged in info for all users
 
-  Background:
+  @skip
+  Scenario Outline: Logged in by email
     Given all country data present in system
     And all role data present in system
     And all privilege data present in system
@@ -9,8 +10,7 @@ Feature: Get logged in info for all users
       | HSR 3rd sector | BDA complex | BDA complex | KAR        | IND          | 560101   |
       | Texas city 1   | Texas       | Texas       | TXS        | USA          | 765012   |
 
-  Scenario Outline: Get logged in info for an ADMINISTRATOR
-    Given below "ADMINISTRATOR" is going be created in system
+    Given below "ADMINISTRATOR" is going to be created in system
       | name  | password | date of birth | joining date |
       | admin | admin    | 12/02/1995    | 12/02/2007   |
     And below address provided
@@ -51,3 +51,35 @@ Feature: Get logged in info for all users
     Examples:
       | unique_id     | password |
       | xyz@gmail.com | admin    |
+
+
+  @skip
+  Scenario: Check token
+    Given all country data present in system
+    And all role data present in system
+    And all privilege data present in system
+    And the user provided school name - "DEF school" and below addresses
+      | first line     | second line | third line  | state code | country code | pin code |
+      | HSR 3rd sector | BDA complex | BDA complex | KAR        | IND          | 560101   |
+    Given below "ADMINISTRATOR" is going to be created in system
+      | name  | password | date of birth | joining date |
+      | admin | admin    | 12/02/1995    | 12/02/2007   |
+    And below address provided
+      | first line     | second line | third line  | state code | country code | pin code |
+      | HSR 3rd sector | BDA complex | BDA complex | KAR        | IND          | 560101   |
+    And below phone number provided
+      | number    |
+      | 123456789 |
+    And below emails provided
+      | email         |
+      | xyz@gmail.com |
+    And user created
+    And below client is already registered with identity service
+      | client id | secret |
+      | brubix    | secret |
+    When proxy service calls identity service to get access token for user
+      | user name | password |
+      | 123456789 | admin    |
+    Then proxy service should get access token and details
+    When called check token end point by providing access token
+    Then should get user name as "123456789"
