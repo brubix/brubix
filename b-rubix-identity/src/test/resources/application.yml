@@ -21,6 +21,6 @@ server:
 brubix:
     oauth:
         token:
-            timeout: 1800
+            timeout: 10
         refresh-token:
             timeout: 3600

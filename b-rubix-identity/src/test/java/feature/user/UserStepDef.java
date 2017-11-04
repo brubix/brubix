@@ -65,13 +65,14 @@ public class UserStepDef extends AbstractStepDef {
     private String clientId;
     private String secret;
     private String access_token;
+    private String refresh_token;
 
 
     @Given("^the user provided school name - \"([^\"]*)\" and below addresses$")
     public void theUserProvidedSchoolNameAsAndBelowAddresses(String name, List<TestAddressData> addressDataList) {
         School school = new School();
         school.setSchoolName(name);
-        school.setSchoolCode("SCHL2017121201");
+        school.setSchoolCode("SCHL2017121201"+name);
         school.setAddresses(addressDataList.stream()
                 .map(testAddressData1 -> {
                     Address address = new Address();
@@ -189,9 +190,10 @@ public class UserStepDef extends AbstractStepDef {
         String response = SharedDataContext.getResponseEntity().getBody();
         JSONObject jsonObject = new JSONObject(response);
         access_token = (String) jsonObject.get("access_token");
+        refresh_token = (String) jsonObject.get("refresh_token");
         assertThat(access_token).isNotNull();
         assertThat(jsonObject.get("token_type")).isNotNull();
-        assertThat(jsonObject.get("refresh_token")).isNotNull();
+        assertThat(refresh_token).isNotNull();
         assertThat(jsonObject.get("expires_in")).isNotNull();
         assertThat(jsonObject.get("scope")).isNotNull();
     }
@@ -244,8 +246,28 @@ public class UserStepDef extends AbstractStepDef {
     }
 
     @Then("should get user name as \"([^\"]*)\"")
-    public void shouldGetUserNameAs(String userName) throws Exception{
+    public void shouldGetUserNameAs(String userName) throws Exception {
         ResponseEntity<String> responseEntity = SharedDataContext.getResponseEntity();
         Assertions.assertThat(new JSONObject(responseEntity.getBody()).get("user_name")).isEqualTo(userName);
+    }
+
+    @When("wait for \"([^\"]*)\" seconds to expire access token")
+    public void waitForTokenToExpire(String time) throws Exception {
+        Thread.sleep(Integer.parseInt(time) * 1000);
+    }
+
+    @When("called refresh token end point by providing details")
+    public void whenCalledRefreshTokenEndPoint() {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+        MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
+        map.add("grant_type", "refresh_token");
+        map.add("client_id", clientId);
+        map.add("client_secret", secret);
+        map.add("refresh_token", refresh_token);
+        HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(map, headers);
+        String url = "http://localhost:" + serverPort + contextPath + "/oauth/token";
+        ResponseEntity<String> response = restTemplate.postForEntity(url, request, String.class);
+        SharedDataContext.setResponseEntity(response);
     }
 }
