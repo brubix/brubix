@@ -22,6 +22,7 @@
         <module>b-rubix-entity</module>
         <module>b-rubix-identity</module>
         <module>b-rubix-service</module>
+        <module>b-rubix-k8s</module>
     </modules>
 
     <properties>

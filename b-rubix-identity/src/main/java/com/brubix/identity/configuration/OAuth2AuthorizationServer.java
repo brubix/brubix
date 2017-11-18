@@ -16,7 +16,11 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.approval.UserApprovalHandler;
+import org.springframework.security.oauth2.provider.token.TokenEnhancerChain;
 import org.springframework.security.oauth2.provider.token.TokenStore;
+import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
+
+import java.util.Arrays;
 
 import static com.brubix.identity.configuration.OAuth2ResourceServer.RESOURCE_ID;
 
@@ -39,6 +43,11 @@ public class OAuth2AuthorizationServer extends AuthorizationServerConfigurerAdap
     @Autowired
     private UserApprovalHandler userApprovalHandler;
 
+
+    @Autowired
+    private JwtAccessTokenConverter accessTokenConverter;
+
+
     @Autowired
     @Qualifier("authenticationManagerBean")
     private AuthenticationManager authenticationManager;
@@ -60,9 +69,13 @@ public class OAuth2AuthorizationServer extends AuthorizationServerConfigurerAdap
 
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer configurer) throws Exception {
+        TokenEnhancerChain enhancerChain = new TokenEnhancerChain();
+        enhancerChain.setTokenEnhancers(Arrays.asList(accessTokenConverter));
+
         configurer
                 .authenticationManager(authenticationManager)
                 .userDetailsService(userDetailsService)
+                .tokenEnhancer(enhancerChain)
                 .tokenStore(tokenStore)
                 .userApprovalHandler(userApprovalHandler)
                 .reuseRefreshTokens(false);
