@@ -24,3 +24,6 @@ brubix:
             timeout: 10
         refresh-token:
             timeout: 3600
+
+security:
+    signing-key: BrubixIsAwesome
