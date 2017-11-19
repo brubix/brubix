@@ -1,11 +1,9 @@
-# b-Rubix Custom Docker Repo
+# b-Rubix Custom Docker Repository
 
 Repository for all the custom dockers for b-rubix services to run in development/integration mode
 
 
 ## Available Custom Docker
-
-The below custom dockers are available
 
 * MySql
 
