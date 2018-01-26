@@ -114,9 +114,9 @@ public class SchoolQueryHandlerImpl implements SchoolQueryHandler {
                             .firstLine(address.getFirstLine())
                             .secondLine(address.getSecondLine())
                             .thirdLine(address.getThirdLine())
-                            .pinCode(address.getPinCode())
-                            .countryCode(address.getCountry().getCode())
-                            .stateCode(address.getState().getCode())
+                            .pin(address.getPinCode())
+                            .country(address.getCountry().getCode())
+                            .state(address.getState().getCode())
                             .build();
 
                 }).collect(Collectors.toList());

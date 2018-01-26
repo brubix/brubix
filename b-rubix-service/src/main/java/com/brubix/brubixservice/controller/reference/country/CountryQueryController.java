@@ -37,7 +37,8 @@ public class CountryQueryController {
                     @ApiResponse(code = 405, message = INVALID_METHOD, response = ErrorResponse.class),
                     @ApiResponse(code = 500, message = INTERNAL_ERROR, response = ErrorResponse.class)
             })
-    public @ResponseBody
+    public
+    @ResponseBody
     ResponseEntity<List<CountryData>> findAllCountries() {
         List<CountryData> countries = countryQueryHandler.findAllCountries();
         return new ResponseEntity<>(countries, HttpStatus.OK);
@@ -58,8 +59,8 @@ public class CountryQueryController {
             })
     public ResponseEntity<CountryData> findCountryByCode(
             @ApiParam(
-            name = "code", value = "ISO3 country code",
-            required = true) @PathVariable(value = "code") String code) {
+                    name = "code", value = "ISO3 country code",
+                    required = true) @PathVariable(value = "code") String code) {
         CountryData country = countryQueryHandler.findCountryByCode(code);
         return new ResponseEntity<>(country, HttpStatus.OK);
     }

@@ -2,8 +2,8 @@ Feature: Create courses for a school
 
   Scenario: Create courses with subjects for a school
     Given the user provided school name - "ABC school" , school id - "abc_school" and below addresses
-      | first line     | second line | third line  | state code | country code | pin code |
-      | HSR 3rd sector | BDA complex | BDA complex | KAR        | IND          | 560101   |
+      | first line     | second line | third line  | state | country | pin    |
+      | HSR 3rd sector | BDA complex | BDA complex | KAR   | IND     | 560101 |
     When the user creates school
     Then a school code is generated
     And the user creates course "Standard 7" for school with below subjects
@@ -33,8 +33,8 @@ Feature: Create courses for a school
 
   Scenario: Create courses without subjects for a school
     Given the user provided school name - "DEF school" , school id - "def_school" and below addresses
-      | first line     | second line | third line  | state code | country code | pin code |
-      | HSR 3rd sector | BDA complex | BDA complex | KAR        | IND          | 560101   |
+      | first line     | second line | third line  | state | country | pin    |
+      | HSR 3rd sector | BDA complex | BDA complex | KAR   | IND     | 560101 |
     When the user creates school
     Then a school code is generated
     And the user creates course "Standard 7" for school with below subjects
@@ -51,8 +51,8 @@ Feature: Create courses for a school
   #Negative scenario
   Scenario: Create courses with subject name without description for a school
     Given the user provided school name - "ABC school" , school id - "abc_school" and below addresses
-      | first line     | second line | third line  | state code | country code | pin code |
-      | HSR 3rd sector | BDA complex | BDA complex | KAR        | IND          | 560101   |
+      | first line     | second line | third line  | state | country | pin    |
+      | HSR 3rd sector | BDA complex | BDA complex | KAR   | IND     | 560101 |
     When the user creates school
     Then a school code is generated
     And the user creates course "Standard 7" for school with below subjects
@@ -63,8 +63,8 @@ Feature: Create courses for a school
 
   Scenario: Create courses with subject description / without subject name
     Given the user provided school name - "ABC school" , school id - "abc_school" and below addresses
-      | first line     | second line | third line  | state code | country code | pin code |
-      | HSR 3rd sector | BDA complex | BDA complex | KAR        | IND          | 560101   |
+      | first line     | second line | third line  | state | country | pin    |
+      | HSR 3rd sector | BDA complex | BDA complex | KAR   | IND     | 560101 |
     When the user creates school
     Then a school code is generated
     And the user creates course "Standard 7" for school with below subjects
@@ -83,8 +83,8 @@ Feature: Create courses for a school
 
   Scenario: Create courses with invalid subjects
     Given the user provided school name - "ABC school" , school id - "abc_school" and below addresses
-      | first line     | second line | third line  | state code | country code | pin code |
-      | HSR 3rd sector | BDA complex | BDA complex | KAR        | IND          | 560101   |
+      | first line     | second line | third line  | state | country | pin    |
+      | HSR 3rd sector | BDA complex | BDA complex | KAR   | IND     | 560101 |
     When the user creates school
     Then a school code is generated
     And the user creates course "Standard 7" for school with below subjects

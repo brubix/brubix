@@ -26,14 +26,14 @@ public class AddressData {
     @NotBlank(message = "{field.empty}")
     @Length(max = 3, message = "{invalid.state.code}")
     @Pattern(regexp = "([A-Z]){3}", message = "{invalid.state.code}")
-    private String stateCode;
+    private String state;
 
     @NotBlank(message = "{field.empty}")
     @Length(max = 3, message = "{invalid.length.country.code}")
     @Pattern(regexp = "([A-Z]){3}", message = "{invalid.country.code}")
-    private String countryCode;
+    private String country;
     
     @NotBlank(message = "{field.empty}")
     @Length(max = 6, message = "{invalid.first.line.address}")
-    private String pinCode;
+    private String pin;
 }

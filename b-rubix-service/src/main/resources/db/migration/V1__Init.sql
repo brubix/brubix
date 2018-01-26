@@ -17,6 +17,12 @@ VALUES
   (6, 'WDC', 'Wasington DC', 2)
 ;
 
+INSERT INTO `city` (`id`, `code`, `description`, `state_id`)
+VALUES
+  (1, 'MYS', 'Mysore', 1),
+  (2, 'BNG', 'Bangalore', 1),
+  (3, 'HUB', 'Hubli', 1);
+
 INSERT INTO `subject` (`id`, `description`, `name`)
 VALUES
   (1, 'Mathematics', 'Maths'),

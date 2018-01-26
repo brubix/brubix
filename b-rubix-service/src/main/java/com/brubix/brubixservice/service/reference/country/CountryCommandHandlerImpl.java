@@ -4,6 +4,7 @@ import com.brubix.brubixservice.controller.reference.country.CountryData;
 import com.brubix.brubixservice.exception.BrubixException;
 import com.brubix.brubixservice.exception.error.ErrorCode;
 import com.brubix.brubixservice.repository.reference.CountryRepository;
+import com.brubix.entity.reference.City;
 import com.brubix.entity.reference.Country;
 import com.brubix.entity.reference.State;
 import lombok.extern.slf4j.Slf4j;
@@ -47,13 +48,26 @@ public class CountryCommandHandlerImpl implements CountryCommandHandler {
         country.setDescription(countryData.getDescription());
         country.setCurrency(countryData.getCurrency());
 
-        List<State> states = countryData.getStates().stream().map(stateData -> {
-            State state = new State();
-            state.setCode(stateData.getCode());
-            state.setDescription(stateData.getDescription());
-            state.setCountry(country);
-            return state;
-        }).collect(Collectors.toList());
+        List<State> states = countryData
+                .getStates()
+                .stream()
+                .map(stateData -> {
+                    State state = new State();
+                    state.setCode(stateData.getCode());
+                    state.setDescription(stateData.getDescription());
+                    List<City> cities = state
+                            .getCities()
+                            .stream()
+                            .map(s -> {
+                                City city = new City();
+                                city.setCode(s.getCode());
+                                city.setDescription(s.getDescription());
+                                return city;
+                            }).collect(Collectors.toList());
+                    state.setCities(cities);
+                    state.setCountry(country);
+                    return state;
+                }).collect(Collectors.toList());
         country.setStates(states);
         return country;
     }

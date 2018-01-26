@@ -1,9 +1,11 @@
 package com.brubix.brubixservice.service.reference.country;
+
+import com.brubix.brubixservice.controller.reference.country.CityData;
 import com.brubix.brubixservice.controller.reference.country.CountryData;
 import com.brubix.brubixservice.controller.reference.country.StateData;
 import com.brubix.brubixservice.exception.BrubixException;
 import com.brubix.brubixservice.repository.reference.CountryRepository;
-import com.brubix.brubixservice.service.reference.country.CountryQueryHandler;
+import com.brubix.entity.reference.City;
 import com.brubix.entity.reference.Country;
 import com.brubix.entity.reference.State;
 import lombok.extern.slf4j.Slf4j;
@@ -72,6 +74,18 @@ public class CountryQueryHandlerImpl implements CountryQueryHandler {
         StateData stateData = new StateData();
         stateData.setCode(state.getCode());
         stateData.setDescription(state.getDescription());
+        stateData.setCities(state
+                .getCities()
+                .stream()
+                .map(city -> mapToCity(city))
+                .collect(Collectors.toList()));
         return stateData;
+    }
+
+    private CityData mapToCity(City city) {
+        CityData cityData = new CityData();
+        cityData.setCode(city.getCode());
+        cityData.setDescription(city.getDescription());
+        return cityData;
     }
 }

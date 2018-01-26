@@ -2,9 +2,9 @@ Feature: Upload documents for school
 
   Scenario: Upload KYC documents for school
     Given the user provided school name - "ABC school" , school id - "abc_school" and below addresses
-      | first line     | second line | third line  | state code | country code | pin code |
-      | HSR 3rd sector | BDA complex | BDA complex | KAR        | IND          | 560101   |
-      | Texas city 1   | Texas       | Texas       | TXS        | USA          | 765012   |
+      | first line     | second line | third line  | state | country | pin    |
+      | HSR 3rd sector | BDA complex | BDA complex | KAR   | IND     | 560101 |
+      | Texas city 1   | Texas       | Texas       | TXS   | USA     | 765012 |
     When the user creates school
     Then a school code is generated
     And the user has uploaded below document
@@ -16,9 +16,9 @@ Feature: Upload documents for school
 
   Scenario: Upload profile picture of school
     Given the user provided school name - "ABC school" , school id - "abc_school" and below addresses
-      | first line     | second line | third line  | state code | country code | pin code |
-      | HSR 3rd sector | BDA complex | BDA complex | KAR        | IND          | 560101   |
-      | Texas city 1   | Texas       | Texas       | TXS        | USA          | 765012   |
+      | first line     | second line | third line  | state | country | pin    |
+      | HSR 3rd sector | BDA complex | BDA complex | KAR   | IND     | 560101 |
+      | Texas city 1   | Texas       | Texas       | TXS   | USA     | 765012 |
     When the user creates school
     Then a school code is generated
     And the user has uploaded below document
@@ -29,9 +29,9 @@ Feature: Upload documents for school
   #Negative scenarios
   Scenario: Upload KYC documents without document number
     Given the user provided school name - "ABC school" , school id - "abc_school" and below addresses
-      | first line     | second line | third line  | state code | country code | pin code |
-      | HSR 3rd sector | BDA complex | BDA complex | KAR        | IND          | 560101   |
-      | Texas city 1   | Texas       | Texas       | TXS        | USA          | 765012   |
+      | first line     | second line | third line  | state | country | pin    |
+      | HSR 3rd sector | BDA complex | BDA complex | KAR   | IND     | 560101 |
+      | Texas city 1   | Texas       | Texas       | TXS   | USA     | 765012 |
     When the user creates school
     Then a school code is generated
     And the user has uploaded below document
@@ -43,9 +43,9 @@ Feature: Upload documents for school
 
   Scenario: Upload documents without attachments
     Given the user provided school name - "ABC school" , school id - "abc_school" and below addresses
-      | first line     | second line | third line  | state code | country code | pin code |
-      | HSR 3rd sector | BDA complex | BDA complex | KAR        | IND          | 560101   |
-      | Texas city 1   | Texas       | Texas       | TXS        | USA          | 765012   |
+      | first line     | second line | third line  | state | country | pin    |
+      | HSR 3rd sector | BDA complex | BDA complex | KAR   | IND     | 560101 |
+      | Texas city 1   | Texas       | Texas       | TXS   | USA     | 765012 |
     When the user creates school
     Then a school code is generated
     And the user has uploaded below document

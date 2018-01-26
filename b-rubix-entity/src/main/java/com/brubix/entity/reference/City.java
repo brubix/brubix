@@ -4,18 +4,17 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.List;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
 /**
- * Created by sanjeev.singh1 on 11/09/17.
+ * Created by Sanjaya on 26/01/18.
  */
 @Getter
 @Setter
 @Entity
-@Table(name = "state", catalog = "brubix")
-public class State {
+@Table(name = "city", catalog = "brubix")
+public class City {
 
     @Id
     @GeneratedValue(strategy = IDENTITY)
@@ -23,15 +22,11 @@ public class State {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    private Country country;
+    private State state;
 
     @Column(name = "code", nullable = false, length = 3, unique = true)
     private String code;
 
     @Column(name = "description", nullable = false, length = 20)
     private String description;
-
-    @OneToMany(mappedBy = "state", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<City> cities;
-
 }

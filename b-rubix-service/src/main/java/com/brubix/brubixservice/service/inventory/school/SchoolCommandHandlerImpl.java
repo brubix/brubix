@@ -138,9 +138,9 @@ public class SchoolCommandHandlerImpl implements SchoolCommandHandler {
                     address.setFirstLine(addressData.getFirstLine());
                     address.setSecondLine(addressData.getSecondLine());
                     address.setThirdLine(addressData.getThirdLine());
-                    address.setPinCode(addressData.getPinCode());
-                    address.setCountry(countryRepository.findByCode(addressData.getCountryCode()));
-                    address.setState(stateRepository.findByCode(addressData.getStateCode()));
+                    address.setPinCode(addressData.getPin());
+                    address.setCountry(countryRepository.findByCode(addressData.getCountry()));
+                    address.setState(stateRepository.findByCode(addressData.getState()));
                     return address;
                 }).collect(Collectors.toList());
 
