@@ -1,8 +1,8 @@
 package com.brubix.reference.service.language;
 
+import com.brubix.common.repository.LanguageMediumRepository;
 import com.brubix.entity.reference.Language;
 import com.brubix.reference.controller.language.LanguageForm;
-import com.brubix.reference.repository.LanguageMediumRepository;
 
 import java.util.List;
 import java.util.stream.Collectors;

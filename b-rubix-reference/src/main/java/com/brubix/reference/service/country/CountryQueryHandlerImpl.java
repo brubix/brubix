@@ -2,13 +2,13 @@ package com.brubix.reference.service.country;
 
 import com.brubix.common.exception.BrubixException;
 import com.brubix.common.exception.error.ErrorCode;
+import com.brubix.common.repository.CountryRepository;
 import com.brubix.entity.reference.City;
 import com.brubix.entity.reference.Country;
 import com.brubix.entity.reference.State;
 import com.brubix.reference.controller.country.CityData;
 import com.brubix.reference.controller.country.CountryData;
 import com.brubix.reference.controller.country.StateData;
-import com.brubix.reference.repository.CountryRepository;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.transaction.Transactional;

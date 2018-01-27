@@ -1,8 +1,8 @@
 package com.brubix.reference.service.institutiontype;
 
+import com.brubix.common.repository.InstitutionTypeRepository;
 import com.brubix.entity.reference.InstitutionType;
 import com.brubix.reference.controller.institutiontype.InstitutionTypeForm;
-import com.brubix.reference.repository.InstitutionTypeRepository;
 
 import java.util.List;
 import java.util.stream.Collectors;

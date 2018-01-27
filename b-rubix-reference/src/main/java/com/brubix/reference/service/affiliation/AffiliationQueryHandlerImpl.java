@@ -1,7 +1,7 @@
 package com.brubix.reference.service.affiliation;
 
+import com.brubix.common.repository.InstitutionAffiliationRepository;
 import com.brubix.reference.controller.institutionboard.AffiliationForm;
-import com.brubix.reference.repository.InstitutionAffiliationRepository;
 
 import java.util.List;
 import java.util.stream.Collectors;

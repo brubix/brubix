@@ -1,8 +1,8 @@
 package com.brubix.reference.service.subject;
 
+import com.brubix.common.repository.SubjectRepository;
 import com.brubix.entity.reference.Subject;
 import com.brubix.reference.controller.subject.SubjectForm;
-import com.brubix.reference.repository.SubjectRepository;
 
 import java.util.List;
 import java.util.stream.Collectors;
