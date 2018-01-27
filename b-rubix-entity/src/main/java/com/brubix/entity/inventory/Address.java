@@ -1,6 +1,7 @@
 package com.brubix.entity.inventory;
 
 
+import com.brubix.entity.reference.City;
 import com.brubix.entity.reference.Country;
 import com.brubix.entity.reference.State;
 import lombok.Getter;
@@ -38,6 +39,9 @@ public class Address {
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private Country country;
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    private City city;
 
     @Column(name = "pin_code", length = 6, nullable = false)
     private String pinCode;

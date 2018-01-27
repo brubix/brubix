@@ -33,10 +33,13 @@ public class User {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "name", nullable = false)
-    private String name;
+    @Column(name = "first_name", nullable = false, length = 100)
+    private String firstName;
 
-    @Column(name = "birth_date", nullable = false)
+    @Column(name = "last_name", nullable = true, length = 100)
+    private String lastName;
+
+    @Column(name = "birth_date", nullable = true)
     @Temporal(TemporalType.DATE)
     private Date dateOfBirth;
 

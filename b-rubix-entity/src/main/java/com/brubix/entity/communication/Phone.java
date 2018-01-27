@@ -19,7 +19,7 @@ public class Phone {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "number", nullable = false, unique = true)
+    @Column(name = "number", nullable = false, unique = true, length = 10)
     private String number;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)

@@ -1,7 +1,9 @@
 package com.brubix.entity.inventory;
 
 import com.brubix.entity.communication.Social;
+import com.brubix.entity.reference.InstitutionAffiliation;
 import com.brubix.entity.reference.InstitutionType;
+import com.brubix.entity.reference.Language;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -30,17 +32,15 @@ public class School {
     @Column(name = "school_code", length = 25, nullable = false, unique = true)
     private String schoolCode;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "school_id")
-    private List<Address> addresses;
+    private Address address;
 
     @OneToMany(cascade = CascadeType.ALL)
     private List<Faculty> faculties;
 
-
     @OneToMany(cascade = CascadeType.ALL)
     private List<NonFaculty> nonFaculties;
-
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "school_id")
@@ -50,10 +50,17 @@ public class School {
     @JoinColumn(name = "social_id")
     private Social social;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "institution_type_id")
-    private InstitutionType institutionType;
+    private List<InstitutionType> institutionTypes;
 
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "affiliation_type_id")
+    private List<InstitutionAffiliation> affiliations;
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "language_id")
+    private List<Language> languages;
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
@@ -63,6 +70,10 @@ public class School {
             inverseJoinColumns = @JoinColumn(
                     name = "course_id", referencedColumnName = "id"))
     private List<Course> courses;
+
+
+    @Column(name = "about", length = 1000)
+    private String about;
 
     @Embedded
     private MileStone mileStone;

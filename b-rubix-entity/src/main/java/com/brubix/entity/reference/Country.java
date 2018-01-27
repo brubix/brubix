@@ -34,4 +34,6 @@ public class Country {
     @OneToMany(mappedBy = "country", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<State> states;
 
+    @Column(name = "dialing_code", nullable = false, length = 5)
+    private String dialingCode;
 }
