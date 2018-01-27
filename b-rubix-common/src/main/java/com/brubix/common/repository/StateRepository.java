@@ -1,4 +1,4 @@
-package com.brubix.brubixservice.repository.reference;
+package com.brubix.common.repository;
 
 
 import com.brubix.entity.reference.State;

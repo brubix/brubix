@@ -1,4 +1,4 @@
-package com.brubix.reference.repository;
+package com.brubix.common.repository;
 
 import com.brubix.entity.reference.Subject;
 import org.springframework.data.jpa.repository.JpaRepository;
