@@ -1,3 +1,4 @@
+@skip
 Feature: Get logged in info for all users
 
   Scenario Outline: Logged in by email
