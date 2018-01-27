@@ -1,28 +1,21 @@
+@skip
 Feature: Create school in system
 
   Scenario: Create school in system without school logo without KYC details / attachments / social details
     Given the user provided school name - "ABC school" , school id - "abc_school" and below addresses
       | first line     | second line | third line  | state | country | pin    |
       | HSR 3rd sector | BDA complex | BDA complex | KAR   | IND     | 560101 |
-      | Texas city 1   | Texas       | Texas       | TXS   | USA     | 765012 |
     When the user creates school
     Then a school code is generated
     When user finds school detail by school code
     Then below address data should be present for school "ABC school" without logo
       | first line     | second line | third line  | state | country | pin    |
       | HSR 3rd sector | BDA complex | BDA complex | KAR   | IND     | 560101 |
-      | Texas city 1   | Texas       | Texas       | TXS   | USA     | 765012 |
 
   Scenario: Create school in system  with KYC detail with school logo / KYC attachments / social details
     Given the user provided school name - "XYZ school" , school id - "xyz_school" and below addresses
       | first line     | second line | third line | state | country | pin    |
       | HSR 5th sector | BDA complex |            | KAR   | IND     | 560103 |
-      | Texas city 2   |             | Texas      | TXS   | USA     | 765014 |
-    And the user has provided below kyc
-      | type            | number         | document             |
-      | Aadhaar         | 123456789      | aadhaar.pdf          |
-      | Driving license | 12345678912345 | driving-license.jpeg |
-    And logo "school-logo.jpg" provided
     And the user has provided below social details
       | face book                       | twitter                        | google plus                       | linked in                       |
       | http://facebook.com/sanjeev.blr | http://twitter.com/sanjeev.blr | http://googleplus.com/sanjeev.blr | http://linkedin.com/sanjeev.blr |
@@ -32,7 +25,6 @@ Feature: Create school in system
     Then below address data should be present for school "XYZ school" with logo
       | first line     | second line | third line | state | country | pin    |
       | HSR 5th sector | BDA complex |            | KAR   | IND     | 560103 |
-      | Texas city 2   |             | Texas      | TXS   | USA     | 765014 |
     Then below social details should be present
       | face book                       | twitter                        | google plus                       | linked in                       |
       | http://facebook.com/sanjeev.blr | http://twitter.com/sanjeev.blr | http://googleplus.com/sanjeev.blr | http://linkedin.com/sanjeev.blr |
@@ -42,12 +34,6 @@ Feature: Create school in system
     Given the user provided school name - "XYZ school" , school id - "xyz_school" and below addresses
       | first line     | second line | third line | state | country | pin    |
       | HSR 5th sector | BDA complex |            | KAR   | IND     | 560103 |
-      | Texas city 2   |             | Texas      | TXS   | USA     | 765014 |
-    And the user has provided below kyc
-      | type            | number         | document |
-      | Aadhaar         | 123456789      |          |
-      | Driving license | 12345678912345 |          |
-    And logo "school-logo.jpg" provided
     When the user creates school
     Then a school code is generated
     When user finds school detail by school code
@@ -87,10 +73,6 @@ Feature: Create school in system
     Given the user provided school name - "XYZ school" , school id - "xyz_school" and below addresses
       | first line     | second line | third line | state | country | pin    |
       | HSR 5th sector | BDA complex |            | KAR   | IND     | 560103 |
-    And the user has provided below kyc
-      | type | number | document             |
-      |      |        | aadhaar.pdf          |
-      |      |        | driving-license.jpeg |
     When the user creates school
     Then the user should get error as "Number of KYC documents uploaded not matching with KYC data provided"
 

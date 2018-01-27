@@ -1,12 +1,13 @@
 package feature.inventory;
 
-import com.brubix.brubixservice.controller.inventory.AddressData;
-import com.brubix.brubixservice.controller.inventory.DocumentData;
-import com.brubix.brubixservice.controller.inventory.SocialData;
-import com.brubix.brubixservice.controller.inventory.school.SchoolForm;
-import com.brubix.brubixservice.controller.inventory.school.SchoolQueryData;
-import com.brubix.brubixservice.exception.error.ErrorResponse;
-import com.brubix.brubixservice.service.inventory.school.SchoolCode;
+import com.brubix.common.exception.error.ErrorResponse;
+import com.brubix.service.controller.inventory.AddressData;
+import com.brubix.service.controller.inventory.SocialData;
+import com.brubix.service.controller.inventory.school.AdminInfoData;
+import com.brubix.service.controller.inventory.school.SchoolForm;
+import com.brubix.service.controller.inventory.school.SchoolInfoData;
+import com.brubix.service.controller.inventory.school.SchoolQueryData;
+import com.brubix.service.service.school.SchoolCode;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -20,10 +21,8 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
-
-import static org.apache.commons.lang3.StringUtils.isNotBlank;
 
 public class SchoolStepDef extends AbstractStepDef {
 
@@ -36,10 +35,18 @@ public class SchoolStepDef extends AbstractStepDef {
 
     @Given("^the user provided school name - \"([^\"]*)\" , school id - \"([^\"]*)\" and below addresses$")
     public void theUserProvidedSchoolNameAsAndBelowAddresses(String name, String userName, List<AddressData> addressDataList) {
+
+        SchoolInfoData data = new SchoolInfoData();
+        data.setName(name);
+        data.setAddress(addressDataList.get(0));
+
+        AdminInfoData adminInfoData = new AdminInfoData();
+        adminInfoData.setFirstName(userName);
+
         SchoolForm schoolForm = new SchoolForm();
-        schoolForm.setName(name);
-        schoolForm.setUserName(userName); //FIX-ME
-        schoolForm.setAddresses(addressDataList);
+        schoolForm.setSchoolInfo(data);
+        schoolForm.setAdminInfos(Arrays.asList(adminInfoData));
+
         this.schoolForm = schoolForm;
     }
 
@@ -74,31 +81,11 @@ public class SchoolStepDef extends AbstractStepDef {
         SharedDataContext.setResponseEntity(responseEntity);
     }
 
-    @And("^the user has provided below kyc$")
-    public void theUserHasBelowKyc(List<TestDocumentData> testKYCData) {
-        schoolForm.setDocuments(testKYCData.
-                stream()
-                .map(kyc -> {
-                    DocumentData kycData = new DocumentData();
-                    kycData.setNumber(kyc.getNumber());
-                    kycData.setType(kyc.getType());
-                    if (isNotBlank(kyc.getDocument())) {
-                        attachmentNames.add(kyc.getDocument());
-                    }
-                    return kycData;
-                }).collect(Collectors.toList()));
-    }
-
-    @And("logo \"([^\"]*)\" provided")
-    public void logo_attached(String logo) {
-        this.logo = "doc/" + logo;
-    }
-
     @Then("^a school code is generated$")
     public void aSchoolCodeIsGenerated() throws Exception {
         Assertions.assertThat(responseEntity.getStatusCode().value()).isEqualTo(200);
         SchoolCode schoolCode = gson.fromJson(responseEntity.getBody(), SchoolCode.class);
-        Assertions.assertThat(schoolCode.getName()).isEqualTo(schoolForm.getName());
+        Assertions.assertThat(schoolCode.getName()).isEqualTo(schoolForm.getSchoolInfo().getName());
         Assertions.assertThat(schoolCode.getCode()).contains("SCHL");
         this.schoolCode = schoolCode.getCode();
         // set school code in shared data context
@@ -190,7 +177,7 @@ public class SchoolStepDef extends AbstractStepDef {
     @Then("^below social details should be present$")
     public void belowSocialDetailsShouldBePresent(List<SocialData> socialData) {
         SocialData social = schoolDataResponseEntity.getBody().getSocial();
-        Assertions.assertThat(social.getFaceBook()).isEqualTo(socialData.get(0).getFaceBook());
+        Assertions.assertThat(social.getFacebook()).isEqualTo(socialData.get(0).getFacebook());
         Assertions.assertThat(social.getGooglePlus()).isEqualTo(socialData.get(0).getGooglePlus());
         Assertions.assertThat(social.getLinkedIn()).isEqualTo(socialData.get(0).getLinkedIn());
         Assertions.assertThat(social.getTwitter()).isEqualTo(socialData.get(0).getTwitter());

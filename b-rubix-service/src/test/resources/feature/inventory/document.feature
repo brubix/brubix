@@ -1,3 +1,4 @@
+@skip
 Feature: Upload documents for school
 
   Scenario: Upload KYC documents for school

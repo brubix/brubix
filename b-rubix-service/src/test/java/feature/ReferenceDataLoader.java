@@ -1,11 +1,7 @@
 package feature;
 
 
-import com.brubix.brubixservice.repository.inventory.SubjectRepository;
-import com.brubix.brubixservice.repository.reference.CountryRepository;
-import com.brubix.brubixservice.repository.reference.InstitutionAffiliationRepository;
-import com.brubix.brubixservice.repository.reference.InstitutionTypeRepository;
-import com.brubix.brubixservice.repository.reference.LanguageMediumRepository;
+import com.brubix.common.repository.*;
 import com.brubix.entity.reference.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.TestConfiguration;
@@ -145,16 +141,29 @@ public class ReferenceDataLoader {
         india.setCode("IND");
         india.setCurrency("INR");
         india.setDescription("India");
+        india.setDialingCode("+91");
 
         State karnataka = new State();
         karnataka.setCode("KAR");
         karnataka.setDescription("Karnataka");
         karnataka.setCountry(india);
 
+        City bangalore = new City();
+        bangalore.setCode("BNG");
+        bangalore.setDescription("Bangalore");
+        karnataka.setCities(Arrays.asList(bangalore));
+        bangalore.setState(karnataka);
+
         State maharastra = new State();
         maharastra.setCode("MAH");
         maharastra.setDescription("Maharastra");
         maharastra.setCountry(india);
+
+        City mumbai = new City();
+        mumbai.setCode("BOM");
+        mumbai.setDescription("Mumbai");
+        maharastra.setCities(Arrays.asList(mumbai));
+        mumbai.setState(maharastra);
 
         india.setStates(Arrays.asList(karnataka, maharastra));
 
@@ -162,16 +171,29 @@ public class ReferenceDataLoader {
         usa.setCode("USA");
         usa.setCurrency("USD");
         usa.setDescription("United states");
+        usa.setDialingCode("+1");
 
         State texas = new State();
         texas.setCode("TXS");
         texas.setDescription("Texas");
         texas.setCountry(usa);
 
+        City arizona = new City();
+        arizona.setCode("ARZ");
+        arizona.setDescription("Arizona");
+        texas.setCities(Arrays.asList(arizona));
+        arizona.setState(texas);
+
         State washington = new State();
         washington.setCode("WDC");
         washington.setDescription("Washington DC");
         washington.setCountry(usa);
+
+        City iowa = new City();
+        iowa.setCode("IOW");
+        iowa.setDescription("IOWA");
+        washington.setCities(Arrays.asList(iowa));
+        iowa.setState(washington);
 
         usa.setStates(Arrays.asList(texas, washington));
 

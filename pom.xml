@@ -20,7 +20,9 @@
 
     <modules>
         <module>b-rubix-entity</module>
+        <module>b-rubix-common</module>
         <module>b-rubix-identity</module>
+        <module>b-rubix-reference</module>
         <module>b-rubix-service</module>
         <module>b-rubix-k8s</module>
     </modules>

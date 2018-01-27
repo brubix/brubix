@@ -18,3 +18,7 @@ mvn package -Pdocker -DskipTests
 cd ..
 cd b-rubix-identity
 mvn package -Pdocker -DskipTests
+
+cd ..
+cd b-rubix-reference
+mvn package -Pdocker -DskipTests

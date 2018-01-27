@@ -1,7 +1,7 @@
 
 package feature;
 
-import com.brubix.brubixservice.BrubixServiceApplication;
+import com.brubix.service.BrubixServiceApplication;
 import gherkin.deps.com.google.gson.Gson;
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;

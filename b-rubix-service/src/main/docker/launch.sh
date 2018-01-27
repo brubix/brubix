@@ -6,7 +6,7 @@
 # Use of additional Java options and arguments:
 # * docker run service_image:tag -o '-myjavaoptions' -o '-Dmydefinition=myvalue' --my.arg1="quoted value with space" 
 # * command above will start the java application as following:
-# * java [default_options...] -myjavaoptions -Dmydefinition=myvalue -jar service.jar [default_args...] --my.arg1="quoted value with space"
+# * java [default_options...] -myjavaoptions -Dmydefinition=myvalue -jar com.brubix.reference.service.jar [default_args...] --my.arg1="quoted value with space"
 
 
 ### Set default environment variables
@@ -66,7 +66,7 @@ cmd="exec java \
   -XX:HeapDumpPath=/data/conf/dump.hprof \
   ${OPTIONS} \
   ${EXTRA_OPTIONS} \
-  -jar /service/app.jar \
+  -jar /com.brubix.reference.service/app.jar \
   ${ARGS} \
   ${EXTRA_ARGS} \
 "

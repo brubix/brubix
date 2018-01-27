@@ -10,7 +10,7 @@ spring:
             ddl-auto: create-drop
 server:
     context-path: /v1
-    port: 8083
+    port: 8082
 
 hibernate:
     validator:

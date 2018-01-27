@@ -1,3 +1,4 @@
+@skip
 Feature: Create courses for a school
 
   Scenario: Create courses with subjects for a school

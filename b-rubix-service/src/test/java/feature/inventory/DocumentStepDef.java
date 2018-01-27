@@ -1,7 +1,7 @@
 package feature.inventory;
 
-import com.brubix.brubixservice.controller.inventory.DocumentData;
-import com.brubix.brubixservice.controller.inventory.document.DocumentForm;
+import com.brubix.service.controller.inventory.DocumentData;
+import com.brubix.service.controller.inventory.document.DocumentForm;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import feature.AbstractStepDef;

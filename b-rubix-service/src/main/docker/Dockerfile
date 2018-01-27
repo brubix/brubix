@@ -1,9 +1,9 @@
 FROM openjdk:8u141-jdk-slim
 EXPOSE 8080
 
-COPY launch.sh /service/launch.sh
-RUN chmod 755 /service/launch.sh
-COPY @project.build.finalName@.jar /service/app.jar
-RUN chmod 755 /service/app.jar
+COPY launch.sh /com.brubix.reference.service/launch.sh
+RUN chmod 755 /com.brubix.reference.service/launch.sh
+COPY @project.build.finalName@.jar /com.brubix.reference.service/app.jar
+RUN chmod 755 /com.brubix.reference.service/app.jar
 
-ENTRYPOINT ["/service/launch.sh"]
+ENTRYPOINT ["/com.brubix.reference.service/launch.sh"]

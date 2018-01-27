@@ -16,7 +16,7 @@ spring:
             showsql: true
 server:
     context-path: /v1
-    port: 8082
+    port: 8081
 
 brubix:
     oauth:

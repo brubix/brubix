@@ -1,8 +1,8 @@
 package feature.inventory;
 
 
-import com.brubix.brubixservice.controller.inventory.school.CourseForm;
-import com.brubix.brubixservice.controller.reference.subject.SubjectForm;
+import com.brubix.service.controller.inventory.school.CourseForm;
+import com.brubix.service.controller.inventory.school.SubjectForm;
 import com.google.common.reflect.TypeToken;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;

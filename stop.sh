@@ -7,6 +7,15 @@ docker stop b-rubix-mysql
 echo "Removing MySQL container"
 docker rm b-rubix-mysql
 
+# stop b-rubix-reference
+echo "Stopping b-rubix reference container"
+docker stop b-rubix-reference
+
+echo "Removing b-rubix referencecontainer"
+docker rm b-rubix-refernce
+
+
+
 # stop b-rubix-identity
 echo "Stopping b-rubix identity container"
 docker stop b-rubix-identity

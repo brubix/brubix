@@ -1,6 +1,6 @@
 package feature.inventory;
 
-import com.brubix.brubixservice.controller.inventory.DocumentData;
+import com.brubix.service.controller.inventory.DocumentData;
 import lombok.Getter;
 import lombok.Setter;
 
