@@ -1,6 +1,6 @@
 package com.brubix.identity.configuration;
 
-import com.brubix.identity.repository.UserRepository;
+import com.brubix.common.repository.UserRepository;
 import com.brubix.identity.service.BrubixUserDetailService;
 import com.brubix.identity.service.UserService;
 import com.brubix.identity.service.UserServiceImpl;

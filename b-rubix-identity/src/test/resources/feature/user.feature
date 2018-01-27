@@ -7,7 +7,6 @@ Feature: Get logged in info for all users
     And the user provided school name - "ABC school" and below addresses
       | first line     | second line | third line  | state code | country code | pin code |
       | HSR 3rd sector | BDA complex | BDA complex | KAR        | IND          | 560101   |
-      | Texas city 1   | Texas       | Texas       | TXS        | USA          | 765012   |
 
     Given below "ADMINISTRATOR" is going to be created in system
       | name  | password | date of birth | joining date |
@@ -15,7 +14,6 @@ Feature: Get logged in info for all users
     And below address provided
       | first line     | second line | third line  | state code | country code | pin code |
       | HSR 3rd sector | BDA complex | BDA complex | KAR        | IND          | 560101   |
-      | Texas city 1   | Texas       | Texas       | TXS        | USA          | 765012   |
     And below phone number provided
       | number    |
       | 123456789 |

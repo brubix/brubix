@@ -54,7 +54,12 @@
         <dependency>
             <groupId>com.brubix</groupId>
             <artifactId>b-rubix-entity</artifactId>
-            <version>1.0.0-SNAPSHOT</version>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.brubix</groupId>
+            <artifactId>b-rubix-common</artifactId>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>info.cukes</groupId>

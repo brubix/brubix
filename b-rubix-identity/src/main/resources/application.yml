@@ -10,7 +10,7 @@ spring:
             ddl-auto: update
 server:
     context-path: /v1
-    port: 8090
+    port: 8082
 
 brubix:
     oauth:

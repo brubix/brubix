@@ -1,13 +1,15 @@
 package feature;
 
 
+import com.brubix.common.repository.RoleRepository;
 import com.brubix.entity.identity.Privilege;
 import com.brubix.entity.identity.Role;
+import com.brubix.entity.reference.City;
 import com.brubix.entity.reference.Country;
 import com.brubix.entity.reference.State;
+import com.brubix.identity.repository.CityRepository;
 import com.brubix.identity.repository.CountryRepository;
 import com.brubix.identity.repository.PrivilegeRepository;
-import com.brubix.identity.repository.RoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.TestConfiguration;
 
@@ -27,13 +29,15 @@ public class ReferenceDataLoader {
     @Autowired
     private PrivilegeRepository privilegeRepository;
 
+    @Autowired
+    private CityRepository cityRepository;
+
 
     @PostConstruct
     public void load() {
         loadCountry();
         loadRolesAndPrivileges();
     }
-
 
     private void loadRolesAndPrivileges() {
         Privilege affiliations = new Privilege();
@@ -99,8 +103,6 @@ public class ReferenceDataLoader {
                 subjects, countries, schools, documents));
 
         roleRepository.save(Arrays.asList(teacher, student, parent, guardian, admin, superAdmin));
-
-
     }
 
 
@@ -109,16 +111,29 @@ public class ReferenceDataLoader {
         india.setCode("IND");
         india.setCurrency("INR");
         india.setDescription("India");
+        india.setDialingCode("+91");
 
         State karnataka = new State();
         karnataka.setCode("KAR");
         karnataka.setDescription("Karnataka");
         karnataka.setCountry(india);
 
+        City bangalore = new City();
+        bangalore.setCode("BNG");
+        bangalore.setDescription("Bangalore");
+        karnataka.setCities(Arrays.asList(bangalore));
+        bangalore.setState(karnataka);
+
         State maharastra = new State();
         maharastra.setCode("MAH");
         maharastra.setDescription("Maharastra");
         maharastra.setCountry(india);
+
+        City mumbai = new City();
+        mumbai.setCode("BOM");
+        mumbai.setDescription("Mumbai");
+        maharastra.setCities(Arrays.asList(mumbai));
+        mumbai.setState(maharastra);
 
         india.setStates(Arrays.asList(karnataka, maharastra));
 
@@ -126,16 +141,29 @@ public class ReferenceDataLoader {
         usa.setCode("USA");
         usa.setCurrency("USD");
         usa.setDescription("United states");
+        usa.setDialingCode("+1");
 
         State texas = new State();
         texas.setCode("TXS");
         texas.setDescription("Texas");
         texas.setCountry(usa);
 
+        City arizona = new City();
+        arizona.setCode("ARZ");
+        arizona.setDescription("Arizona");
+        texas.setCities(Arrays.asList(arizona));
+        arizona.setState(texas);
+
         State washington = new State();
         washington.setCode("WDC");
         washington.setDescription("Washington DC");
         washington.setCountry(usa);
+
+        City iowa = new City();
+        iowa.setCode("IOW");
+        iowa.setDescription("IOWA");
+        washington.setCities(Arrays.asList(iowa));
+        iowa.setState(washington);
 
         usa.setStates(Arrays.asList(texas, washington));
 

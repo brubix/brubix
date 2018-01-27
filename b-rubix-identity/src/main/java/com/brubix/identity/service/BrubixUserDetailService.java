@@ -1,7 +1,7 @@
 package com.brubix.identity.service;
 
+import com.brubix.common.repository.UserRepository;
 import com.brubix.entity.identity.User;
-import com.brubix.identity.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

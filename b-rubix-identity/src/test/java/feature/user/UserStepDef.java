@@ -1,12 +1,17 @@
 package feature.user;
 
+import com.brubix.common.repository.RoleRepository;
+import com.brubix.common.repository.UserRepository;
 import com.brubix.entity.communication.Email;
 import com.brubix.entity.communication.Phone;
 import com.brubix.entity.inventory.Address;
 import com.brubix.entity.inventory.MileStone;
 import com.brubix.entity.inventory.NonFaculty;
 import com.brubix.entity.inventory.School;
-import com.brubix.identity.repository.*;
+import com.brubix.identity.repository.CountryRepository;
+import com.brubix.identity.repository.PrivilegeRepository;
+import com.brubix.identity.repository.SchoolRepository;
+import com.brubix.identity.repository.StateRepository;
 import com.brubix.identity.service.BrubixUserDetails;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
@@ -70,20 +75,19 @@ public class UserStepDef extends AbstractStepDef {
 
     @Given("^the user provided school name - \"([^\"]*)\" and below addresses$")
     public void theUserProvidedSchoolNameAsAndBelowAddresses(String name, List<TestAddressData> addressDataList) {
+        TestAddressData testAddressData1 = addressDataList.get(0);
         School school = new School();
         school.setSchoolName(name);
-        school.setSchoolCode("SCHL2017121201"+name);
-        school.setAddresses(addressDataList.stream()
-                .map(testAddressData1 -> {
-                    Address address = new Address();
-                    address.setPinCode(testAddressData1.getPinCode());
-                    address.setFirstLine(testAddressData1.getFirstLine());
-                    address.setSecondLine(testAddressData1.getSecondLine());
-                    address.setThirdLine(testAddressData1.getThirdLine());
-                    address.setCountry(countryRepository.findByCode(testAddressData1.getCountryCode()));
-                    address.setState(stateRepository.findByCode(testAddressData1.getStateCode()));
-                    return address;
-                }).collect(Collectors.toList()));
+        school.setSchoolCode("SCHL2017121201" + name);
+
+        Address address = new Address();
+        address.setPinCode(testAddressData1.getPinCode());
+        address.setFirstLine(testAddressData1.getFirstLine());
+        address.setSecondLine(testAddressData1.getSecondLine());
+        address.setThirdLine(testAddressData1.getThirdLine());
+        address.setCountry(countryRepository.findByCode(testAddressData1.getCountryCode()));
+        address.setState(stateRepository.findByCode(testAddressData1.getStateCode()));
+        school.setAddress(address);
 
         MileStone mileStone = new MileStone();
         mileStone.setCreatedAt(new Date());
