@@ -1,0 +1,119 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: query-svc
+  namespace: __NAMESPACE__
+  labels:
+    app: query-svc
+spec:
+  ports:
+    - port: 80
+      protocol: TCP
+      targetPort: ui-port
+  selector:
+    app: query-pod
+  type: "LoadBalancer"
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: query-deploy
+  namespace: __NAMESPACE__
+  labels:
+    k8s-app: query-deploy
+spec:
+  replicas: __QUERY_COUNT__
+  revisionHistoryLimit: 10
+  strategy:
+    type: 'RollingUpdate'
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+  template:
+    metadata: 
+      labels:
+        app: query-pod
+      namespace: __NAMESPACE__
+    spec:
+      containers:
+      - name: query-dock
+        image: 297057311379.dkr.ecr.eu-west-1.amazonaws.com/cos-query:@imageVersion@
+        env:
+          - name: CONFIG_LOC
+            value: file:/config/,file:/secret/
+        args:
+          - '-o'
+          - __JAVA_ARGS__
+          - '--show-command'
+        imagePullPolicy: Always
+        livenessProbe:
+          httpGet:
+            path: /v2/manage/health
+            port: ui-port
+          failureThreshold: 3
+          initialDelaySeconds: 45
+          periodSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /v2/manage/health
+            port: ui-port
+          failureThreshold: 3
+          initialDelaySeconds: 45
+          periodSeconds: 10
+        ports:
+        - containerPort: 8082
+          name: ui-port
+        resources:
+          requests:
+            memory: "1Gi"
+            cpu: "1000m"
+          limits:
+            memory: '2Gi'
+            cpu: "1000m"
+        volumeMounts:
+        - mountPath: /var/log
+          name: log-volume
+        - mountPath: /config
+          name: config-volume
+        - mountPath: /secret
+          name: secret-volume
+      - name: splunk-dock
+        image: 297057311379.dkr.ecr.eu-west-1.amazonaws.com/custom:splunk
+        env:
+          - name: APP_FOLDER
+            valueFrom:
+              configMapKeyRef:
+                name: cos-config
+                key: splunk_app
+          - name: INDEX_NAME
+            valueFrom:
+              configMapKeyRef:
+                name: cos-config
+                key: splunk_index
+          - name: SOURCE_TYPE
+            valueFrom:
+              configMapKeyRef:
+                name: cos-config
+                key: splunk_sourcetype
+        volumeMounts:
+        - mountPath: /splunk/logs/
+          name: log-volume
+          readOnly: true
+
+      volumes:
+      - name: log-volume
+        emptyDir: {}
+      - name: config-volume
+        configMap:
+          name: cos-config
+          items:
+          - key: query.application.properties
+            path: application.properties
+            mode: 0755
+      - name: secret-volume
+        secret:
+          secretName: cos-secret
+          items:
+          - key: query.application.properties
+            path: application.properties
+            mode: 0755
