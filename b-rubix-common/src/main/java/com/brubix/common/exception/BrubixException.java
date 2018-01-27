@@ -1,7 +1,7 @@
 
-package com.brubix.brubixservice.exception;
+package com.brubix.common.exception;
 
-import com.brubix.brubixservice.exception.error.ErrorCode;
+import com.brubix.common.exception.error.ErrorCode;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;

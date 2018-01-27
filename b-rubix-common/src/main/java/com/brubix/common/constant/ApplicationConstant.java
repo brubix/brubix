@@ -1,4 +1,4 @@
-package com.brubix.brubixservice.constant;
+package com.brubix.common.constant;
 
 
 public interface ApplicationConstant {

@@ -1,16 +1,15 @@
 
 
-package com.brubix.brubixservice.exception.error;
+package com.brubix.common.exception.error;
 
-import com.brubix.brubixservice.exception.validation.FieldErrorDetail;
+import com.brubix.common.constant.ApplicationConstant;
+import com.brubix.common.exception.validation.FieldErrorDetail;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static com.brubix.brubixservice.constant.ApplicationConstant.ERROR_INFO_URL;
 
 
 @Data
@@ -29,7 +28,7 @@ public class ErrorResponse {
     }
 
     public String getInfo() {
-        return String.format("%s/%s", ERROR_INFO_URL, code);
+        return String.format("%s/%s", ApplicationConstant.ERROR_INFO_URL, code);
     }
 
 }

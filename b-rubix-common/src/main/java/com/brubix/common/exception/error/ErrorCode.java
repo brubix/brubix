@@ -1,4 +1,4 @@
-package com.brubix.brubixservice.exception.error;
+package com.brubix.common.exception.error;
 
 import lombok.Getter;
 import org.springframework.http.HttpStatus;

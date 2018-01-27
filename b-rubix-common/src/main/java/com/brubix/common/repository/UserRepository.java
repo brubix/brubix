@@ -1,4 +1,4 @@
-package com.brubix.identity.repository;
+package com.brubix.common.repository;
 
 import com.brubix.entity.identity.User;
 import org.springframework.data.jpa.repository.JpaRepository;

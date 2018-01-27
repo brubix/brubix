@@ -1,5 +1,5 @@
 
-package com.brubix.brubixservice.exception.error;
+package com.brubix.common.exception.error;
 
 public interface ErrorMessages {
 

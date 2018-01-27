@@ -1,4 +1,4 @@
-package com.brubix.brubixservice.exception.validation;
+package com.brubix.common.exception.validation;
 
 import lombok.Builder;
 import lombok.Getter;
