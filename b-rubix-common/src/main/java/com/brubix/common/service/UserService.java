@@ -1,4 +1,4 @@
-package com.brubix.identity.service;
+package com.brubix.common.service;
 
 public interface UserService {
 

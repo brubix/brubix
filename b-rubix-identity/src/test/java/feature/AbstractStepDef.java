@@ -1,7 +1,7 @@
 
 package feature;
 
-import com.brubix.identity.BrubixIdentityApplication;
+import com.brubix.identity.IdentityApiApplication;
 import com.brubix.identity.configuration.TestRepositoryConfiguration;
 import gherkin.deps.com.google.gson.Gson;
 import lombok.Getter;
@@ -16,7 +16,7 @@ import org.springframework.test.context.ContextConfiguration;
 
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
 
-@ContextConfiguration(classes = {ReferenceDataLoader.class, BrubixIdentityApplication.class,
+@ContextConfiguration(classes = {ReferenceDataLoader.class, IdentityApiApplication.class,
         TestRepositoryConfiguration.class
 },
         loader = SpringBootContextLoader.class)

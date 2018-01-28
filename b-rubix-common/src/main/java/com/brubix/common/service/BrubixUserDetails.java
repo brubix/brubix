@@ -1,4 +1,4 @@
-package com.brubix.identity.service;
+package com.brubix.common.service;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
@@ -17,7 +17,7 @@ public class BrubixUserDetails implements UserDetails {
     private boolean isEnabled;
     private String username;
     private String password;
-    private AssociatedSchool school;
+    private AssociatedInstitution institution;
     private List<UserRole> roles;
 
     public BrubixUserDetails(String username, String password, boolean isEnabled) {
@@ -76,12 +76,12 @@ public class BrubixUserDetails implements UserDetails {
         this.roles = roles;
     }
 
-    public void setSchool(AssociatedSchool school) {
-        this.school = school;
+    public void setInstitution(AssociatedInstitution institution) {
+        this.institution = institution;
     }
 
-    public AssociatedSchool getSchool() {
-        return school;
+    public AssociatedInstitution getInstitution() {
+        return institution;
     }
 
     @Getter
@@ -103,7 +103,7 @@ public class BrubixUserDetails implements UserDetails {
 
     @Getter
     @Setter
-    public static class AssociatedSchool {
+    public static class AssociatedInstitution {
         private String name;
         private String code;
     }

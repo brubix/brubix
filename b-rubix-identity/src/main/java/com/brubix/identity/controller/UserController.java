@@ -1,8 +1,8 @@
 package com.brubix.identity.controller;
 
 
-import com.brubix.identity.service.BrubixUserDetails;
-import com.brubix.identity.service.UserService;
+import com.brubix.common.service.BrubixUserDetails;
+import com.brubix.common.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang3.StringUtils;

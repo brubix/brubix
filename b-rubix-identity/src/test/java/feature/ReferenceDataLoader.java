@@ -75,30 +75,30 @@ public class ReferenceDataLoader {
 
         Role teacher = new Role();
         teacher.setName("TEACHER");
-        teacher.setDescription("Can access teacher functionality of a particular school");
+        teacher.setDescription("Can access teacher functionality of a particular institution");
 
         Role student = new Role();
         student.setName("STUDENT");
-        student.setDescription("Can access student functionality of a particular school");
+        student.setDescription("Can access student functionality of a particular institution");
 
         Role parent = new Role();
         parent.setName("PARENT");
-        parent.setDescription("Can access parent functionality of a particular school");
+        parent.setDescription("Can access parent functionality of a particular institution");
 
         Role guardian = new Role();
         guardian.setName("GUARDIAN");
-        guardian.setDescription("Can access guardian functionality of a particular school");
+        guardian.setDescription("Can access guardian functionality of a particular institution");
 
         Role admin = new Role();
         admin.setName("ADMINISTRATOR");
-        admin.setDescription("The administrator has access to all functionality of particular school");
+        admin.setDescription("The administrator has access to all functionality of particular institution");
         admin.setPrivileges(Arrays.asList(affiliations, institutions, languages,
                 subjects, countries, schools, documents));
 
 
         Role superAdmin = new Role();
         superAdmin.setName("SUPER ADMINISTRATOR");
-        superAdmin.setDescription("The administrator has access to all functionality of particular school");
+        superAdmin.setDescription("The administrator has access to all functionality of particular institution");
         superAdmin.setPrivileges(Arrays.asList(affiliations, institutions, languages,
                 subjects, countries, schools, documents));
 

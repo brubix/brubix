@@ -5,11 +5,11 @@ USE BRUBIX;
 INSERT INTO `role`
 (`id`,`description`,`name`)
 VALUES
-    (1,'Can access teacher functionalities of a perticular school','TEACHER'),
-    (2,'Can access student functionalities of a perticular school','STUDENT'),
-    (3, 'Can access PARENT functionalities of a perticular school','PARENT'),
-    (4, 'Can access GUARDIAN functionalities of a perticular school','GUARDIAN'),
-    (5,'The administrator has access to all functionality of particular school','ADMINISTRATOR'),
+    (1,'Can access teacher functionalities of a perticular institution','TEACHER'),
+    (2,'Can access student functionalities of a perticular institution','STUDENT'),
+    (3, 'Can access PARENT functionalities of a perticular institution','PARENT'),
+    (4, 'Can access GUARDIAN functionalities of a perticular institution','GUARDIAN'),
+    (5,'The administrator has access to all functionality of particular institution','ADMINISTRATOR'),
     (6,'The super administrator has access to all functionalities for all schools','SUPER ADMINISTRATOR');
 
 INSERT INTO `privilege`

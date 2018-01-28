@@ -15,9 +15,9 @@ VALUES
     (1,'http://facebook.com/sanjeev.blr','http://googleplus.com/sanjeev.blr','http://linkedin.com/sanjeev.blr','http://twitter.com/sanjeev.blr');
 
 
-INSERT INTO `school`
+INSERT INTO `institution`
 (`id`,`created_at`,`created_by`,`deleted_at`,`deleted_by`,`updated_at`,`updated_by`,`school_code`,`school_name`,`institution_type_id`,`logo_document_id`,`social_id`)
 VALUES
-    ('1','2017-10-22','1',null,null,null,null,'SCHL120171022','XYZ school',null,null,1);
+    ('1','2017-10-22','1',null,null,null,null,'SCHL120171022','XYZ institution',null,null,1);
 
 COMMIT;

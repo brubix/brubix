@@ -1,6 +1,6 @@
 package feature;
 
-import com.brubix.identity.service.BrubixUserDetails;
+import com.brubix.common.service.BrubixUserDetails;
 import org.springframework.http.ResponseEntity;
 
 public class SharedDataContext {

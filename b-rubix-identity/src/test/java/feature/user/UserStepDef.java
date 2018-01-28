@@ -2,17 +2,17 @@ package feature.user;
 
 import com.brubix.common.repository.RoleRepository;
 import com.brubix.common.repository.UserRepository;
+import com.brubix.common.service.BrubixUserDetails;
 import com.brubix.entity.communication.Email;
 import com.brubix.entity.communication.Phone;
 import com.brubix.entity.inventory.Address;
+import com.brubix.entity.inventory.Institution;
 import com.brubix.entity.inventory.MileStone;
 import com.brubix.entity.inventory.NonFaculty;
-import com.brubix.entity.inventory.School;
 import com.brubix.identity.repository.CountryRepository;
 import com.brubix.identity.repository.PrivilegeRepository;
-import com.brubix.identity.repository.SchoolRepository;
+import com.brubix.identity.repository.InstitutionRepository;
 import com.brubix.identity.repository.StateRepository;
-import com.brubix.identity.service.BrubixUserDetails;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -53,7 +53,7 @@ public class UserStepDef extends AbstractStepDef {
     private StateRepository stateRepository;
 
     @Autowired
-    private SchoolRepository schoolRepository;
+    private InstitutionRepository schoolRepository;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -65,7 +65,7 @@ public class UserStepDef extends AbstractStepDef {
     private UserRepository userRepository;
 
     private NonFaculty nonFaculty;
-    private School savedSchool;
+    private Institution savedSchool;
     private String role;
     private String clientId;
     private String secret;
@@ -76,9 +76,9 @@ public class UserStepDef extends AbstractStepDef {
     @Given("^the user provided school name - \"([^\"]*)\" and below addresses$")
     public void theUserProvidedSchoolNameAsAndBelowAddresses(String name, List<TestAddressData> addressDataList) {
         TestAddressData testAddressData1 = addressDataList.get(0);
-        School school = new School();
-        school.setSchoolName(name);
-        school.setSchoolCode("SCHL2017121201" + name);
+        Institution school = new Institution();
+        school.setInstitutionName(name);
+        school.setInstitutionCode("SCHL2017121201" + name);
 
         Address address = new Address();
         address.setPinCode(testAddressData1.getPinCode());
@@ -156,7 +156,7 @@ public class UserStepDef extends AbstractStepDef {
         nonFaculty.setMileStone(mileStone);
         nonFaculty.setEnabled(true);
         savedSchool.setNonFaculties(Arrays.asList(nonFaculty));
-        nonFaculty.setSchool(savedSchool);
+        nonFaculty.setInstitution(savedSchool);
         nonFaculty.setRoles(roleRepository.findByNameIn(Arrays.asList(role)));
         userRepository.save(nonFaculty);
     }
@@ -237,7 +237,7 @@ public class UserStepDef extends AbstractStepDef {
 
     @And("^we should get associated school as \"([^\"]*)\"$")
     public void shouldGetAssociatedSchoolAs(String schoolName) {
-        BrubixUserDetails.AssociatedSchool expectedSchool = SharedDataContext.getBrubixUserDetails().getSchool();
+        BrubixUserDetails.AssociatedInstitution expectedSchool = SharedDataContext.getBrubixUserDetails().getInstitution();
         Assertions.assertThat(expectedSchool.getName()).isEqualTo(schoolName);
         Assertions.assertThat(expectedSchool.getCode()).isNotBlank();
     }

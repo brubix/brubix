@@ -1,8 +1,8 @@
-package com.brubix.identity.service;
+package com.brubix.common.service;
 
 import com.brubix.common.repository.UserRepository;
 import com.brubix.entity.identity.User;
-import com.brubix.entity.inventory.School;
+import com.brubix.entity.inventory.Institution;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
@@ -46,14 +46,14 @@ public class UserServiceImpl implements UserService {
                     return userRole;
                 }).collect(Collectors.toList());
 
-        School school = user.getSchool();
-        BrubixUserDetails.AssociatedSchool associatedSchool = new BrubixUserDetails.AssociatedSchool();
-        associatedSchool.setCode(school.getSchoolCode());
-        associatedSchool.setName(school.getSchoolName());
+        Institution institution = user.getInstitution();
+        BrubixUserDetails.AssociatedInstitution associatedInstitution = new BrubixUserDetails.AssociatedInstitution();
+        associatedInstitution.setCode(institution.getInstitutionCode());
+        associatedInstitution.setName(institution.getInstitutionName());
 
         BrubixUserDetails brubixUserDetails = new BrubixUserDetails(user.getFirstName(), user.getPassword(), user.isEnabled());
         brubixUserDetails.setRoles(userRoles);
-        brubixUserDetails.setSchool(associatedSchool);
+        brubixUserDetails.setInstitution(associatedInstitution);
         return brubixUserDetails;
     }
 }

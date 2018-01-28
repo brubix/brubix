@@ -1,9 +1,10 @@
 package com.brubix.identity.configuration;
 
 import com.brubix.common.repository.UserRepository;
-import com.brubix.identity.service.BrubixUserDetailService;
-import com.brubix.identity.service.UserService;
-import com.brubix.identity.service.UserServiceImpl;
+import com.brubix.common.repository.VerificationTokenRepository;
+import com.brubix.common.service.BrubixUserDetailServiceImpl;
+import com.brubix.common.service.UserService;
+import com.brubix.common.service.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.security.SecurityProperties;
@@ -107,8 +108,8 @@ public class OAuth2SecurityConfiguration extends WebSecurityConfigurerAdapter {
     }
 
     @Bean
-    public UserDetailsService userDetailsService(UserRepository userRepository) {
-        return new BrubixUserDetailService(userRepository);
+    public UserDetailsService userDetailsService(UserRepository userRepository, VerificationTokenRepository verificationTokenRepository) {
+        return new BrubixUserDetailServiceImpl(userRepository, verificationTokenRepository);
     }
 
     @Bean
