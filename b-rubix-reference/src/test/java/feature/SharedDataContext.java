@@ -4,15 +4,15 @@ import org.springframework.http.ResponseEntity;
 
 public class SharedDataContext {
 
-    private static String schoolCode;
+    private static String institutionCode;
     private static ResponseEntity<String> responseEntity;
 
-    public static synchronized void setSchoolCode(String schoolCode) {
-        SharedDataContext.schoolCode = schoolCode;
+    public static synchronized void setInstitutionCode(String institutionCode) {
+        SharedDataContext.institutionCode = institutionCode;
     }
 
-    public static synchronized String getSchoolCode() {
-        return SharedDataContext.schoolCode;
+    public static synchronized String getInstitutionCode() {
+        return SharedDataContext.institutionCode;
     }
 
     public static ResponseEntity<String> getResponseEntity() {
