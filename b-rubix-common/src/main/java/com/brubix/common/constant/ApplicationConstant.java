@@ -5,7 +5,7 @@ public interface ApplicationConstant {
 
     String ERROR_INFO_URL = "https://developers.brubix.com/errors";
     String COUNTRY_TAG = "Country";
-    String SCHOOL_TAG = "School";
+    String INSTITUTION_TAG = "Institution";
     String SUBJECT_TAG = "Subject";
     String INSTITUTION = "Institution";
     String LANGUAGE = "Language";

@@ -23,7 +23,19 @@ public interface ErrorMessages {
 
     String INVALID_DOCUMENT_FILE_UPLOADS = "Correct document details or attachments are not provided";
 
-    String INVALID_SCHOOL_CODE = "School code is not found in system";
+    String INVALID_INSTITUTION_CODE = "Institution code is not found in system";
 
     String INVALID_SUBJECT_NAME = "Subject is not found in system";
+
+    String ALREADY_INSTITUTION_REGISTERED = "Institution already registered";
+
+    String ALREADY_USER_REGISTERED = "User already registered";
+
+    String ALREADY_PRESENT_FACEBOOK = "Provide facebook handle is associated with other institution";
+
+    String ALREADY_PRESENT_TWITTER = "Provide twitter handle is associated with other institution";
+
+    String ALREADY_PRESENT_GPLUS = "Provide gPlus handle associated with other institution";
+
+    String ALREADY_PRESENT_LINKEDIN = "Provide linkedIn handle is associated with other institution";
 }

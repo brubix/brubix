@@ -4,7 +4,7 @@ package com.brubix.common.model;
  * Created by Sanjaya on 27/01/18.
  */
 public enum Role {
-    SUPER_ADMIN("SUPER ADMINISTRATOR");
+    ADMIN("ADMINISTRATOR");
 
     private final String name;
 
