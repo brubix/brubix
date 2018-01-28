@@ -28,6 +28,6 @@ public class Social {
     private String gPlus;
 
     @Column(name = "linkedin", unique = true)
-    private String linkedIn;
+    private String linkedin;
 
 }

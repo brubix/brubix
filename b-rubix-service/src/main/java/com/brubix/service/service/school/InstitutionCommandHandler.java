@@ -1,14 +1,14 @@
 package com.brubix.service.service.school;
 
+import com.brubix.entity.inventory.Institution;
 import com.brubix.service.controller.inventory.school.CourseForm;
 import com.brubix.service.controller.inventory.school.SchoolForm;
-import com.brubix.entity.inventory.School;
 
-public interface SchoolCommandHandler {
+public interface InstitutionCommandHandler {
 
-    SchoolCode create(SchoolForm schoolForm);
+    InstitutionCode create(SchoolForm schoolForm);
 
-    School mapToEntity(SchoolForm schoolForm);
+    Institution mapToEntity(SchoolForm schoolForm);
 
     void create(CourseForm courseForm);
 }

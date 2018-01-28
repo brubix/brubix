@@ -6,7 +6,7 @@ import com.brubix.entity.communication.Social;
 import com.brubix.entity.inventory.Address;
 import com.brubix.entity.inventory.DocumentInfo;
 import com.brubix.entity.inventory.MileStone;
-import com.brubix.entity.inventory.School;
+import com.brubix.entity.inventory.Institution;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -67,7 +67,7 @@ public class User {
     private boolean enabled;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    private School school;
+    private Institution institution;
 
     @ManyToMany
     @JoinTable(
@@ -82,5 +82,4 @@ public class User {
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "social_id")
     private Social social;
-
 }

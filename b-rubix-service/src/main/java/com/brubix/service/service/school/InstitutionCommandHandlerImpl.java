@@ -20,10 +20,13 @@ import com.brubix.service.controller.inventory.school.KnowYourSchoolData;
 import com.brubix.service.controller.inventory.school.SchoolForm;
 import com.brubix.service.controller.inventory.school.SubjectForm;
 import com.brubix.service.generator.CodeGenerator;
-import com.brubix.service.repository.inventory.SchoolRepository;
+import com.brubix.service.repository.inventory.InstitutionRepository;
+import com.brubix.service.validator.InstitutionRegistrationValidator;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.dao.DataAccessException;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -35,9 +38,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Slf4j
-public class SchoolCommandHandlerImpl implements SchoolCommandHandler {
+public class InstitutionCommandHandlerImpl implements InstitutionCommandHandler {
 
-    private SchoolRepository schoolRepository;
+    private InstitutionRepository schoolRepository;
     private CountryRepository countryRepository;
     private StateRepository stateRepository;
     private CityRepository cityRepository;
@@ -49,19 +52,25 @@ public class SchoolCommandHandlerImpl implements SchoolCommandHandler {
     private InstitutionTypeRepository institutionTypeRepository;
     private LanguageMediumRepository languageMediumRepository;
     private UserRepository userRepository;
+    private InstitutionRegistrationValidator registrationValidator;
 
 
-    public SchoolCommandHandlerImpl(SchoolRepository schoolRepository,
-                                    CountryRepository countryRepository,
-                                    StateRepository stateRepository,
-                                    CodeGenerator schoolCodeGenerator,
-                                    SchoolFormCustomValidator schoolFormCustomValidator,
-                                    SubjectRepository subjectRepository,
-                                    CityRepository cityRepository,
-                                    InstitutionAffiliationRepository affiliationRepository,
-                                    InstitutionTypeRepository institutionTypeRepository,
-                                    LanguageMediumRepository languageMediumRepository,
-                                    UserRepository userRepository) {
+    @Autowired
+    private ApplicationEventPublisher eventPublisher;
+
+
+    public InstitutionCommandHandlerImpl(InstitutionRepository schoolRepository,
+                                         CountryRepository countryRepository,
+                                         StateRepository stateRepository,
+                                         CodeGenerator schoolCodeGenerator,
+                                         SchoolFormCustomValidator schoolFormCustomValidator,
+                                         SubjectRepository subjectRepository,
+                                         CityRepository cityRepository,
+                                         InstitutionAffiliationRepository affiliationRepository,
+                                         InstitutionTypeRepository institutionTypeRepository,
+                                         LanguageMediumRepository languageMediumRepository,
+                                         UserRepository userRepository,
+                                         InstitutionRegistrationValidator registrationValidator) {
         this.schoolRepository = schoolRepository;
         this.countryRepository = countryRepository;
         this.stateRepository = stateRepository;
@@ -73,23 +82,24 @@ public class SchoolCommandHandlerImpl implements SchoolCommandHandler {
         this.institutionTypeRepository = institutionTypeRepository;
         this.languageMediumRepository = languageMediumRepository;
         this.userRepository = userRepository;
+        this.registrationValidator = registrationValidator;
     }
 
 
     @Override
-    public SchoolCode create(SchoolForm schoolForm) {
+    public InstitutionCode create(SchoolForm schoolForm) {
 
         schoolFormCustomValidator.doValidate(schoolForm);
 
-        log.info("Creating of school started");
-        School school = mapToEntity(schoolForm);
+        log.info("Creating of institution started");
+        Institution school = mapToEntity(schoolForm);
         try {
-            School savedSchool = schoolRepository.save(school);
+            Institution savedSchool = schoolRepository.save(school);
             log.info("Loading of schools ended");
-            return SchoolCode
+            return InstitutionCode
                     .builder()
-                    .code(savedSchool.getSchoolCode())
-                    .name(savedSchool.getSchoolName())
+                    .code(savedSchool.getInstitutionCode())
+                    .name(savedSchool.getInstitutionName())
                     .build();
         } catch (DataAccessException ex) {
             log.error("Error occurred" + ExceptionUtils.getStackTrace(ex.getCause()));
@@ -100,9 +110,9 @@ public class SchoolCommandHandlerImpl implements SchoolCommandHandler {
     @Override
     @Transactional
     public void create(CourseForm courseForm) {
-        School school = schoolRepository.findBySchoolCode(courseForm.getSchoolCode());
+        Institution school = schoolRepository.findByInstitutionCode(courseForm.getSchoolCode());
         if (school == null) {
-            throw new BrubixException(ErrorCode.INVALID_SCHOOL_CODE);
+            throw new BrubixException(ErrorCode.INVALID_INSTITUTION_CODE);
         }
         List<Course> courses =
                 courseForm
@@ -131,10 +141,13 @@ public class SchoolCommandHandlerImpl implements SchoolCommandHandler {
     }
 
     @Override
-    public School mapToEntity(SchoolForm schoolForm) {
-        School school = new School();
-        school.setSchoolName(schoolForm.getSchoolInfo().getName());
-        school.setSchoolCode(schoolCodeGenerator.generate());
+    public Institution mapToEntity(SchoolForm schoolForm) {
+
+        registrationValidator.validate(schoolForm);
+
+        Institution school = new Institution();
+        school.setInstitutionName(schoolForm.getSchoolInfo().getName());
+        school.setInstitutionCode(schoolCodeGenerator.generate());
 
         // map addresses
         AddressData addressData = schoolForm.getSchoolInfo().getAddress();
@@ -159,12 +172,12 @@ public class SchoolCommandHandlerImpl implements SchoolCommandHandler {
             Social social = new Social();
             social.setFaceBook(socialData.getFacebook());
             social.setGPlus(socialData.getGooglePlus());
-            social.setLinkedIn(socialData.getLinkedIn());
+            social.setLinkedin(socialData.getLinkedin());
             social.setTwitter(socialData.getTwitter());
             school.setSocial(social);
         }
 
-        //map know your school
+        //map know your institution
         KnowYourSchoolData kys = schoolForm.getSchoolInfo().getKys();
         List<InstitutionAffiliation> affiliations = kys
                 .getAffiliations()
@@ -201,7 +214,7 @@ public class SchoolCommandHandlerImpl implements SchoolCommandHandler {
                     u.setPhones(Arrays.asList(phone));
 
                     Role role = new Role();
-                    role.setName(com.brubix.common.model.Role.SUPER_ADMIN.getName());
+                    role.setName(com.brubix.common.model.Role.ADMIN.getName());
 
                     return u;
                 });
@@ -221,7 +234,7 @@ public class SchoolCommandHandlerImpl implements SchoolCommandHandler {
     private boolean anySocialLinkPresent(SocialData socialData) {
         return socialData != null && (StringUtils.isNotBlank(socialData.getFacebook())
                 || StringUtils.isNotBlank(socialData.getGooglePlus())
-                || StringUtils.isNotBlank(socialData.getLinkedIn())
+                || StringUtils.isNotBlank(socialData.getLinkedin())
                 || StringUtils.isNotBlank(socialData.getTwitter()));
     }
 

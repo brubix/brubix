@@ -9,9 +9,9 @@ import com.brubix.entity.reference.Subject;
 import com.brubix.service.controller.inventory.AddressData;
 import com.brubix.service.controller.inventory.SocialData;
 import com.brubix.service.controller.inventory.school.CourseForm;
-import com.brubix.service.controller.inventory.school.SchoolQueryData;
+import com.brubix.service.controller.inventory.school.InstitutionQueryData;
 import com.brubix.service.controller.inventory.school.SubjectForm;
-import com.brubix.service.repository.inventory.SchoolRepository;
+import com.brubix.service.repository.inventory.InstitutionRepository;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.transaction.Transactional;
@@ -20,22 +20,22 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Slf4j
-public class SchoolQueryHandlerImpl implements SchoolQueryHandler {
+public class SchoolQueryHandlerImpl implements InstitutionQueryHandler {
 
-    private SchoolRepository schoolRepository;
+    private InstitutionRepository institutionRepository;
 
-    public SchoolQueryHandlerImpl(SchoolRepository schoolRepository) {
-        this.schoolRepository = schoolRepository;
+    public SchoolQueryHandlerImpl(InstitutionRepository institutionRepository) {
+        this.institutionRepository = institutionRepository;
     }
 
     @Override
     @Transactional
-    public SchoolQueryData findSchoolByCode(String code) {
-        School school = schoolRepository.findBySchoolCode(code);
+    public InstitutionQueryData findInstitutionByCode(String code) {
+        Institution school = institutionRepository.findByInstitutionCode(code);
 
         if (school == null) {
-            log.info("School code provided as {} is not found in system", code);
-            throw new BrubixException(ErrorCode.INVALID_SCHOOL_CODE);
+            log.info("Institution code provided as {} is not found in system", code);
+            throw new BrubixException(ErrorCode.INVALID_INSTITUTION_CODE);
         }
 
         Optional<DocumentInfo> profileOptional = school.getDocuments()
@@ -44,12 +44,12 @@ public class SchoolQueryHandlerImpl implements SchoolQueryHandler {
                 .findAny();
         Document profile = profileOptional.isPresent() ? profileOptional.get().getDocument() : null;
 
-        return SchoolQueryData
+        return InstitutionQueryData
                 .builder()
                 .address(mapToAddress(school.getAddress()))
                 .social(mapSocial(school.getSocial()))
-                .code(school.getSchoolCode())
-                .name(school.getSchoolName())
+                .code(school.getInstitutionCode())
+                .name(school.getInstitutionName())
                 .logo(profile != null ? profile.getContent() : null)
                 .build();
     }
@@ -60,7 +60,7 @@ public class SchoolQueryHandlerImpl implements SchoolQueryHandler {
                 SocialData.builder()
                         .facebook(social.getFaceBook())
                         .googlePlus(social.getGPlus())
-                        .linkedIn(social.getLinkedIn())
+                        .linkedin(social.getLinkedin())
                         .twitter(social.getTwitter())
                         .build()
                 : null;
@@ -70,10 +70,10 @@ public class SchoolQueryHandlerImpl implements SchoolQueryHandler {
     @Override
     @Transactional
     public List<CourseForm.CourseData> findAllCoursesBySchoolCode(String code) {
-        School school = schoolRepository.findBySchoolCode(code);
+        Institution school = institutionRepository.findByInstitutionCode(code);
         if (school == null) {
-            log.info("School code provided as {} is not found in system", code);
-            throw new BrubixException(ErrorCode.INVALID_SCHOOL_CODE);
+            log.info("Institution code provided as {} is not found in system", code);
+            throw new BrubixException(ErrorCode.INVALID_INSTITUTION_CODE);
         }
 
         return school.getCourses()

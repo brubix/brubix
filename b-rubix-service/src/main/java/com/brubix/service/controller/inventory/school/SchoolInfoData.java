@@ -16,10 +16,10 @@ import javax.validation.Valid;
 public class SchoolInfoData {
 
     @NotBlank(message = "{field.empty}")
-    @Length(max = 250, message = "{invalid.length.school.name}")
+    @Length(max = 250, message = "{invalid.length.institution.name}")
     private String name;
 
-    @Length(max = 1000, message = "{invalid.length.school.about}")
+    @Length(max = 1000, message = "{invalid.length.institution.about}")
     private String about;
 
     @Valid

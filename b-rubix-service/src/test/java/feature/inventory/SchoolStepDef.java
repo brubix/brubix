@@ -6,8 +6,8 @@ import com.brubix.service.controller.inventory.SocialData;
 import com.brubix.service.controller.inventory.school.AdminInfoData;
 import com.brubix.service.controller.inventory.school.SchoolForm;
 import com.brubix.service.controller.inventory.school.SchoolInfoData;
-import com.brubix.service.controller.inventory.school.SchoolQueryData;
-import com.brubix.service.service.school.SchoolCode;
+import com.brubix.service.controller.inventory.school.InstitutionQueryData;
+import com.brubix.service.service.school.InstitutionCode;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -31,7 +31,7 @@ public class SchoolStepDef extends AbstractStepDef {
     private List<String> attachmentNames = new ArrayList<>();
     private String logo;
     private String schoolCode;
-    private ResponseEntity<SchoolQueryData> schoolDataResponseEntity;
+    private ResponseEntity<InstitutionQueryData> schoolDataResponseEntity;
 
     @Given("^the user provided school name - \"([^\"]*)\" , school id - \"([^\"]*)\" and below addresses$")
     public void theUserProvidedSchoolNameAsAndBelowAddresses(String name, String userName, List<AddressData> addressDataList) {
@@ -53,18 +53,18 @@ public class SchoolStepDef extends AbstractStepDef {
     @When("^the user creates school$")
     public void theUserCreatesSchool() throws Exception {
 
-        // school json data
+        // institution json data
         MultiValueMap<String, Object> parts = new LinkedMultiValueMap<>();
-        parts.add("school", schoolForm);
+        parts.add("institution", schoolForm);
 
-        // school logo
+        // institution logo
         if (logo != null) {
             FileSystemResource logoResource = new FileSystemResource(this.getClass()
                     .getClassLoader().getResource(logo).getPath());
             parts.add("profile", logoResource);
         }
 
-        // school DocumentInfo documents
+        // institution DocumentInfo documents
         for (String attachment : attachmentNames) {
             FileSystemResource resource = new FileSystemResource(this.getClass()
                     .getClassLoader().getResource("doc/" + attachment).getPath());
@@ -84,11 +84,11 @@ public class SchoolStepDef extends AbstractStepDef {
     @Then("^a school code is generated$")
     public void aSchoolCodeIsGenerated() throws Exception {
         Assertions.assertThat(responseEntity.getStatusCode().value()).isEqualTo(200);
-        SchoolCode schoolCode = gson.fromJson(responseEntity.getBody(), SchoolCode.class);
+        InstitutionCode schoolCode = gson.fromJson(responseEntity.getBody(), InstitutionCode.class);
         Assertions.assertThat(schoolCode.getName()).isEqualTo(schoolForm.getSchoolInfo().getName());
         Assertions.assertThat(schoolCode.getCode()).contains("SCHL");
         this.schoolCode = schoolCode.getCode();
-        // set school code in shared data context
+        // set institution code in shared data context
         SharedDataContext.setSchoolCode(schoolCode.getCode());
     }
 
@@ -96,7 +96,7 @@ public class SchoolStepDef extends AbstractStepDef {
     public void userFindsSchoolDetailBySchoolCode() {
         String url = "http://localhost:" + serverPort + contextPath + "/schools/" + schoolCode;
         HttpEntity requestEntity = new HttpEntity(buildHeaders());
-        schoolDataResponseEntity = exchange(url, HttpMethod.GET, requestEntity, SchoolQueryData.class);
+        schoolDataResponseEntity = exchange(url, HttpMethod.GET, requestEntity, InstitutionQueryData.class);
     }
 
     @Then("^below address data should be present for school \"([^\"]*)\" without logo$")
@@ -127,7 +127,7 @@ public class SchoolStepDef extends AbstractStepDef {
                             .build();
                 }).collect(Collectors.toList());*/
 
-        SchoolQueryData schoolQueryData = schoolDataResponseEntity.getBody();
+        InstitutionQueryData schoolQueryData = schoolDataResponseEntity.getBody();
         Assertions.assertThat(schoolQueryData.getName()).isEqualTo(schoolName);
         Assertions.assertThat(schoolQueryData.getLogo()).isNull();
         Assertions.assertThat(schoolQueryData.getSocial()).isNull();
@@ -165,7 +165,7 @@ public class SchoolStepDef extends AbstractStepDef {
                             .build();
                 }).collect(Collectors.toList());*/
 
-        SchoolQueryData schoolQueryData = schoolDataResponseEntity.getBody();
+        InstitutionQueryData schoolQueryData = schoolDataResponseEntity.getBody();
         Assertions.assertThat(schoolQueryData.getName()).isEqualTo(schoolName);
         Assertions.assertThat(schoolQueryData.getLogo()).isNotNull();
 
@@ -179,7 +179,7 @@ public class SchoolStepDef extends AbstractStepDef {
         SocialData social = schoolDataResponseEntity.getBody().getSocial();
         Assertions.assertThat(social.getFacebook()).isEqualTo(socialData.get(0).getFacebook());
         Assertions.assertThat(social.getGooglePlus()).isEqualTo(socialData.get(0).getGooglePlus());
-        Assertions.assertThat(social.getLinkedIn()).isEqualTo(socialData.get(0).getLinkedIn());
+        Assertions.assertThat(social.getLinkedin()).isEqualTo(socialData.get(0).getLinkedin());
         Assertions.assertThat(social.getTwitter()).isEqualTo(socialData.get(0).getTwitter());
     }
 

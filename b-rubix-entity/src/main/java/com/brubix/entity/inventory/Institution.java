@@ -16,24 +16,24 @@ import static javax.persistence.GenerationType.IDENTITY;
  * Created by sanjeev.singh1 on 14/09/17.
  */
 @Entity
-@Table(name = "school", catalog = "brubix")
+@Table(name = "institution", catalog = "brubix")
 @Getter
 @Setter
-public class School {
+public class Institution {
 
     @Id
     @GeneratedValue(strategy = IDENTITY)
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "school_name", length = 250, nullable = false)
-    private String schoolName;
+    @Column(name = "institution_name", length = 250, nullable = false)
+    private String institutionName;
 
-    @Column(name = "school_code", length = 25, nullable = false, unique = true)
-    private String schoolCode;
+    @Column(name = "institution_code", length = 25, nullable = false, unique = true)
+    private String institutionCode;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "school_id")
+    @JoinColumn(name = "institution_id")
     private Address address;
 
     @OneToMany(cascade = CascadeType.ALL)
@@ -43,7 +43,7 @@ public class School {
     private List<NonFaculty> nonFaculties;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "school_id")
+    @JoinColumn(name = "institution_id")
     private List<DocumentInfo> documents;
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
@@ -64,9 +64,9 @@ public class School {
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
-            name = "school_course",
+            name = "institution_course",
             joinColumns = @JoinColumn(
-                    name = "school_id", referencedColumnName = "id"),
+                    name = "institution_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(
                     name = "course_id", referencedColumnName = "id"))
     private List<Course> courses;

@@ -32,7 +32,7 @@ public class DocumentCommandController {
     @ApiOperation(
             value = "Upload document",
             notes = "Upload document for human/non human actors, " +
-                    "Currently supports document upload for SCHOOL by school code",
+                    "Currently supports document upload for SCHOOL by institution code",
             code = 204, response = String.class)
     @ApiResponses(
             value = {

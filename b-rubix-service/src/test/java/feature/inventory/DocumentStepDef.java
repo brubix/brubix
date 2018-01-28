@@ -42,7 +42,7 @@ public class DocumentStepDef extends AbstractStepDef {
         MultiValueMap<String, Object> parts = new LinkedMultiValueMap<>();
         parts.add("documents", documentForm);
 
-        // school DocumentInfo documents
+        // institution DocumentInfo documents
         for (String attachment : attachments) {
             FileSystemResource resource = new FileSystemResource(this.getClass().getClassLoader().getResource("doc/" + attachment).getPath());
             parts.add("attachments", resource);

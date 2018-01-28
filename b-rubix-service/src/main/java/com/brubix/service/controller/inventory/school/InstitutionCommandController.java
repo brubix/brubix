@@ -3,8 +3,8 @@ package com.brubix.service.controller.inventory.school;
 import com.brubix.common.constant.ApplicationConstant;
 import com.brubix.common.exception.error.ErrorMessages;
 import com.brubix.common.exception.error.ErrorResponse;
-import com.brubix.service.service.school.SchoolCode;
-import com.brubix.service.service.school.SchoolCommandHandler;
+import com.brubix.service.service.school.InstitutionCode;
+import com.brubix.service.service.school.InstitutionCommandHandler;
 import io.swagger.annotations.*;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.HttpStatus;
@@ -18,13 +18,13 @@ import java.util.List;
 
 @RestController
 @RequestMapping(path = {"/schools"})
-@Api(tags = {ApplicationConstant.SCHOOL_TAG}, description = StringUtils.SPACE)
-public class SchoolCommandController {
+@Api(tags = {ApplicationConstant.INSTITUTION_TAG}, description = StringUtils.SPACE)
+public class InstitutionCommandController {
 
-    private SchoolCommandHandler schoolCommandHandler;
+    private InstitutionCommandHandler institutionCommandHandler;
 
-    public SchoolCommandController(SchoolCommandHandler schoolCommandHandler) {
-        this.schoolCommandHandler = schoolCommandHandler;
+    public InstitutionCommandController(InstitutionCommandHandler schoolCommandHandler) {
+        this.institutionCommandHandler = schoolCommandHandler;
     }
 
     @PostMapping(path = "",
@@ -32,9 +32,9 @@ public class SchoolCommandController {
             consumes = {MediaType.APPLICATION_JSON_VALUE}
     )
     @ApiOperation(
-            value = "Create school",
-            notes = "Create school",
-            code = 200, response = SchoolCode.class)
+            value = "Create institution",
+            notes = "Create institution",
+            code = 200, response = InstitutionCode.class)
     @ApiResponses(
             value = {
                     @ApiResponse(code = 400, message = ErrorMessages.INVALID_PAYLOAD, response = ErrorResponse.class),
@@ -43,11 +43,11 @@ public class SchoolCommandController {
                     @ApiResponse(code = 500, message = ErrorMessages.INTERNAL_ERROR, response = ErrorResponse.class)
             })
     @ResponseBody
-    public ResponseEntity<SchoolCode> create(
-            @ApiParam(name = "school", value = "School to be created")
+    public ResponseEntity<InstitutionCode> create(
+            @ApiParam(name = "institution", value = "Institution to be created")
             @Valid @RequestBody SchoolForm school) {
 
-        SchoolCode schoolCode = schoolCommandHandler.create(school);
+        InstitutionCode schoolCode = institutionCommandHandler.create(school);
         return new ResponseEntity<>(schoolCode, HttpStatus.OK);
     }
 
@@ -57,8 +57,8 @@ public class SchoolCommandController {
             consumes = {MediaType.APPLICATION_JSON_VALUE}
     )
     @ApiOperation(
-            value = "Create courses for a school with subjects",
-            notes = "Create courses for a school with subjects",
+            value = "Create courses for a institution with subjects",
+            notes = "Create courses for a institution with subjects",
             code = 204, response = String.class)
     @ApiResponses(
             value = {
@@ -68,14 +68,14 @@ public class SchoolCommandController {
                     @ApiResponse(code = 500, message = ErrorMessages.INTERNAL_ERROR, response = ErrorResponse.class)
             })
     public ResponseEntity<?> createCoursesOfSchool(
-            @ApiParam(name = "code", value = "School code", required = true)
+            @ApiParam(name = "code", value = "Institution code", required = true)
             @PathVariable(value = "code") String code,
 
-            @ApiParam(name = "Courses", value = "Courses with subjects for school", required = true)
+            @ApiParam(name = "Courses", value = "Courses with subjects for institution", required = true)
             @Valid @RequestBody CourseForm courseForm) {
 
         courseForm.setSchoolCode(code);
-        schoolCommandHandler.create(courseForm);
+        institutionCommandHandler.create(courseForm);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 
     }
@@ -85,9 +85,9 @@ public class SchoolCommandController {
             consumes = {MediaType.MULTIPART_FORM_DATA_VALUE}
     )
     @ApiOperation(
-            value = "Create faculties for a school",
-            notes = "Create faculties for school",
-            code = 200, response = SchoolCode.class)
+            value = "Create faculties for a institution",
+            notes = "Create faculties for institution",
+            code = 200, response = InstitutionCode.class)
     @ApiResponses(
             value = {
                     @ApiResponse(code = 400, message = ErrorMessages.INVALID_PAYLOAD, response = ErrorResponse.class),
@@ -99,17 +99,17 @@ public class SchoolCommandController {
             })
     @ResponseBody
     public ResponseEntity<?> createTeachersOfSchool(
-            @ApiParam(name = "code", value = "School code", required = true)
+            @ApiParam(name = "code", value = "Institution code", required = true)
             @PathVariable(value = "code") String code,
 
-            @ApiParam(name = "faculties", value = "Teachers for a  school", required = true)
+            @ApiParam(name = "faculties", value = "Teachers for a  institution", required = true)
             @Valid @RequestBody TeacherForm teacherForm,
 
             @ApiParam(name = "DocumentInfo", value = "DocumentInfo documents")
             @RequestPart(value = "DocumentInfo", required = false) List<MultipartFile> kycDocuments) {
 
         teacherForm.setSchoolCode(code);
-        //schoolCommandHandler.upload(teacherForm);
+        //institutionCommandHandler.upload(teacherForm);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 
     }

@@ -1,13 +1,13 @@
 package com.brubix.service.service.school;
 
 import com.brubix.service.controller.inventory.school.CourseForm;
-import com.brubix.service.controller.inventory.school.SchoolQueryData;
+import com.brubix.service.controller.inventory.school.InstitutionQueryData;
 
 import java.util.List;
 
-public interface SchoolQueryHandler {
+public interface InstitutionQueryHandler {
 
-    SchoolQueryData findSchoolByCode(String code);
+    InstitutionQueryData findInstitutionByCode(String code);
 
     List<CourseForm.CourseData> findAllCoursesBySchoolCode(String code);
 }

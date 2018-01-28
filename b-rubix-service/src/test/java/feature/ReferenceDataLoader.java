@@ -84,23 +84,23 @@ public class ReferenceDataLoader {
     private void loadInstitutionTypes() {
         InstitutionType play = new InstitutionType();
         play.setType("Play");
-        play.setDescription("Play school");
+        play.setDescription("Play institution");
 
         InstitutionType primary = new InstitutionType();
         primary.setType("Primary");
-        primary.setDescription("Primary school");
+        primary.setDescription("Primary institution");
 
         InstitutionType middle = new InstitutionType();
         middle.setType("Middle");
-        middle.setDescription("Middle school");
+        middle.setDescription("Middle institution");
 
         InstitutionType secondary = new InstitutionType();
         secondary.setType("Secondary");
-        secondary.setDescription("Secondary school");
+        secondary.setDescription("Secondary institution");
 
         InstitutionType seniorSecondary = new InstitutionType();
         seniorSecondary.setType("Senior Secondary");
-        seniorSecondary.setDescription("Senior Secondary school");
+        seniorSecondary.setDescription("Senior Secondary institution");
 
         InstitutionType college = new InstitutionType();
         college.setType("College");

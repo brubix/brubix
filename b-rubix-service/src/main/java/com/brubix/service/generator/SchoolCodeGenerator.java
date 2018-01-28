@@ -1,7 +1,7 @@
 package com.brubix.service.generator;
 
-import com.brubix.service.repository.inventory.SchoolRepository;
-import com.brubix.entity.inventory.School;
+import com.brubix.entity.inventory.Institution;
+import com.brubix.service.repository.inventory.InstitutionRepository;
 import lombok.extern.slf4j.Slf4j;
 
 import java.text.SimpleDateFormat;
@@ -10,9 +10,9 @@ import java.util.Date;
 @Slf4j
 public class SchoolCodeGenerator implements CodeGenerator {
 
-    private SchoolRepository schoolRepository;
+    private InstitutionRepository schoolRepository;
 
-    public SchoolCodeGenerator(SchoolRepository schoolRepository) {
+    public SchoolCodeGenerator(InstitutionRepository schoolRepository) {
         this.schoolRepository = schoolRepository;
     }
 
@@ -20,7 +20,7 @@ public class SchoolCodeGenerator implements CodeGenerator {
     public synchronized String generate() {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyMMdd");
         String date = dateFormat.format(new Date());
-        School school = schoolRepository.findTopByOrderByIdDesc();
+        Institution school = schoolRepository.findTopByOrderByIdDesc();
         if (school == null) {
             return String.format("%s%s%s", getPrefix(), 1, date);
         } else {

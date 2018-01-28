@@ -2,6 +2,7 @@ package com.brubix.service.controller.inventory.school;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 
@@ -12,6 +13,7 @@ import org.hibernate.validator.constraints.NotBlank;
 @Setter
 public class AdminInfoData {
 
+    private static final String EMAIL_PATTERN = "^[_A-Za-z0-9-+]+(.[_A-Za-z0-9-]+)*@" + "[A-Za-z0-9-]+(.[A-Za-z0-9]+)*(.[A-Za-z]{2,})$";
     @NotBlank(message = "{field.empty}")
     @Length(max = 100, message = "{invalid.length.first.name}")
     private String firstName;
@@ -26,5 +28,6 @@ public class AdminInfoData {
 
     @NotBlank(message = "{field.empty}")
     @Length(max = 255, message = "{invalid.length.email}")
+    @Email(regexp = EMAIL_PATTERN, message ="{invalid.email}")
     private String email;
 }

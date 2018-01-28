@@ -7,12 +7,12 @@ import lombok.NoArgsConstructor;
 @Builder
 @Getter
 @NoArgsConstructor
-public class SchoolCode {
+public class InstitutionCode {
 
     private String name;
     private String code;
 
-    private SchoolCode(String name, String code) {
+    private InstitutionCode(String name, String code) {
         this.name = name;
         this.code = code;
     }

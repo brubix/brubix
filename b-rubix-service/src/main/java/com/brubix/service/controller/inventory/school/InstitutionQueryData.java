@@ -7,7 +7,7 @@ import lombok.Getter;
 
 @Builder
 @Getter
-public class SchoolQueryData {
+public class InstitutionQueryData {
 
     private String name;
 

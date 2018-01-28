@@ -24,5 +24,5 @@ public class SocialData {
 
     @Length(min = 0, max = 255, message = "{invalid.length.linkedin.handle}")
     @URL(message = "{invalid.url}")
-    private String linkedIn;
+    private String linkedin;
 }

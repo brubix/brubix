@@ -40,5 +40,5 @@ public class Course {
     private List<Subject> subjects;
 
     @ManyToMany(mappedBy = "courses")
-    private List<School> schools;
+    private List<Institution> institutions;
 }
