@@ -45,7 +45,7 @@ public class InstitutionCommandHandlerImpl implements InstitutionCommandHandler 
     private CodeGenerator institutionCodeGenerator;
     private InstitutionFormCustomValidator institutionFormCustomValidator;
     private SubjectRepository subjectRepository;
-    private InstitutionAffiliationRepository affiliationRepository;
+    private AffiliationRepository affiliationRepository;
     private InstitutionTypeRepository institutionTypeRepository;
     private LanguageMediumRepository languageMediumRepository;
     private InstitutionRegistrationValidator registrationValidator;
@@ -61,7 +61,7 @@ public class InstitutionCommandHandlerImpl implements InstitutionCommandHandler 
                                          InstitutionFormCustomValidator schoolFormCustomValidator,
                                          SubjectRepository subjectRepository,
                                          CityRepository cityRepository,
-                                         InstitutionAffiliationRepository affiliationRepository,
+                                         AffiliationRepository affiliationRepository,
                                          InstitutionTypeRepository institutionTypeRepository,
                                          LanguageMediumRepository languageMediumRepository,
                                          InstitutionRegistrationValidator registrationValidator,

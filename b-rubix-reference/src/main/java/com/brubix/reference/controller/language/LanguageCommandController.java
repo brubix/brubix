@@ -20,7 +20,7 @@ import javax.validation.Valid;
 @RequestMapping(path = "/languages",
         produces = {MediaType.APPLICATION_JSON_VALUE},
         consumes = {MediaType.APPLICATION_JSON_VALUE})
-@Api(tags = {ApplicationConstant.REFERENCE}, description = StringUtils.SPACE)
+@Api(tags = {ApplicationConstant.LANGUAGE_TAG}, description = StringUtils.SPACE)
 public class LanguageCommandController {
 
     private LanguageCommandHandler languageCommandHandler;
@@ -47,7 +47,7 @@ public class LanguageCommandController {
     public ResponseEntity saveLanguages(
             @ApiParam(name = "Languages",
                     value = "List of languages to be saved",
-                    required = true) @RequestBody @Valid LanguageForm languageForm) {
+                    required = true) @RequestBody @Valid LanguageRequest languageForm) {
         languageCommandHandler.save(languageForm.getLanguages());
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }

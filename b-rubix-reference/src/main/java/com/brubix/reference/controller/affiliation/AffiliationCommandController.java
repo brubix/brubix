@@ -1,4 +1,4 @@
-package com.brubix.reference.controller.institutionboard;
+package com.brubix.reference.controller.affiliation;
 
 import com.brubix.common.constant.ApplicationConstant;
 import com.brubix.common.exception.error.ErrorMessages;
@@ -20,7 +20,7 @@ import javax.validation.Valid;
 @RequestMapping(path = "/affiliations",
         produces = {MediaType.APPLICATION_JSON_VALUE},
         consumes = {MediaType.APPLICATION_JSON_VALUE})
-@Api(tags = {ApplicationConstant.REFERENCE}, description = StringUtils.SPACE)
+@Api(tags = {ApplicationConstant.AFFILIATION_TAG}, description = StringUtils.SPACE)
 public class AffiliationCommandController {
 
     private AffiliationCommandHandler affiliationCommandHandler;
@@ -47,7 +47,7 @@ public class AffiliationCommandController {
     public ResponseEntity saveBoards(
             @ApiParam(name = "Affiliation types",
                     value = "Institution affiliations to be saved",
-                    required = true) @RequestBody @Valid AffiliationForm form) {
+                    required = true) @RequestBody @Valid AffiliationRequest form) {
         affiliationCommandHandler.save(form.getBoards());
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }

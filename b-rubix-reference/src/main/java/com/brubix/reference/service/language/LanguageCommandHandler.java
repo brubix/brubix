@@ -1,13 +1,13 @@
 package com.brubix.reference.service.language;
 
 import com.brubix.entity.reference.Language;
-import com.brubix.reference.controller.language.LanguageForm;
+import com.brubix.reference.controller.language.LanguageRequest;
 
 import java.util.List;
 
 public interface LanguageCommandHandler {
 
-    Language mapToEntity(LanguageForm.LanguageData languageData);
+    Language mapToEntity(LanguageRequest.LanguageData languageData);
 
-    void save(List<LanguageForm.LanguageData> data);
+    void save(List<LanguageRequest.LanguageData> data);
 }

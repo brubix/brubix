@@ -1,7 +1,7 @@
 package feature.stepdef;
 
 import com.brubix.reference.controller.country.CountryData;
-import com.brubix.reference.controller.country.CountryForm;
+import com.brubix.reference.controller.country.CountryRequest;
 import com.brubix.reference.controller.country.StateData;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
@@ -38,10 +38,10 @@ public class CountryStepDef extends AbstractStepDef {
 
     @When("^user loaded country data into system$")
     public void user_loaded_country_data_into_system() throws Exception {
-        CountryForm countryForm = new CountryForm();
+        CountryRequest countryForm = new CountryRequest();
         countryForm.setCountries(countries);
         String countryEndPoint = "http://localhost:" + serverPort + contextPath + "/countries";
-        HttpEntity<CountryForm> httpEntity = new HttpEntity<>(countryForm, buildHeaders());
+        HttpEntity<CountryRequest> httpEntity = new HttpEntity<>(countryForm, buildHeaders());
         ResponseEntity responseEntity = restTemplate.postForEntity(new URI(countryEndPoint), httpEntity, String.class);
         assertThat(responseEntity.getStatusCode().value())
                 .isEqualTo(204);

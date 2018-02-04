@@ -9,7 +9,7 @@ import java.util.List;
 
 @Getter
 @Setter
-public class CountryForm {
+public class CountryRequest {
 
     @Valid
     @NotEmpty(message = "field.empty")

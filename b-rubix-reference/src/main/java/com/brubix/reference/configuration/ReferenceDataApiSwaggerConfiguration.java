@@ -38,8 +38,9 @@ public class ReferenceDataApiSwaggerConfiguration {
 
 
     @Bean
-    public Docket customerOrderApis() {
-        return getDocket("b-Rubix-Reference Data Service", applicationPaths(), RequestHandlerSelectors.any(), apiInfo(),
+    public Docket referenceApiDocket() {
+        return getDocket("b-Rubix-Reference Data Service", applicationPaths(),
+                RequestHandlerSelectors.any(), apiInfo(),
                 new Tag(appName, String.format("REST Endpoints for %s", "b-Rubix Reference Data Service")));
     }
 
@@ -52,7 +53,8 @@ public class ReferenceDataApiSwaggerConfiguration {
                         String.format("%s Management Endpoints", appName)));
     }
 
-    private Docket getDocket(String groupName, Predicate<String> pathPattern, Predicate<RequestHandler> apis,
+    private Docket getDocket(String groupName, Predicate<String> pathPattern,
+                             Predicate<RequestHandler> apis,
                              ApiInfo apiinfo, Tag tag) {
         return new Docket(DocumentationType.SWAGGER_2).groupName(groupName)
                 .select()
@@ -78,9 +80,8 @@ public class ReferenceDataApiSwaggerConfiguration {
         Predicate<String> institution = PathSelectors.regex("/institutions.*");
         Predicate<String> language = PathSelectors.regex("/languages.*");
         Predicate<String> affiliations = PathSelectors.regex("/affiliations.*");
-        Predicate<String> reference = PathSelectors.regex("/reference.*");
         return Predicates.or(referencePath, subjectPath,
-                institution, language, affiliations, reference);
+                institution, language, affiliations);
     }
 
     private ApiInfo apiInfo() {

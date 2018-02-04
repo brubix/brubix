@@ -1,7 +1,7 @@
 package com.brubix.reference.service.affiliation;
 
-import com.brubix.common.repository.InstitutionAffiliationRepository;
-import com.brubix.reference.controller.institutionboard.AffiliationForm;
+import com.brubix.common.repository.AffiliationRepository;
+import com.brubix.reference.controller.affiliation.AffiliationRequest;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -9,19 +9,19 @@ import java.util.stream.Collectors;
 public class AffiliationQueryHandlerImpl implements AffiliationQueryHandler {
 
 
-    private final InstitutionAffiliationRepository affiliationRepository;
+    private final AffiliationRepository affiliationRepository;
 
-    public AffiliationQueryHandlerImpl(InstitutionAffiliationRepository affiliationRepository) {
+    public AffiliationQueryHandlerImpl(AffiliationRepository affiliationRepository) {
         this.affiliationRepository = affiliationRepository;
     }
 
     @Override
-    public List<AffiliationForm.AffiliationData> findAllAffiliations() {
+    public List<AffiliationRequest.AffiliationData> findAllAffiliations() {
         return affiliationRepository.findAll()
                 .stream()
                 .map(institutionAffiliation -> {
 
-                    return AffiliationForm.AffiliationData
+                    return AffiliationRequest.AffiliationData
                             .builder()
                             .affiliation(institutionAffiliation.getAffiliation())
                             .description(institutionAffiliation.getDescription())

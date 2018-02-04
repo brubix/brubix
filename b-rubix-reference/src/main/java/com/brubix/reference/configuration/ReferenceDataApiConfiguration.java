@@ -76,12 +76,12 @@ public class ReferenceDataApiConfiguration {
     }
 
     @Bean
-    public AffiliationCommandHandler affiliationCommandHandlers(InstitutionAffiliationRepository affiliationRepository) {
+    public AffiliationCommandHandler affiliationCommandHandlers(AffiliationRepository affiliationRepository) {
         return new AffiliationCommandHandlerImpl(affiliationRepository);
     }
 
     @Bean
-    public AffiliationQueryHandler affiliationQueryHandlers(InstitutionAffiliationRepository affiliationRepository) {
+    public AffiliationQueryHandler affiliationQueryHandlers(AffiliationRepository affiliationRepository) {
         return new AffiliationQueryHandlerImpl(affiliationRepository);
     }
 

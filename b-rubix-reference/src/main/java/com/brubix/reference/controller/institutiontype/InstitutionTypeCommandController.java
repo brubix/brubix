@@ -20,7 +20,7 @@ import javax.validation.Valid;
 @RequestMapping(path = "/institutions",
         produces = {MediaType.APPLICATION_JSON_VALUE},
         consumes = {MediaType.APPLICATION_JSON_VALUE})
-@Api(tags = {ApplicationConstant.REFERENCE}, description = StringUtils.SPACE)
+@Api(tags = {ApplicationConstant.INSTITUTION_TAG}, description = StringUtils.SPACE)
 public class InstitutionTypeCommandController {
 
 
@@ -46,7 +46,7 @@ public class InstitutionTypeCommandController {
             })
     public ResponseEntity saveInstitutionTypes(
             @ApiParam(name = "Institution types",
-                    value = "List of countries to be saved",
+                    value = "List of institution types to be saved",
                     required = true) @RequestBody @Valid InstitutionTypeForm form) {
         commandHandler.save(form.getTypes());
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);

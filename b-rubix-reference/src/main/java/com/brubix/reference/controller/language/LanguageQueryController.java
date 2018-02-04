@@ -1,9 +1,9 @@
-package com.brubix.reference.controller.subject;
+package com.brubix.reference.controller.language;
 
 import com.brubix.common.constant.ApplicationConstant;
 import com.brubix.common.exception.error.ErrorMessages;
 import com.brubix.common.exception.error.ErrorResponse;
-import com.brubix.reference.service.subject.SubjectQueryHandler;
+import com.brubix.reference.service.language.LanguageQueryHandler;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -14,39 +14,38 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
 @RestController
-@RequestMapping(path = "/subjects",
+@RequestMapping(path = "/languages",
         produces = {MediaType.APPLICATION_JSON_VALUE})
-@Api(tags = {ApplicationConstant.SUBJECT_TAG}, description = StringUtils.SPACE)
-public class SubjectQueryController {
+@Api(tags = {ApplicationConstant.LANGUAGE_TAG}, description = StringUtils.SPACE)
+public class LanguageQueryController {
 
-    private SubjectQueryHandler subjectQueryHandler;
+    private LanguageQueryHandler languageQueryHandler;
 
-    public SubjectQueryController(SubjectQueryHandler subjectQueryHandler) {
-        this.subjectQueryHandler = subjectQueryHandler;
+    public LanguageQueryController(LanguageQueryHandler languageQueryHandler) {
+        this.languageQueryHandler = languageQueryHandler;
     }
 
-    @GetMapping(path = "")
+
+    @GetMapping
     @ApiOperation(
-            value = "Get all subjects",
-            notes = "Get all subjects",
-            httpMethod = "GET")
+            value = "Get reference languages",
+            notes = "Get reference languages",
+            code = 200,
+            response = String.class)
     @ApiResponses(
             value = {
                     @ApiResponse(code = 400, message = ErrorMessages.INVALID_HEADER, response = ErrorResponse.class),
-                    @ApiResponse(code = 400, message = ErrorMessages.INVALID_PAYLOAD, response = ErrorResponse.class),
                     @ApiResponse(code = 404, message = ErrorMessages.UNSUPPORTED_API, response = ErrorResponse.class),
                     @ApiResponse(code = 405, message = ErrorMessages.INVALID_METHOD, response = ErrorResponse.class),
                     @ApiResponse(code = 500, message = ErrorMessages.INTERNAL_ERROR, response = ErrorResponse.class)
             })
-    @ResponseBody
-    public ResponseEntity<List<SubjectRequest.SubjectData>> findAllSubjects() {
-        List<SubjectRequest.SubjectData> subjects = subjectQueryHandler.findAllSubjects();
-        return new ResponseEntity<>(subjects, HttpStatus.OK);
+    public ResponseEntity<List<LanguageRequest.LanguageData>> findAllLanguages() {
+        List<LanguageRequest.LanguageData> languageDataList = languageQueryHandler.findAllLanguages();
+        return new ResponseEntity<>(languageDataList, HttpStatus.OK);
     }
 }

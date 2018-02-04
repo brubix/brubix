@@ -12,7 +12,7 @@ import java.util.List;
 
 @Getter
 @Setter
-public class SubjectForm {
+public class SubjectRequest {
 
     @Valid
     @NotEmpty(message = "field.empty")

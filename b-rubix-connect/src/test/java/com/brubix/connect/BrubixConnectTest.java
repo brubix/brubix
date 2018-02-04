@@ -27,7 +27,7 @@ public class BrubixConnectTest {
         emailRequest.setSubject("test mail from brubix");
         emailRequest.setContent("Test content");
         HttpEntity<EmailRequest> request = new HttpEntity<>(emailRequest);
-        restTemplate.postForObject("http://localhost:8084/v1/connect/email", request, String.class);
+        restTemplate.postForObject("http://localhost:8083/v1/connect/email", request, String.class);
     }
 
     @Test
@@ -39,7 +39,7 @@ public class BrubixConnectTest {
         smsRequest.setContent("test mail from bruix ");
         // emailRequest.setContent("Test content");
         HttpEntity<SmsRequest> request = new HttpEntity<>(smsRequest);
-        restTemplate.postForObject("http://localhost:8084/v1/connect/sms", request, String.class);
+        restTemplate.postForObject("http://localhost:8083/v1/connect/sms", request, String.class);
 
     }
 

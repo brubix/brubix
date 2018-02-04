@@ -33,7 +33,7 @@ public class BrubixServiceConfiguration {
                                                      InstitutionFormCustomValidator schoolFormCustomValidator,
                                                      SubjectRepository subjectRepository,
                                                      CityRepository cityRepository,
-                                                     InstitutionAffiliationRepository affiliationRepository,
+                                                     AffiliationRepository affiliationRepository,
                                                      InstitutionTypeRepository institutionTypeRepository,
                                                      LanguageMediumRepository languageMediumRepository,
                                                      InstitutionRegistrationValidator schoolRegistrationValidator,

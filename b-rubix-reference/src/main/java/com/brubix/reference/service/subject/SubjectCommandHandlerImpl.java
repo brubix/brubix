@@ -2,7 +2,7 @@ package com.brubix.reference.service.subject;
 
 import com.brubix.common.repository.SubjectRepository;
 import com.brubix.entity.reference.Subject;
-import com.brubix.reference.controller.subject.SubjectForm;
+import com.brubix.reference.controller.subject.SubjectRequest;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
@@ -18,7 +18,7 @@ public class SubjectCommandHandlerImpl implements SubjectCommandHandler {
     }
 
     @Override
-    public Void save(List<SubjectForm.SubjectData> data) {
+    public Void save(List<SubjectRequest.SubjectData> data) {
         log.info("Storing subjects");
         List<Subject> subjects =
                 data.stream()
@@ -29,7 +29,7 @@ public class SubjectCommandHandlerImpl implements SubjectCommandHandler {
     }
 
     @Override
-    public Subject mapToEntity(SubjectForm.SubjectData subjectData) {
+    public Subject mapToEntity(SubjectRequest.SubjectData subjectData) {
         Subject subject = new Subject();
         subject.setName(subjectData.getName());
         subject.setDescription(subjectData.getDescription());

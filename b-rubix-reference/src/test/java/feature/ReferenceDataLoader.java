@@ -27,7 +27,7 @@ public class ReferenceDataLoader {
     private LanguageMediumRepository languageMediumRepository;
 
     @Autowired
-    private InstitutionAffiliationRepository institutionAffiliationRepository;
+    private AffiliationRepository institutionAffiliationRepository;
 
     @PostConstruct
     public void load() {

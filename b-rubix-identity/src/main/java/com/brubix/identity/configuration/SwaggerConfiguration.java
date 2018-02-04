@@ -38,7 +38,7 @@ public class SwaggerConfiguration {
 
 
     @Bean
-    public Docket customerOrderApis() {
+    public Docket identityApiDocket() {
         return getDocket("b-Rubix-identity", applicationPaths(), RequestHandlerSelectors.any(), apiInfo(),
                 new Tag(appName, String.format("REST Endpoints for %s", "b-Rubix Identity")));
     }

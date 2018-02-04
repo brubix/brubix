@@ -1,11 +1,11 @@
 package com.brubix.reference.service.affiliation;
 
-import com.brubix.reference.controller.institutionboard.AffiliationForm;
+import com.brubix.reference.controller.affiliation.AffiliationRequest;
 
 import java.util.List;
 
 public interface AffiliationQueryHandler {
 
-    List<AffiliationForm.AffiliationData> findAllAffiliations();
+    List<AffiliationRequest.AffiliationData> findAllAffiliations();
 
 }

@@ -22,7 +22,7 @@ import java.util.List;
 @RestController
 @RequestMapping(path = "/institutions",
         produces = {MediaType.APPLICATION_JSON_VALUE})
-@Api(tags = {ApplicationConstant.REFERENCE}, description = StringUtils.SPACE)
+@Api(tags = {ApplicationConstant.INSTITUTION_TAG}, description = StringUtils.SPACE)
 public class InstitutionTypeQueryController {
 
     private InstitutionTypeQueryHandler queryHandler;

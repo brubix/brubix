@@ -1,7 +1,7 @@
 package feature.stepdef;
 
 import com.brubix.common.exception.error.ErrorResponse;
-import com.brubix.reference.controller.subject.SubjectForm;
+import com.brubix.reference.controller.subject.SubjectRequest;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -17,27 +17,27 @@ import java.util.List;
 
 public class SubjectStepDef extends AbstractStepDef {
 
-    private List<SubjectForm.SubjectData> subjectDataList;
+    private List<SubjectRequest.SubjectData> subjectDataList;
     private ResponseEntity<String> responseEntity;
 
 
     @Given("^the below subjects available$")
-    public void belowSubjectsAvailable(List<SubjectForm.SubjectData> subjectDataList) {
+    public void belowSubjectsAvailable(List<SubjectRequest.SubjectData> subjectDataList) {
         this.subjectDataList = subjectDataList;
     }
 
     @When("^the administrator want to create subjects$")
     public void systemAdministratorWantToCreateSubjects() throws Exception {
         String countryEndPoint = "http://localhost:" + serverPort + contextPath + "/subjects";
-        SubjectForm subjectForm = new SubjectForm();
+        SubjectRequest subjectForm = new SubjectRequest();
         subjectForm.setSubjects(subjectDataList);
 
-        HttpEntity<SubjectForm> httpEntity = new HttpEntity<>(subjectForm, buildHeaders());
+        HttpEntity<SubjectRequest> httpEntity = new HttpEntity<>(subjectForm, buildHeaders());
         responseEntity = restTemplate.postForEntity(new URI(countryEndPoint), httpEntity, String.class);
     }
 
     @Then("the administrator should get below subjects")
-    public void systemAdministratorShouldGetBelowSubjects(List<SubjectForm.SubjectData> subjectDataList) throws Exception {
+    public void systemAdministratorShouldGetBelowSubjects(List<SubjectRequest.SubjectData> subjectDataList) throws Exception {
         String countryEndPoint = "http://localhost:" + serverPort + contextPath + "/subjects";
 
         responseEntity = restTemplate.getForEntity(new URI(countryEndPoint), String.class);

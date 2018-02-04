@@ -15,7 +15,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(path = "/countries", produces = {MediaType.APPLICATION_JSON_VALUE})
-@Api(tags = {ApplicationConstant.REFERENCE}, description = StringUtils.SPACE)
+@Api(tags = {ApplicationConstant.COUNTRY_TAG}, description = StringUtils.SPACE)
 public class CountryQueryController {
 
     private CountryQueryHandler countryQueryHandler;
@@ -26,8 +26,8 @@ public class CountryQueryController {
 
     @GetMapping
     @ApiOperation(
-            value = "List countries with states",
-            notes = "List countries with states",
+            value = "List countries with states,cities",
+            notes = "List countries with states,cities",
             httpMethod = "GET")
     @ApiResponses(
             value = {

@@ -22,3 +22,7 @@ mvn package -Pdocker -DskipTests
 cd ..
 cd b-rubix-reference
 mvn package -Pdocker -DskipTests
+
+cd ..
+cd b-rubix-connect
+mvn package -Pdocker -DskipTests

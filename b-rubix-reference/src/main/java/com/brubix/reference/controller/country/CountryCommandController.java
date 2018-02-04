@@ -21,7 +21,7 @@ import javax.validation.Valid;
 @RequestMapping(path = "/countries",
         produces = {MediaType.APPLICATION_JSON_VALUE},
         consumes = {MediaType.APPLICATION_JSON_VALUE})
-@Api(tags = {ApplicationConstant.REFERENCE}, description = StringUtils.SPACE)
+@Api(tags = {ApplicationConstant.COUNTRY_TAG}, description = StringUtils.SPACE)
 public class CountryCommandController {
 
     private CountryCommandHandler countryCommandHandler;
@@ -32,8 +32,8 @@ public class CountryCommandController {
 
     @PostMapping(path = "")
     @ApiOperation(
-            value = "Save countries with states",
-            notes = "Save countries with states",
+            value = "Save countries with states,cities",
+            notes = "Save countries with states,cities",
             code = 204,
             response = String.class)
     @ApiResponses(
@@ -47,7 +47,7 @@ public class CountryCommandController {
     public ResponseEntity saveCountries(
             @ApiParam(name = "Countries",
                     value = "List of countries to be saved",
-                    required = true) @RequestBody @Valid CountryForm countryForm) {
+                    required = true) @RequestBody @Valid CountryRequest countryForm) {
         countryCommandHandler.save(countryForm.getCountries());
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }

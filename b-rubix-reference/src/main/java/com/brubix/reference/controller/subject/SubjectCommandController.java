@@ -20,7 +20,7 @@ import javax.validation.Valid;
 @RequestMapping(path = "/subjects",
         produces = {MediaType.APPLICATION_JSON_VALUE},
         consumes = {MediaType.APPLICATION_JSON_VALUE})
-@Api(tags = {ApplicationConstant.REFERENCE}, description = StringUtils.SPACE)
+@Api(tags = {ApplicationConstant.SUBJECT_TAG}, description = StringUtils.SPACE)
 public class SubjectCommandController {
 
     private SubjectCommandHandler subjectCommandHandler;
@@ -47,7 +47,7 @@ public class SubjectCommandController {
     public ResponseEntity saveSubjects(
             @ApiParam(name = "Subjects",
                     value = "List of subjects to be created",
-                    required = true) @RequestBody @Valid SubjectForm subjectForm) {
+                    required = true) @RequestBody @Valid SubjectRequest subjectForm) {
         subjectCommandHandler.save(subjectForm.getSubjects());
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }

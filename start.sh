@@ -23,3 +23,7 @@ docker run --name b-rubix-identity --link b-rubix-mysql:localhost -p 8081:8081 -
 
 # start b-rubix-service container
 docker run --name b-rubix-service --link b-rubix-mysql:localhost -p 8080:8080 -d b-rubix-service:SNAPSHOT
+
+
+# start b-rubix-connect container
+docker run --name b-rubix-connect --link b-rubix-mysql:localhost -p 8083:8083 -d b-rubix-connect:SNAPSHOT

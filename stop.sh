@@ -30,3 +30,12 @@ docker stop b-rubix-service
 
 echo "Removing b-rubix service container"
 docker rm b-rubix-service
+
+
+
+# stop b-rubix-connect
+echo "Stopping b-rubix connect container"
+docker stop b-rubix-connect
+
+echo "Removing b-rubix connect container"
+docker rm b-rubix-connect

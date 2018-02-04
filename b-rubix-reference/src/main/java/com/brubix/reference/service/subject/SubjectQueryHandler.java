@@ -1,10 +1,10 @@
 package com.brubix.reference.service.subject;
 
-        import com.brubix.reference.controller.subject.SubjectForm;
+        import com.brubix.reference.controller.subject.SubjectRequest;
 
         import java.util.List;
 
 public interface SubjectQueryHandler {
 
-    List<SubjectForm.SubjectData> findAllSubjects();
+    List<SubjectRequest.SubjectData> findAllSubjects();
 }

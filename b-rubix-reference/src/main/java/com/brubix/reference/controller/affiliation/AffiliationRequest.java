@@ -1,4 +1,4 @@
-package com.brubix.reference.controller.language;
+package com.brubix.reference.controller.affiliation;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -12,22 +12,23 @@ import java.util.List;
 
 @Getter
 @Setter
-public class LanguageForm {
-
+public class AffiliationRequest {
 
     @Valid
     @NotEmpty(message = "field.empty")
-    private List<LanguageData> languages;
+    private List<AffiliationData> boards;
 
-    @Getter
+
     @Builder
-    public static class LanguageData {
+    @Getter
+    public static class AffiliationData {
+
         @NotBlank(message = "{field.empty}")
-        @Length(max = 100, message = "{invalid.length.language}")
-        private String language;
+        @Length(max = 100, message = "{invalid.length.affiliation}")
+        private String affiliation;
 
         @NotBlank
-        @Length(max = 255, message = "{invalid.length.language.description}")
+        @Length(max = 255, message = "{invalid.length.affiliation.description}")
         private String description;
     }
 }
