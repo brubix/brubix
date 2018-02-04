@@ -1,0 +1,3 @@
+server:
+    context-path: /v1
+    port: 8084
