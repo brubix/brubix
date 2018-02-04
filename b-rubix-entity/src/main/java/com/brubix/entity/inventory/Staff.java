@@ -15,7 +15,7 @@ import java.util.Date;
 @MappedSuperclass
 public abstract class Staff extends User {
 
-    @Column(name = "joining_date", nullable = false)
+    @Column(name = "joining_date")
     @Temporal(TemporalType.DATE)
     private Date joiningDate;
 

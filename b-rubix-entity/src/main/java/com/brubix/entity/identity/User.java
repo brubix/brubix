@@ -5,16 +5,14 @@ import com.brubix.entity.communication.Phone;
 import com.brubix.entity.communication.Social;
 import com.brubix.entity.inventory.Address;
 import com.brubix.entity.inventory.DocumentInfo;
-import com.brubix.entity.inventory.MileStone;
 import com.brubix.entity.inventory.Institution;
+import com.brubix.entity.inventory.MileStone;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
-
-import static javax.persistence.GenerationType.IDENTITY;
 
 /**
  * Created by sanjeev.singh1 on 11/09/17.
@@ -26,10 +24,11 @@ import static javax.persistence.GenerationType.IDENTITY;
 @DiscriminatorColumn(name = "user_type", discriminatorType = DiscriminatorType.STRING)
 @Getter
 @Setter
-public class User {
+public abstract class User {
+
 
     @Id
-    @GeneratedValue(strategy = IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
 
@@ -48,7 +47,6 @@ public class User {
     private List<Address> addresses;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
     private List<DocumentInfo> documents;
 
     @Embedded
@@ -65,6 +63,9 @@ public class User {
 
     @Column(name = "enabled", nullable = false)
     private boolean enabled;
+
+    @Column(name = "verified", nullable = false)
+    private boolean verified;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Institution institution;

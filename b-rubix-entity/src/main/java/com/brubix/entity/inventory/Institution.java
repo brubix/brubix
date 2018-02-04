@@ -33,7 +33,7 @@ public class Institution {
     private String institutionCode;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "institution_id")
+    @JoinColumn(name = "address_id")
     private Address address;
 
     @OneToMany(cascade = CascadeType.ALL)
@@ -42,6 +42,7 @@ public class Institution {
     @OneToMany(cascade = CascadeType.ALL)
     private List<NonFaculty> nonFaculties;
 
+    // TODO verify this association
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "institution_id")
     private List<DocumentInfo> documents;
@@ -50,16 +51,13 @@ public class Institution {
     @JoinColumn(name = "social_id")
     private Social social;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "institution_type_id")
+    @OneToMany(fetch = FetchType.LAZY)
     private List<InstitutionType> institutionTypes;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "affiliation_type_id")
+    @OneToMany(fetch = FetchType.LAZY)
     private List<InstitutionAffiliation> affiliations;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "language_id")
+    @OneToMany(fetch = FetchType.LAZY)
     private List<Language> languages;
 
     @ManyToMany(cascade = CascadeType.ALL)

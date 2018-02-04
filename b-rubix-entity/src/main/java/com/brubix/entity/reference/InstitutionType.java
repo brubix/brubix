@@ -19,9 +19,9 @@ public class InstitutionType {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "type", nullable = false, length = 100, unique = true)
+    @Column(name = "type", nullable = false, length = 50, unique = true)
     private String type;
 
-    @Column(name = "description", nullable = false)
+    @Column(name = "description", nullable = false, length = 255)
     private String description;
 }

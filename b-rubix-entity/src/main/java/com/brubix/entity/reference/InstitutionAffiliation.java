@@ -10,7 +10,7 @@ import static javax.persistence.GenerationType.IDENTITY;
 @Getter
 @Setter
 @Entity
-@Table(name = "institution_affiliation", catalog = "brubix")
+@Table(name = "affiliation", catalog = "brubix")
 public class InstitutionAffiliation {
 
     @Id
@@ -18,9 +18,9 @@ public class InstitutionAffiliation {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "affiliation", nullable = false, length = 100, unique = true)
+    @Column(name = "affiliation", nullable = false, length = 50, unique = true)
     private String affiliation;
 
-    @Column(name = "description", nullable = false)
+    @Column(name = "description", nullable = false, length = 255)
     private String description;
 }

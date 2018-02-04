@@ -25,7 +25,7 @@ public class Country {
     @Column(name = "code", nullable = false, length = 3, unique = true)
     private String code;
 
-    @Column(name = "description", nullable = false, length = 20)
+    @Column(name = "description", nullable = false, length = 255)
     private String description;
 
     @Column(name = "currency", nullable = false, length = 3)

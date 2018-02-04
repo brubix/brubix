@@ -27,6 +27,6 @@ public class City {
     @Column(name = "code", nullable = false, length = 3, unique = true)
     private String code;
 
-    @Column(name = "description", nullable = false, length = 20)
+    @Column(name = "description", nullable = false, length = 100)
     private String description;
 }
