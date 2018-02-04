@@ -11,7 +11,7 @@ import static javax.persistence.GenerationType.IDENTITY;
 @Setter
 @Entity
 @Table(name = "affiliation", catalog = "brubix")
-public class InstitutionAffiliation {
+public class Affiliation {
 
     @Id
     @GeneratedValue(strategy = IDENTITY)

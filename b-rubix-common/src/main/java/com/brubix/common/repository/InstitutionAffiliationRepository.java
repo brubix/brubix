@@ -1,9 +1,9 @@
 package com.brubix.common.repository;
 
-import com.brubix.entity.reference.InstitutionAffiliation;
+import com.brubix.entity.reference.Affiliation;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface InstitutionAffiliationRepository extends JpaRepository<InstitutionAffiliation, Long> {
+public interface InstitutionAffiliationRepository extends JpaRepository<Affiliation, Long> {
 
-    InstitutionAffiliation findByAffiliation(String affiliation);
+    Affiliation findByAffiliation(String affiliation);
 }

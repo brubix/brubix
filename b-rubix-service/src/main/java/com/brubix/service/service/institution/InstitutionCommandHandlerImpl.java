@@ -8,7 +8,7 @@ import com.brubix.entity.communication.Phone;
 import com.brubix.entity.communication.Social;
 import com.brubix.entity.identity.Role;
 import com.brubix.entity.inventory.*;
-import com.brubix.entity.reference.InstitutionAffiliation;
+import com.brubix.entity.reference.Affiliation;
 import com.brubix.entity.reference.InstitutionType;
 import com.brubix.entity.reference.Language;
 import com.brubix.entity.reference.Subject;
@@ -50,8 +50,6 @@ public class InstitutionCommandHandlerImpl implements InstitutionCommandHandler 
     private LanguageMediumRepository languageMediumRepository;
     private InstitutionRegistrationValidator registrationValidator;
     private RoleRepository roleRepository;
-    private NonFacultyRepository nonFacultyRepository;
-
 
     @Autowired
     private ApplicationEventPublisher eventPublisher;
@@ -66,7 +64,6 @@ public class InstitutionCommandHandlerImpl implements InstitutionCommandHandler 
                                          InstitutionAffiliationRepository affiliationRepository,
                                          InstitutionTypeRepository institutionTypeRepository,
                                          LanguageMediumRepository languageMediumRepository,
-                                         NonFacultyRepository nonFacultyRepository,
                                          InstitutionRegistrationValidator registrationValidator,
                                          RoleRepository roleRepository) {
         this.institutionRepository = schoolRepository;
@@ -79,7 +76,6 @@ public class InstitutionCommandHandlerImpl implements InstitutionCommandHandler 
         this.affiliationRepository = affiliationRepository;
         this.institutionTypeRepository = institutionTypeRepository;
         this.languageMediumRepository = languageMediumRepository;
-        this.nonFacultyRepository = nonFacultyRepository;
         this.roleRepository = roleRepository;
         this.registrationValidator = registrationValidator;
     }
@@ -178,20 +174,20 @@ public class InstitutionCommandHandlerImpl implements InstitutionCommandHandler 
 
         //map know your institution
         KnowYourSchoolData kys = schoolForm.getSchoolInfo().getKys();
-        List<InstitutionAffiliation> affiliations = kys
+        List<Affiliation> affiliations = kys
                 .getAffiliations()
                 .stream()
                 .map(s -> affiliationRepository.findByAffiliation(s))
                 .collect(Collectors.toList());
 
         List<InstitutionType> institutionTypes = kys
-                .getAffiliations()
+                .getInstitutionTypes()
                 .stream()
                 .map(s -> institutionTypeRepository.findByType(s))
                 .collect(Collectors.toList());
 
         List<Language> languages = kys
-                .getAffiliations()
+                .getLanguages()
                 .stream()
                 .map(s -> languageMediumRepository.findByType(s))
                 .collect(Collectors.toList());

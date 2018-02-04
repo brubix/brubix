@@ -11,8 +11,8 @@ docker rm b-rubix-mysql
 echo "Stopping b-rubix reference container"
 docker stop b-rubix-reference
 
-echo "Removing b-rubix referencecontainer"
-docker rm b-rubix-refernce
+echo "Removing b-rubix reference container"
+docker rm b-rubix-reference
 
 
 

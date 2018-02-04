@@ -36,13 +36,12 @@ public class BrubixServiceConfiguration {
                                                      InstitutionAffiliationRepository affiliationRepository,
                                                      InstitutionTypeRepository institutionTypeRepository,
                                                      LanguageMediumRepository languageMediumRepository,
-                                                     NonFacultyRepository nonFacultyRepository,
                                                      InstitutionRegistrationValidator schoolRegistrationValidator,
                                                           RoleRepository roleRepository) {
         return new InstitutionCommandHandlerImpl(schoolRepository, countryRepository, stateRepository,
                 schoolCodeGenerator, schoolFormCustomValidator, subjectRepository, cityRepository,
                 affiliationRepository, institutionTypeRepository, languageMediumRepository,
-                nonFacultyRepository, schoolRegistrationValidator, roleRepository);
+                 schoolRegistrationValidator, roleRepository);
     }
 
 

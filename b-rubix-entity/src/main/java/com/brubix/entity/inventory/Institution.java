@@ -1,7 +1,7 @@
 package com.brubix.entity.inventory;
 
 import com.brubix.entity.communication.Social;
-import com.brubix.entity.reference.InstitutionAffiliation;
+import com.brubix.entity.reference.Affiliation;
 import com.brubix.entity.reference.InstitutionType;
 import com.brubix.entity.reference.Language;
 import lombok.Getter;
@@ -55,7 +55,7 @@ public class Institution {
     private List<InstitutionType> institutionTypes;
 
     @OneToMany(fetch = FetchType.LAZY)
-    private List<InstitutionAffiliation> affiliations;
+    private List<Affiliation> affiliations;
 
     @OneToMany(fetch = FetchType.LAZY)
     private List<Language> languages;

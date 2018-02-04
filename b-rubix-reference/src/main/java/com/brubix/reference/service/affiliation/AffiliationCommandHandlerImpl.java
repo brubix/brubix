@@ -1,7 +1,7 @@
 package com.brubix.reference.service.affiliation;
 
 import com.brubix.common.repository.InstitutionAffiliationRepository;
-import com.brubix.entity.reference.InstitutionAffiliation;
+import com.brubix.entity.reference.Affiliation;
 import com.brubix.reference.controller.institutionboard.AffiliationForm;
 
 import java.util.List;
@@ -23,8 +23,8 @@ public class AffiliationCommandHandlerImpl implements AffiliationCommandHandler 
     }
 
     @Override
-    public InstitutionAffiliation mapToEntity(AffiliationForm.AffiliationData affiliationData) {
-        InstitutionAffiliation institutionAffiliation = new InstitutionAffiliation();
+    public Affiliation mapToEntity(AffiliationForm.AffiliationData affiliationData) {
+        Affiliation institutionAffiliation = new Affiliation();
         institutionAffiliation.setAffiliation(affiliationData.getAffiliation());
         institutionAffiliation.setDescription(affiliationData.getDescription());
         return institutionAffiliation;

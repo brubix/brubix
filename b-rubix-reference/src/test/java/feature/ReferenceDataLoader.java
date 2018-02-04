@@ -39,21 +39,21 @@ public class ReferenceDataLoader {
     }
 
     private void loadInstitutionAffiliations() {
-        InstitutionAffiliation cbse = new InstitutionAffiliation();
+        Affiliation cbse = new Affiliation();
         cbse.setAffiliation("CBSE");
         cbse.setDescription("Central board of secondary education");
 
-        InstitutionAffiliation icse = new InstitutionAffiliation();
+        Affiliation icse = new Affiliation();
         icse.setAffiliation("ICSE");
         icse.setDescription("International council of secondary education");
 
 
-        InstitutionAffiliation igcse = new InstitutionAffiliation();
+        Affiliation igcse = new Affiliation();
         igcse.setAffiliation("IGCSE");
         igcse.setDescription("IGCSE");
 
 
-        InstitutionAffiliation university = new InstitutionAffiliation();
+        Affiliation university = new Affiliation();
         university.setAffiliation("UNIV");
         university.setDescription("University");
 
