@@ -3,7 +3,7 @@ package com.brubix.service.controller.inventory.school;
 import com.brubix.common.constant.ApplicationConstant;
 import com.brubix.common.exception.error.ErrorMessages;
 import com.brubix.common.exception.error.ErrorResponse;
-import com.brubix.service.service.school.InstitutionQueryHandler;
+import com.brubix.service.service.institution.InstitutionQueryHandler;
 import io.swagger.annotations.*;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.HttpStatus;

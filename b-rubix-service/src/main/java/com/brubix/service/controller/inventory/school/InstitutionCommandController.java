@@ -3,8 +3,8 @@ package com.brubix.service.controller.inventory.school;
 import com.brubix.common.constant.ApplicationConstant;
 import com.brubix.common.exception.error.ErrorMessages;
 import com.brubix.common.exception.error.ErrorResponse;
-import com.brubix.service.service.school.InstitutionCode;
-import com.brubix.service.service.school.InstitutionCommandHandler;
+import com.brubix.service.service.institution.InstitutionCode;
+import com.brubix.service.service.institution.InstitutionCommandHandler;
 import io.swagger.annotations.*;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.HttpStatus;
@@ -45,10 +45,10 @@ public class InstitutionCommandController {
     @ResponseBody
     public ResponseEntity<InstitutionCode> create(
             @ApiParam(name = "institution", value = "Institution to be created")
-            @Valid @RequestBody SchoolForm school) {
+            @Valid @RequestBody InstitutionCreateRequest institutionCreateRequest) {
 
-        InstitutionCode schoolCode = institutionCommandHandler.create(school);
-        return new ResponseEntity<>(schoolCode, HttpStatus.OK);
+        InstitutionCode institutionCode = institutionCommandHandler.create(institutionCreateRequest);
+        return new ResponseEntity<>(institutionCode, HttpStatus.OK);
     }
 
 

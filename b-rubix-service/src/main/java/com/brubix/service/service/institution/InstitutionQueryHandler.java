@@ -1,4 +1,4 @@
-package com.brubix.service.service.school;
+package com.brubix.service.service.institution;
 
 import com.brubix.service.controller.inventory.school.CourseForm;
 import com.brubix.service.controller.inventory.school.InstitutionQueryData;

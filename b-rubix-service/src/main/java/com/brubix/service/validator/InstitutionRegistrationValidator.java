@@ -7,7 +7,7 @@ import com.brubix.entity.identity.User;
 import com.brubix.entity.inventory.Institution;
 import com.brubix.service.controller.inventory.SocialData;
 import com.brubix.service.controller.inventory.school.AdminInfoData;
-import com.brubix.service.controller.inventory.school.SchoolForm;
+import com.brubix.service.controller.inventory.school.InstitutionCreateRequest;
 import com.brubix.service.controller.inventory.school.SchoolInfoData;
 import com.brubix.service.repository.inventory.InstitutionRepository;
 import com.brubix.service.repository.social.SocialRepository;
@@ -35,9 +35,8 @@ public class InstitutionRegistrationValidator {
         this.socialRepository = socialRepository;
     }
 
-    public void validate(SchoolForm schoolForm) {
+    public void validate(InstitutionCreateRequest schoolForm) {
         log.info("Validating registration detail of institution");
-
         // validate institution
         SchoolInfoData schoolInfoData = schoolForm.getSchoolInfo();
         Institution school = schoolRepository.findByInstitutionName(schoolInfoData.getName());
@@ -63,28 +62,20 @@ public class InstitutionRegistrationValidator {
 
         // validate institution social ids
         SocialData social = schoolForm.getSocial();
-        if (StringUtils.isNotBlank(social.getFacebook())) {
-            if (socialRepository.findByFaceBook(social.getFacebook()) != null) {
-                throw new BrubixException(ErrorCode.ALREADY_PRESENT_FACEBOOK);
-            }
+        if (StringUtils.isNotBlank(social.getFacebook()) && socialRepository.findByFaceBook(social.getFacebook()) != null) {
+            throw new BrubixException(ErrorCode.ALREADY_PRESENT_FACEBOOK);
         }
 
-        if (StringUtils.isNotBlank(social.getGooglePlus())) {
-            if (socialRepository.findByGPlus(social.getGooglePlus()) != null) {
-                throw new BrubixException(ErrorCode.ALREADY_PRESENT_GPLUS);
-            }
+        if (StringUtils.isNotBlank(social.getGooglePlus()) && socialRepository.findByGPlus(social.getGooglePlus()) != null) {
+            throw new BrubixException(ErrorCode.ALREADY_PRESENT_GPLUS);
         }
 
-        if (StringUtils.isNotBlank(social.getTwitter())) {
-            if (socialRepository.findByTwitter(social.getTwitter()) != null) {
-                throw new BrubixException(ErrorCode.ALREADY_PRESENT_TWITTER);
-            }
+        if (StringUtils.isNotBlank(social.getTwitter()) && socialRepository.findByTwitter(social.getTwitter()) != null) {
+            throw new BrubixException(ErrorCode.ALREADY_PRESENT_TWITTER);
         }
 
-        if (StringUtils.isNotBlank(social.getLinkedin())) {
-            if (socialRepository.findByLinkedin(social.getLinkedin()) != null) {
-                throw new BrubixException(ErrorCode.ALREADY_PRESENT_LINKEDIN);
-            }
+        if (StringUtils.isNotBlank(social.getLinkedin()) && socialRepository.findByLinkedin(social.getLinkedin()) != null) {
+            throw new BrubixException(ErrorCode.ALREADY_PRESENT_LINKEDIN);
         }
     }
 }

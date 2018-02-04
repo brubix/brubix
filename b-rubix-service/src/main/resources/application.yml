@@ -14,9 +14,15 @@ spring:
             max-request-size: 1500KB
 brubix:
     connect:
-        origin: http://localhost:8083
+        origin: http://localhost:8083/connect
         endpoints:
             email: "/email"
+            sms: "/sms"
+
+logging:
+    level.org.hibernate.SQL: trace
+    level.org.hibernate.type.descriptor.sql: trace
+
 
 server:
     context-path: /v1

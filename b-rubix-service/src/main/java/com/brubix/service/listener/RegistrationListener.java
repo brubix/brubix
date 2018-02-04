@@ -1,12 +1,12 @@
 package com.brubix.service.listener;
 
-import com.brubix.entity.communication.Email;
-import com.brubix.entity.identity.User;
-import com.brubix.service.event.OnRegistrationCompleteEvent;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.context.event.EventListener;
+        import com.brubix.entity.communication.Email;
+        import com.brubix.entity.identity.User;
+        import com.brubix.service.event.OnRegistrationCompleteEvent;
+        import lombok.extern.slf4j.Slf4j;
+        import org.springframework.context.event.EventListener;
 
-import java.util.UUID;
+        import java.util.UUID;
 
 /**
  * Created by Sanjaya on 28/01/18.

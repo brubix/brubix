@@ -1,12 +1,14 @@
 package com.brubix.service.controller.inventory;
 
-import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.URL;
 
 @Getter
-@Builder
+@Setter
+@NoArgsConstructor
 public class SocialData {
 
 

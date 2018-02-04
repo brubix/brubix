@@ -4,10 +4,10 @@ import com.brubix.common.exception.error.ErrorResponse;
 import com.brubix.service.controller.inventory.AddressData;
 import com.brubix.service.controller.inventory.SocialData;
 import com.brubix.service.controller.inventory.school.AdminInfoData;
-import com.brubix.service.controller.inventory.school.SchoolForm;
+import com.brubix.service.controller.inventory.school.InstitutionCreateRequest;
 import com.brubix.service.controller.inventory.school.SchoolInfoData;
 import com.brubix.service.controller.inventory.school.InstitutionQueryData;
-import com.brubix.service.service.school.InstitutionCode;
+import com.brubix.service.service.institution.InstitutionCode;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -26,7 +26,7 @@ import java.util.List;
 
 public class SchoolStepDef extends AbstractStepDef {
 
-    private SchoolForm schoolForm;
+    private InstitutionCreateRequest schoolForm;
     private ResponseEntity<String> responseEntity;
     private List<String> attachmentNames = new ArrayList<>();
     private String logo;
@@ -43,7 +43,7 @@ public class SchoolStepDef extends AbstractStepDef {
         AdminInfoData adminInfoData = new AdminInfoData();
         adminInfoData.setFirstName(userName);
 
-        SchoolForm schoolForm = new SchoolForm();
+        InstitutionCreateRequest schoolForm = new InstitutionCreateRequest();
         schoolForm.setSchoolInfo(data);
         schoolForm.setAdminInfos(Arrays.asList(adminInfoData));
 

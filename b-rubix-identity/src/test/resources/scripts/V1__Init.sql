@@ -2,10 +2,10 @@ CREATE SCHEMA IF NOT EXISTS brubix;
 
 USE brubix;
 
-INSERT INTO `country` (`id`, `code`, `currency`, `description`)
+INSERT INTO `country` (`id`, `code`, `currency`, `dialing_code`, `description`)
 VALUES
-  (1, 'IND', 'INR', 'India'),
-  (2, 'USA', 'USA', 'United States of Ame');
+  (1, 'IND', 'INR', '+91' ,'India'),
+  (2, 'USA', 'USD', '+1', 'United States of America');
 
 INSERT INTO `state` (`id`, `code`, `description`, `country_id`)
 VALUES
@@ -16,6 +16,12 @@ VALUES
   (5, 'TXS', 'Texas', 2),
   (6, 'WDC', 'Wasington DC', 2)
 ;
+
+INSERT INTO `city` (`id`, `code`, `description`, `state_id`)
+VALUES
+  (1, 'MYS', 'Mysore', 1),
+  (2, 'BNG', 'Bangalore', 1),
+  (3, 'HUB', 'Hubli', 1);
 
 INSERT INTO `subject` (`id`, `description`, `name`)
 VALUES
@@ -46,10 +52,10 @@ VALUES
   (4, 'Telugu', 'Telugu')
 ;
 
-INSERT INTO `institution_affiliation` (`id`, `affiliation`, `description`)
+INSERT INTO `affiliation` (`id`, `affiliation`, `description`)
 VALUES
   (1, 'CBSE', 'Central Board of Secondary Education'),
   (2, 'ICSE', 'International Counsil of Secondary Education');
 
 
-COMMIT;
+

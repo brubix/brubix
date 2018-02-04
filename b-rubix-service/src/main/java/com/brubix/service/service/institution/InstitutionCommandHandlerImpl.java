@@ -1,4 +1,4 @@
-package com.brubix.service.service.school;
+package com.brubix.service.service.institution;
 
 import com.brubix.common.exception.BrubixException;
 import com.brubix.common.exception.error.ErrorCode;
@@ -6,7 +6,6 @@ import com.brubix.common.repository.*;
 import com.brubix.entity.communication.Email;
 import com.brubix.entity.communication.Phone;
 import com.brubix.entity.communication.Social;
-import com.brubix.entity.content.Document;
 import com.brubix.entity.identity.Role;
 import com.brubix.entity.inventory.*;
 import com.brubix.entity.reference.InstitutionAffiliation;
@@ -16,8 +15,8 @@ import com.brubix.entity.reference.Subject;
 import com.brubix.service.controller.inventory.AddressData;
 import com.brubix.service.controller.inventory.SocialData;
 import com.brubix.service.controller.inventory.school.CourseForm;
+import com.brubix.service.controller.inventory.school.InstitutionCreateRequest;
 import com.brubix.service.controller.inventory.school.KnowYourSchoolData;
-import com.brubix.service.controller.inventory.school.SchoolForm;
 import com.brubix.service.controller.inventory.school.SubjectForm;
 import com.brubix.service.generator.CodeGenerator;
 import com.brubix.service.repository.inventory.InstitutionRepository;
@@ -28,73 +27,73 @@ import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.dao.DataAccessException;
-import org.springframework.web.multipart.MultipartFile;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
-import java.io.IOException;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Slf4j
 public class InstitutionCommandHandlerImpl implements InstitutionCommandHandler {
 
-    private InstitutionRepository schoolRepository;
+    private InstitutionRepository institutionRepository;
     private CountryRepository countryRepository;
     private StateRepository stateRepository;
     private CityRepository cityRepository;
-
-    private CodeGenerator schoolCodeGenerator;
-    private SchoolFormCustomValidator schoolFormCustomValidator;
+    private CodeGenerator institutionCodeGenerator;
+    private InstitutionFormCustomValidator institutionFormCustomValidator;
     private SubjectRepository subjectRepository;
     private InstitutionAffiliationRepository affiliationRepository;
     private InstitutionTypeRepository institutionTypeRepository;
     private LanguageMediumRepository languageMediumRepository;
-    private UserRepository userRepository;
     private InstitutionRegistrationValidator registrationValidator;
+    private RoleRepository roleRepository;
+    private NonFacultyRepository nonFacultyRepository;
 
 
     @Autowired
     private ApplicationEventPublisher eventPublisher;
 
-
     public InstitutionCommandHandlerImpl(InstitutionRepository schoolRepository,
                                          CountryRepository countryRepository,
                                          StateRepository stateRepository,
                                          CodeGenerator schoolCodeGenerator,
-                                         SchoolFormCustomValidator schoolFormCustomValidator,
+                                         InstitutionFormCustomValidator schoolFormCustomValidator,
                                          SubjectRepository subjectRepository,
                                          CityRepository cityRepository,
                                          InstitutionAffiliationRepository affiliationRepository,
                                          InstitutionTypeRepository institutionTypeRepository,
                                          LanguageMediumRepository languageMediumRepository,
-                                         UserRepository userRepository,
-                                         InstitutionRegistrationValidator registrationValidator) {
-        this.schoolRepository = schoolRepository;
+                                         NonFacultyRepository nonFacultyRepository,
+                                         InstitutionRegistrationValidator registrationValidator,
+                                         RoleRepository roleRepository) {
+        this.institutionRepository = schoolRepository;
         this.countryRepository = countryRepository;
         this.stateRepository = stateRepository;
-        this.schoolCodeGenerator = schoolCodeGenerator;
-        this.schoolFormCustomValidator = schoolFormCustomValidator;
+        this.institutionCodeGenerator = schoolCodeGenerator;
+        this.institutionFormCustomValidator = schoolFormCustomValidator;
         this.subjectRepository = subjectRepository;
         this.cityRepository = cityRepository;
         this.affiliationRepository = affiliationRepository;
         this.institutionTypeRepository = institutionTypeRepository;
         this.languageMediumRepository = languageMediumRepository;
-        this.userRepository = userRepository;
+        this.nonFacultyRepository = nonFacultyRepository;
+        this.roleRepository = roleRepository;
         this.registrationValidator = registrationValidator;
     }
 
 
     @Override
-    public InstitutionCode create(SchoolForm schoolForm) {
+    public InstitutionCode create(InstitutionCreateRequest schoolForm) {
 
-        schoolFormCustomValidator.doValidate(schoolForm);
+        institutionFormCustomValidator.doValidate(schoolForm);
 
         log.info("Creating of institution started");
         Institution school = mapToEntity(schoolForm);
         try {
-            Institution savedSchool = schoolRepository.save(school);
+            Institution savedSchool = institutionRepository.save(school);
             log.info("Loading of schools ended");
             return InstitutionCode
                     .builder()
@@ -110,7 +109,7 @@ public class InstitutionCommandHandlerImpl implements InstitutionCommandHandler 
     @Override
     @Transactional
     public void create(CourseForm courseForm) {
-        Institution school = schoolRepository.findByInstitutionCode(courseForm.getSchoolCode());
+        Institution school = institutionRepository.findByInstitutionCode(courseForm.getSchoolCode());
         if (school == null) {
             throw new BrubixException(ErrorCode.INVALID_INSTITUTION_CODE);
         }
@@ -141,13 +140,13 @@ public class InstitutionCommandHandlerImpl implements InstitutionCommandHandler 
     }
 
     @Override
-    public Institution mapToEntity(SchoolForm schoolForm) {
+    public Institution mapToEntity(InstitutionCreateRequest schoolForm) {
 
         registrationValidator.validate(schoolForm);
 
-        Institution school = new Institution();
-        school.setInstitutionName(schoolForm.getSchoolInfo().getName());
-        school.setInstitutionCode(schoolCodeGenerator.generate());
+        Institution institution = new Institution();
+        institution.setInstitutionName(schoolForm.getSchoolInfo().getName());
+        institution.setInstitutionCode(institutionCodeGenerator.generate());
 
         // map addresses
         AddressData addressData = schoolForm.getSchoolInfo().getAddress();
@@ -174,7 +173,7 @@ public class InstitutionCommandHandlerImpl implements InstitutionCommandHandler 
             social.setGPlus(socialData.getGooglePlus());
             social.setLinkedin(socialData.getLinkedin());
             social.setTwitter(socialData.getTwitter());
-            school.setSocial(social);
+            institution.setSocial(social);
         }
 
         //map know your institution
@@ -197,7 +196,14 @@ public class InstitutionCommandHandlerImpl implements InstitutionCommandHandler 
                 .map(s -> languageMediumRepository.findByType(s))
                 .collect(Collectors.toList());
 
-        schoolForm
+        institution.setAbout(schoolForm.getSchoolInfo().getAbout());
+        institution.setAffiliations(affiliations);
+        institution.setInstitutionTypes(institutionTypes);
+        institution.setLanguages(languages);
+        institution.setAddress(address);
+        institution.setMileStone(mileStone);
+
+        List<NonFaculty> admins = schoolForm
                 .getAdminInfos()
                 .stream()
                 .map(adminInfoData -> {
@@ -208,46 +214,30 @@ public class InstitutionCommandHandlerImpl implements InstitutionCommandHandler 
                     Email email = new Email();
                     email.setEmail(adminInfoData.getEmail());
                     u.setEmails(Arrays.asList(email));
+                    email.setUser(u);
 
                     Phone phone = new Phone();
                     phone.setNumber(adminInfoData.getPhone());
                     u.setPhones(Arrays.asList(phone));
+                    phone.setUser(u);
 
-                    Role role = new Role();
-                    role.setName(com.brubix.common.model.Role.ADMIN.getName());
-
+                    Role admin = roleRepository.findByName(com.brubix.common.model.Role.ADMIN.getName());
+                    u.setRoles(Arrays.asList(admin));
+                    u.setMileStone(mileStone);
+                    u.setVerified(false);
+                    u.setPassword(UUID.randomUUID().toString());
+                    u.setInstitution(institution);
                     return u;
-                });
-
-
-        school.setAbout(schoolForm.getSchoolInfo().getAbout());
-        school.setAffiliations(affiliations);
-        school.setInstitutionTypes(institutionTypes);
-        school.setLanguages(languages);
-        school.setAddress(address);
-        school.setMileStone(mileStone);
-
-
-        return school;
+                }).collect(Collectors.toList());
+        institution.setNonFaculties(admins);
+        return institution;
     }
+
 
     private boolean anySocialLinkPresent(SocialData socialData) {
         return socialData != null && (StringUtils.isNotBlank(socialData.getFacebook())
                 || StringUtils.isNotBlank(socialData.getGooglePlus())
                 || StringUtils.isNotBlank(socialData.getLinkedin())
                 || StringUtils.isNotBlank(socialData.getTwitter()));
-    }
-
-    private Document createDocument(MultipartFile file) {
-        try {
-            Document document = new Document();
-            document.setDocumentName(file.getName());
-            document.setContent(file.getBytes());
-            document.setMimeType(file.getContentType());
-            return document;
-        } catch (IOException exception) {
-            log.error("Error occurred" + ExceptionUtils.getStackTrace(exception.getCause()));
-            throw new BrubixException(ErrorCode.INVALID_FILE);
-        }
     }
 }

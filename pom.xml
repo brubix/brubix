@@ -14,7 +14,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>1.5.9.RELEASE</version>
+        <version>1.5.10.RELEASE</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
@@ -22,6 +22,7 @@
         <module>b-rubix-entity</module>
         <module>b-rubix-common</module>
         <module>b-rubix-identity</module>
+        <module>b-rubix-connect</module>
         <module>b-rubix-reference</module>
         <module>b-rubix-service</module>
         <module>b-rubix-k8s</module>

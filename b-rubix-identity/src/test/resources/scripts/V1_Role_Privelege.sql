@@ -1,7 +1,5 @@
 CREATE SCHEMA IF NOT EXISTS brubix;
 
-USE BRUBIX;
-
 INSERT INTO `role`
 (`id`,`description`,`name`)
 VALUES

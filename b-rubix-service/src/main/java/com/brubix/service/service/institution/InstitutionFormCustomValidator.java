@@ -1,13 +1,13 @@
-package com.brubix.service.service.school;
+package com.brubix.service.service.institution;
 
 import com.brubix.common.exception.error.ErrorCode;
-import com.brubix.service.controller.inventory.school.SchoolForm;
+import com.brubix.service.controller.inventory.school.InstitutionCreateRequest;
 import com.brubix.service.validator.CustomSpringValidatorAdapter;
 import org.springframework.validation.beanvalidation.SpringValidatorAdapter;
 
-public class SchoolFormCustomValidator extends CustomSpringValidatorAdapter<SchoolForm> {
+public class InstitutionFormCustomValidator extends CustomSpringValidatorAdapter<InstitutionCreateRequest> {
 
-    public SchoolFormCustomValidator(SpringValidatorAdapter springValidatorAdapter) {
+    public InstitutionFormCustomValidator(SpringValidatorAdapter springValidatorAdapter) {
         super(springValidatorAdapter);
     }
 

@@ -1,16 +1,16 @@
 package com.brubix.service.controller.inventory;
 
-import lombok.Builder;
 import lombok.Getter;
-import lombok.ToString;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 
 import javax.validation.constraints.Pattern;
 
 @Getter
-@Builder
-@ToString
+@Setter
+@NoArgsConstructor
 public class AddressData {
 
     @NotBlank(message = "{field.empty}")
@@ -24,7 +24,7 @@ public class AddressData {
     private String thirdLine;
 
     @NotBlank(message = "{field.empty}")
-    @Length(max = 3, message = "{invalid.state.code}")
+    @Length(max = 3, message = "{invalid.length.state.code}")
     @Pattern(regexp = "([A-Z]){3}", message = "{invalid.state.code}")
     private String state;
 

@@ -1,4 +1,4 @@
-package com.brubix.service.service.school;
+package com.brubix.service.service.institution;
 
 import com.brubix.common.exception.BrubixException;
 import com.brubix.common.exception.error.ErrorCode;
@@ -20,11 +20,11 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Slf4j
-public class SchoolQueryHandlerImpl implements InstitutionQueryHandler {
+public class InstitutionQueryHandlerImpl implements InstitutionQueryHandler {
 
     private InstitutionRepository institutionRepository;
 
-    public SchoolQueryHandlerImpl(InstitutionRepository institutionRepository) {
+    public InstitutionQueryHandlerImpl(InstitutionRepository institutionRepository) {
         this.institutionRepository = institutionRepository;
     }
 
@@ -56,14 +56,15 @@ public class SchoolQueryHandlerImpl implements InstitutionQueryHandler {
 
 
     private SocialData mapSocial(Social social) {
-        return social != null ?
-                SocialData.builder()
-                        .facebook(social.getFaceBook())
-                        .googlePlus(social.getGPlus())
-                        .linkedin(social.getLinkedin())
-                        .twitter(social.getTwitter())
-                        .build()
-                : null;
+        if (social != null) {
+            SocialData socialData = new SocialData();
+            socialData.setFacebook(social.getFaceBook());
+            socialData.setGooglePlus(social.getGPlus());
+            socialData.setLinkedin(social.getLinkedin());
+            socialData.setTwitter(social.getTwitter());
+            return socialData;
+        }
+        return null;
     }
 
 
@@ -105,15 +106,13 @@ public class SchoolQueryHandlerImpl implements InstitutionQueryHandler {
     }
 
     private AddressData mapToAddress(Address address) {
-        return AddressData
-                .builder()
-                .firstLine(address.getFirstLine())
-                .secondLine(address.getSecondLine())
-                .thirdLine(address.getThirdLine())
-                .pin(address.getPinCode())
-                .country(address.getCountry().getCode())
-                .state(address.getState().getCode())
-                .build();
-
+        AddressData addressData = new AddressData();
+        addressData.setFirstLine(address.getFirstLine());
+        addressData.setSecondLine(address.getSecondLine());
+        addressData.setThirdLine(address.getThirdLine());
+        addressData.setPin(address.getPinCode());
+        addressData.setCountry(address.getCountry().getCode());
+        addressData.setState(address.getState().getCode());
+        return addressData;
     }
 }

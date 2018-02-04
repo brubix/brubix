@@ -8,7 +8,7 @@ import com.brubix.service.repository.inventory.InstitutionRepository;
 import com.brubix.service.repository.social.SocialRepository;
 import com.brubix.service.service.document.DocumentCommandHandler;
 import com.brubix.service.service.document.DocumentCommandHandlerImpl;
-import com.brubix.service.service.school.*;
+import com.brubix.service.service.institution.*;
 import com.brubix.service.validator.InstitutionRegistrationValidator;
 import org.hibernate.validator.HibernateValidator;
 import org.springframework.beans.factory.annotation.Value;
@@ -30,18 +30,19 @@ public class BrubixServiceConfiguration {
                                                      CountryRepository countryRepository,
                                                      StateRepository stateRepository,
                                                      SchoolCodeGenerator schoolCodeGenerator,
-                                                     SchoolFormCustomValidator schoolFormCustomValidator,
+                                                     InstitutionFormCustomValidator schoolFormCustomValidator,
                                                      SubjectRepository subjectRepository,
                                                      CityRepository cityRepository,
                                                      InstitutionAffiliationRepository affiliationRepository,
                                                      InstitutionTypeRepository institutionTypeRepository,
                                                      LanguageMediumRepository languageMediumRepository,
-                                                     UserRepository userRepository,
-                                                     InstitutionRegistrationValidator schoolRegistrationValidator) {
+                                                     NonFacultyRepository nonFacultyRepository,
+                                                     InstitutionRegistrationValidator schoolRegistrationValidator,
+                                                          RoleRepository roleRepository) {
         return new InstitutionCommandHandlerImpl(schoolRepository, countryRepository, stateRepository,
                 schoolCodeGenerator, schoolFormCustomValidator, subjectRepository, cityRepository,
                 affiliationRepository, institutionTypeRepository, languageMediumRepository,
-                userRepository, schoolRegistrationValidator);
+                nonFacultyRepository, schoolRegistrationValidator, roleRepository);
     }
 
 
@@ -53,7 +54,7 @@ public class BrubixServiceConfiguration {
 
     @Bean
     public InstitutionQueryHandler schoolQueryHandler(InstitutionRepository schoolRepository) {
-        return new SchoolQueryHandlerImpl(schoolRepository);
+        return new InstitutionQueryHandlerImpl(schoolRepository);
     }
 
     @Bean
@@ -87,9 +88,9 @@ public class BrubixServiceConfiguration {
 
 
     @Bean
-    public SchoolFormCustomValidator schoolFormCustomValidator(Validator validator) {
+    public InstitutionFormCustomValidator schoolFormCustomValidator(Validator validator) {
         SpringValidatorAdapter springValidatorAdapter = new SpringValidatorAdapter(validator);
-        return new SchoolFormCustomValidator(springValidatorAdapter);
+        return new InstitutionFormCustomValidator(springValidatorAdapter);
     }
 
 }

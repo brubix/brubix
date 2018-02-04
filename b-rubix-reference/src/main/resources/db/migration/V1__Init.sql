@@ -52,7 +52,7 @@ VALUES
   (4, 'Telugu', 'Telugu')
 ;
 
-INSERT INTO `institution_affiliation` (`id`, `affiliation`, `description`)
+INSERT INTO `affiliation` (`id`, `affiliation`, `description`)
 VALUES
   (1, 'CBSE', 'Central Board of Secondary Education'),
   (2, 'ICSE', 'International Counsil of Secondary Education');

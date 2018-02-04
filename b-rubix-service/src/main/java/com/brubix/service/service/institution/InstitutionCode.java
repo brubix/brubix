@@ -1,4 +1,4 @@
-package com.brubix.service.service.school;
+package com.brubix.service.service.institution;
 
 import lombok.Builder;
 import lombok.Getter;

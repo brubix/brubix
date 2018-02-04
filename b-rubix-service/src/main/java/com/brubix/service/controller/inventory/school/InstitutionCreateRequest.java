@@ -10,7 +10,7 @@ import java.util.List;
 
 @Getter
 @Setter
-public class SchoolForm {
+public class InstitutionCreateRequest {
 
     @Valid
     private SchoolInfoData schoolInfo;
