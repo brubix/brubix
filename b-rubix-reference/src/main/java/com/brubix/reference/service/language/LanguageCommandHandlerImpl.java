@@ -17,7 +17,7 @@ public class LanguageCommandHandlerImpl implements LanguageCommandHandler {
 
     @Override
     public void save(List<LanguageRequest.LanguageData> data) {
-        languageMediumRepository.save(data
+        languageMediumRepository.saveAll(data
                 .stream()
                 .map(languageData -> mapToEntity(languageData))
                 .collect(Collectors.toList()));

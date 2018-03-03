@@ -24,7 +24,7 @@ public class SubjectCommandHandlerImpl implements SubjectCommandHandler {
                 data.stream()
                         .map(subjectData -> mapToEntity(subjectData))
                         .collect(Collectors.toList());
-        subjectRepository.save(subjects);
+        subjectRepository.saveAll(subjects);
         return null;
     }
 

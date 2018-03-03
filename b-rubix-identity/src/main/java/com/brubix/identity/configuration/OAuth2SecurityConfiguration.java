@@ -30,7 +30,7 @@ import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 
 @Configuration
 @EnableWebSecurity
-@Order(SecurityProperties.ACCESS_OVERRIDE_ORDER)
+//@Order(SecurityProperties.ACCESS_OVERRIDE_ORDER)
 public class OAuth2SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Value("${security.signing-key}")

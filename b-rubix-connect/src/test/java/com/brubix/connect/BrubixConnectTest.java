@@ -16,6 +16,7 @@ import static org.springframework.boot.test.context.SpringBootTest.WebEnvironmen
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {BrubixConnectApplication.class}, loader = SpringBootContextLoader.class)
 @SpringBootTest(webEnvironment = DEFINED_PORT)
+@org.junit.Ignore
 public class BrubixConnectTest {
 
     @Test

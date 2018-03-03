@@ -59,7 +59,7 @@ public class DocumentCommandHandlerImpl implements DocumentCommandHandler {
             documentInfo.setDocument(documentFile != null ? createDocument(documentFile) : null);
             documentInfoList.add(documentInfo);
         }
-        List<DocumentInfo> documentInfos = documentInfoRepository.save(documentInfoList);
+        List<DocumentInfo> documentInfos = documentInfoRepository.saveAll(documentInfoList);
         school.setDocuments(documentInfos);
     }
 

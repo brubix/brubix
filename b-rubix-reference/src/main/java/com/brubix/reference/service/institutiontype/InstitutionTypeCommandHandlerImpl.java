@@ -29,6 +29,6 @@ public class InstitutionTypeCommandHandlerImpl implements InstitutionTypeCommand
                     type.setDescription(institutionTypeData.getDescription());
                     return type;
                 }).collect(Collectors.toList());
-        repository.save(institutionTypes);
+        repository.saveAll(institutionTypes);
     }
 }

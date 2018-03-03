@@ -57,7 +57,7 @@ public class ReferenceDataLoader {
         university.setAffiliation("UNIV");
         university.setDescription("University");
 
-        institutionAffiliationRepository.save(Arrays.asList(cbse, icse, igcse, university));
+        institutionAffiliationRepository.saveAll(Arrays.asList(cbse, icse, igcse, university));
     }
 
     private void loadLanguage() {
@@ -78,7 +78,7 @@ public class ReferenceDataLoader {
         telugu.setType("Telugu");
         telugu.setDescription("Telugu");
 
-        languageMediumRepository.save(Arrays.asList(english, hindi, tamil, telugu));
+        languageMediumRepository.saveAll(Arrays.asList(english, hindi, tamil, telugu));
     }
 
     private void loadInstitutionTypes() {
@@ -113,7 +113,7 @@ public class ReferenceDataLoader {
         InstitutionType satelliteInstitute = new InstitutionType();
         satelliteInstitute.setType("Satellite Institute");
         satelliteInstitute.setDescription("Satellite Institute");
-        institutionTypeRepository.save(Arrays.asList(play, primary, middle,
+        institutionTypeRepository.saveAll(Arrays.asList(play, primary, middle,
                 secondary, seniorSecondary, college, university, satelliteInstitute));
     }
 
@@ -133,7 +133,7 @@ public class ReferenceDataLoader {
         Subject biology = new Subject();
         biology.setName("Biology");
         biology.setDescription("Biology");
-        subjectRepository.save(Arrays.asList(math, physics, chemistry, biology));
+        subjectRepository.saveAll(Arrays.asList(math, physics, chemistry, biology));
     }
 
     private void loadCountry() {
@@ -171,7 +171,7 @@ public class ReferenceDataLoader {
 
         usa.setStates(Arrays.asList(texas, washington));
 
-        countryRepository.save(Arrays.asList(india, usa));
+        countryRepository.saveAll(Arrays.asList(india, usa));
     }
 
     @PreDestroy

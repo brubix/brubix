@@ -70,7 +70,7 @@ public class ReferenceDataLoader {
         documents.setName("/documents");
         documents.setDescription("All documents endpoints privilege");
 
-        privilegeRepository.save(Arrays.asList(affiliations, institutions, languages,
+        privilegeRepository.saveAll(Arrays.asList(affiliations, institutions, languages,
                 subjects, countries, schools, documents));
 
         Role teacher = new Role();
@@ -102,7 +102,7 @@ public class ReferenceDataLoader {
         superAdmin.setPrivileges(Arrays.asList(affiliations, institutions, languages,
                 subjects, countries, schools, documents));
 
-        roleRepository.save(Arrays.asList(teacher, student, parent, guardian, admin, superAdmin));
+        roleRepository.saveAll(Arrays.asList(teacher, student, parent, guardian, admin, superAdmin));
     }
 
 
@@ -167,7 +167,7 @@ public class ReferenceDataLoader {
 
         usa.setStates(Arrays.asList(texas, washington));
 
-        countryRepository.save(Arrays.asList(india, usa));
+        countryRepository.saveAll(Arrays.asList(india, usa));
     }
 
     @PreDestroy

@@ -1,28 +1,28 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: scribe-svc
-  namespace: __NAMESPACE__
+  name: identity-svc
+  namespace: demo
   labels:
-    app: scribe-svc
+    app: identity-svc
 spec:
   ports:
     - port: 80
       protocol: TCP
       targetPort: ui-port
   selector:
-    app: scribe-pod
+    app: identity-pod
   type: "LoadBalancer"
 ---
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: scribe-deploy
-  namespace: __NAMESPACE__
+  name: identity-deploy
+  namespace: demo
   labels:
-    k8s-app: scribe-deploy
+    k8s-app: identity-deploy
 spec:
-  replicas: __SCRIBE_COUNT__
+  replicas: 1
   revisionHistoryLimit: 10
   strategy:
     type: 'RollingUpdate'
@@ -32,8 +32,8 @@ spec:
   template:
     metadata: 
       labels:
-        app: scribe-pod
-      namespace: __NAMESPACE__
+        app: identity-pod
+      namespace: demo
     spec:
       containers:
       - name: scribe-dock

@@ -32,7 +32,7 @@ public class CountryCommandHandlerImpl implements CountryCommandHandler {
                 .collect(Collectors.toList());
 
         try {
-            countryRepository.save(countries);
+            countryRepository.saveAll(countries);
             log.info("Loading of countries ended");
         } catch (DataAccessException ex) {
             log.error("Error occurred" + ExceptionUtils.getStackTrace(ex.getCause()));

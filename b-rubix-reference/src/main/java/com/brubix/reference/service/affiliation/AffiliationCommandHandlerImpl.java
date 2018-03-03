@@ -17,7 +17,7 @@ public class AffiliationCommandHandlerImpl implements AffiliationCommandHandler 
 
     @Override
     public void save(List<AffiliationRequest.AffiliationData> data) {
-        repository.save(data.stream()
+        repository.saveAll(data.stream()
                 .map(affiliationData -> mapToEntity(affiliationData)).collect(Collectors.toList()));
 
     }
